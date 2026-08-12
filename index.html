@@ -632,6 +632,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      overflow: hidden;
+      position: relative;
     }
 
     .behaviour-container:hover {
@@ -1997,7 +1999,7 @@
 
       // ============================================================
       // SYSTEM BEHAVIOUR 1: BUILDER SYSTEMS — Isolation Barrier
-      // Relaxed, slow, meditative.
+      // Fewer nodes (10), relaxed, meditative.
       // ============================================================
       const bCanvas = document.getElementById('behaviourBuilder');
       const bCtx = bCanvas.getContext('2d');
@@ -2009,8 +2011,21 @@
       const barrierY = bH / 2;
       let bFlash = 0;
 
+      // Mist particles
+      let mistParticles = [];
+      for (let i = 0; i < 6; i++) {
+        mistParticles.push({
+          x: Math.random() * bW,
+          y: Math.random() * bH,
+          r: 40 + Math.random() * 80,
+          opacity: 0.015 + Math.random() * 0.025,
+          dx: (Math.random() - 0.5) * 0.12,
+          dy: (Math.random() - 0.5) * 0.12,
+        });
+      }
+
       let bNodes = [];
-      const bNodeCount = 16;
+      const bNodeCount = 10; // reduced from 16
       for (let i = 0; i < bNodeCount; i++) {
         const angle = Math.random() * Math.PI * 2;
         const dist = barrierRadius + 15 + Math.random() * 90;
@@ -2019,7 +2034,7 @@
           y: barrierY + Math.sin(angle) * dist,
           angle: angle,
           dist: dist,
-          speed: 0.001 + Math.random() * 0.004, // much slower
+          speed: 0.001 + Math.random() * 0.004,
           phase: Math.random() * Math.PI * 2,
           radius: 3 + Math.random() * 5,
           color: getRandomCoreColor(),
@@ -2027,15 +2042,13 @@
           attacking: false,
           attackTimer: 0,
           orbitDir: Math.random() > 0.5 ? 1 : -1,
-          cluster: Math.floor(Math.random() * 3),
+          cluster: Math.floor(Math.random() * 2),
         });
       }
 
       let clusterCenters = [
         { x: barrierX - 80, y: barrierY - 40 },
         { x: barrierX + 80, y: barrierY + 40 },
-        { x: barrierX - 50, y: barrierY + 70 },
-        { x: barrierX + 60, y: barrierY - 60 },
       ];
 
       function triggerSoftAttack() {
@@ -2063,9 +2076,26 @@
 
       function animateBuilder() {
         bCtx.clearRect(0, 0, bW, bH);
+
+        // Mist layer
+        for (let m of mistParticles) {
+          m.x += m.dx;
+          m.y += m.dy;
+          if (m.x < -m.r || m.x > bW + m.r) m.dx *= -1;
+          if (m.y < -m.r || m.y > bH + m.r) m.dy *= -1;
+          const grad = bCtx.createRadialGradient(m.x, m.y, 0, m.x, m.y, m.r);
+          grad.addColorStop(0, `rgba(255, 255, 255, ${m.opacity * 0.5})`);
+          grad.addColorStop(0.5, `rgba(255, 255, 255, ${m.opacity})`);
+          grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+          bCtx.fillStyle = grad;
+          bCtx.beginPath();
+          bCtx.arc(m.x, m.y, m.r, 0, Math.PI * 2);
+          bCtx.fill();
+        }
+
         bFlash *= 0.98;
 
-        // Move cluster centers very slowly
+        // Move cluster centers slowly
         clusterShiftTimer += 0.0005;
         for (let i = 0; i < clusterCenters.length; i++) {
           clusterCenters[i].x += Math.sin(clusterShiftTimer + i * 2) * 0.15;
@@ -2074,22 +2104,22 @@
           clusterCenters[i].y = Math.max(20, Math.min(bH - 20, clusterCenters[i].y));
         }
 
-        // Barrier — slow, irregular pulse
+        // Barrier
         const slowPulse = Date.now() / 4000;
         const barrierPulse = barrierRadius + 3 * Math.sin(slowPulse + Math.sin(slowPulse * 0.3) * 0.5);
-        const grad = bCtx.createRadialGradient(barrierX, barrierY, 0, barrierX, barrierY, barrierPulse + 15);
-        grad.addColorStop(0, `rgba(59, 130, 246, ${0.05 + bFlash * 0.25})`);
-        grad.addColorStop(0.6, 'rgba(59, 130, 246, 0.015)');
+        const grad = bCtx.createRadialGradient(barrierX, barrierY, 0, barrierX, barrierY, barrierPulse + 25);
+        grad.addColorStop(0, `rgba(59, 130, 246, ${0.04 + bFlash * 0.2})`);
+        grad.addColorStop(0.4, `rgba(59, 130, 246, ${0.02 + bFlash * 0.1})`);
         grad.addColorStop(1, 'rgba(59, 130, 246, 0)');
         bCtx.fillStyle = grad;
         bCtx.beginPath();
-        bCtx.arc(barrierX, barrierY, barrierPulse + 15, 0, Math.PI * 2);
+        bCtx.arc(barrierX, barrierY, barrierPulse + 25, 0, Math.PI * 2);
         bCtx.fill();
 
         bCtx.strokeStyle = '#3b82f6';
         bCtx.lineWidth = 1.0;
         bCtx.setLineDash([4, 10]);
-        bCtx.globalAlpha = 0.4 + 0.15 * Math.sin(slowPulse * 0.7);
+        bCtx.globalAlpha = 0.3 + 0.15 * Math.sin(slowPulse * 0.7);
         bCtx.beginPath();
         bCtx.arc(barrierX, barrierY, barrierPulse, 0, Math.PI * 2);
         bCtx.stroke();
@@ -2118,7 +2148,7 @@
           node.y = barrierY + Math.sin(node.angle) * node.dist;
         }
 
-        // Webs — gentle density shifts
+        // Webs
         const webDensity = 0.3 + 0.25 * Math.sin(Date.now() / 8000);
         bCtx.lineWidth = 0.4;
         for (let i = 0; i < bNodes.length; i++) {
@@ -2129,7 +2159,7 @@
             const maxDist = 140 + 30 * Math.sin(Date.now() / 8000 + i + j);
             if (dist < maxDist && bNodes[i].dist > barrierRadius + 6 && bNodes[j].dist > barrierRadius + 6) {
               const alpha = 1 - dist / maxDist;
-              bCtx.strokeStyle = `rgba(80, 80, 80, ${alpha * 0.15 * webDensity})`;
+              bCtx.strokeStyle = `rgba(80, 80, 80, ${alpha * 0.12 * webDensity})`;
               bCtx.beginPath();
               bCtx.moveTo(bNodes[i].x, bNodes[i].y);
               bCtx.lineTo(bNodes[j].x, bNodes[j].y);
@@ -2138,10 +2168,25 @@
           }
         }
 
-        // Nodes
+        // Nodes with glow
         for (let node of bNodes) {
           const pulse = 1 + 0.12 * Math.sin(node.phase);
           const r = node.radius * pulse;
+
+          // Glow
+          const glowGrad = bCtx.createRadialGradient(node.x, node.y, 0, node.x, node.y, r * 4);
+          glowGrad.addColorStop(0, node.color);
+          glowGrad.addColorStop(0.15, node.color);
+          glowGrad.addColorStop(0.6, node.color);
+          glowGrad.addColorStop(1, 'rgba(255,255,255,0)');
+          bCtx.fillStyle = glowGrad;
+          bCtx.globalAlpha = 0.12;
+          bCtx.beginPath();
+          bCtx.arc(node.x, node.y, r * 4, 0, Math.PI * 2);
+          bCtx.fill();
+          bCtx.globalAlpha = 1;
+
+          // Node
           const alpha = 0.5 + 0.3 * Math.sin(node.phase * 0.5);
           bCtx.beginPath();
           bCtx.arc(node.x, node.y, r, 0, Math.PI * 2);
@@ -2158,7 +2203,7 @@
 
       // ============================================================
       // SYSTEM BEHAVIOUR 2: SYSTEMS ARCHITECTURE — Layer Flow
-      // Relaxed, meditative, slow.
+      // Relaxed, meditative, with mist & glow.
       // ============================================================
       const aCanvas = document.getElementById('behaviourArchitecture');
       const aCtx = aCanvas.getContext('2d');
@@ -2176,6 +2221,19 @@
       let branchY1 = 0,
         branchY2 = 0;
       let branchProgress = 0;
+
+      // Mist for architecture
+      let aMist = [];
+      for (let i = 0; i < 6; i++) {
+        aMist.push({
+          x: Math.random() * aW,
+          y: Math.random() * aH,
+          r: 50 + Math.random() * 80,
+          opacity: 0.015 + Math.random() * 0.025,
+          dx: (Math.random() - 0.5) * 0.1,
+          dy: (Math.random() - 0.5) * 0.1,
+        });
+      }
 
       function moveJob() {
         let newTarget = Math.floor(Math.random() * layerPositions.length);
@@ -2224,9 +2282,26 @@
 
       function animateArchitecture() {
         aCtx.clearRect(0, 0, aW, aH);
+
+        // Mist layer
+        for (let m of aMist) {
+          m.x += m.dx;
+          m.y += m.dy;
+          if (m.x < -m.r || m.x > aW + m.r) m.dx *= -1;
+          if (m.y < -m.r || m.y > aH + m.r) m.dy *= -1;
+          const grad = aCtx.createRadialGradient(m.x, m.y, 0, m.x, m.y, m.r);
+          grad.addColorStop(0, `rgba(255, 255, 255, ${m.opacity * 0.5})`);
+          grad.addColorStop(0.5, `rgba(255, 255, 255, ${m.opacity})`);
+          grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+          aCtx.fillStyle = grad;
+          aCtx.beginPath();
+          aCtx.arc(m.x, m.y, m.r, 0, Math.PI * 2);
+          aCtx.fill();
+        }
+
         if (pulseTimer > 0) pulseTimer *= 0.995;
 
-        // Vertical threads — very subtle
+        // Vertical threads
         const threadOpacity = 0.06 + 0.04 * Math.sin(Date.now() / 7000);
         aCtx.lineWidth = 0.3;
         for (let i = 0; i < layerPositions.length - 1; i++) {
@@ -2245,7 +2320,7 @@
 
         // Branch threads
         if (branchActive && branchProgress < 1) {
-          aCtx.strokeStyle = `rgba(59, 130, 246, ${0.08 * (1 - branchProgress)})`;
+          aCtx.strokeStyle = `rgba(59, 130, 246, ${0.06 * (1 - branchProgress)})`;
           aCtx.lineWidth = 0.4;
           aCtx.setLineDash([2, 6]);
           const midX = aW / 2;
@@ -2258,7 +2333,7 @@
           aCtx.setLineDash([]);
         }
 
-        // Layers
+        // Layers with glow
         for (let i = 0; i < layerPositions.length; i++) {
           const y = layerPositions[i];
           const isActive = (i === currentLayerIndex);
@@ -2267,13 +2342,25 @@
 
           if (isActive && pulseTimer > 0.01) {
             const grad = aCtx.createRadialGradient(aW / 2, y, 0, aW / 2, y, 35 * pulseTimer);
-            grad.addColorStop(0, `rgba(59, 130, 246, ${0.1 * pulseTimer})`);
+            grad.addColorStop(0, `rgba(59, 130, 246, ${0.08 * pulseTimer})`);
             grad.addColorStop(1, 'rgba(59, 130, 246, 0)');
             aCtx.fillStyle = grad;
             aCtx.beginPath();
             aCtx.arc(aW / 2, y, 35 * pulseTimer, 0, Math.PI * 2);
             aCtx.fill();
           }
+
+          // Layer glow
+          const glowGrad = aCtx.createRadialGradient(aW / 2, y, 0, aW / 2, y, radius * 5);
+          glowGrad.addColorStop(0, layerColors[i]);
+          glowGrad.addColorStop(0.3, layerColors[i]);
+          glowGrad.addColorStop(1, 'rgba(255,255,255,0)');
+          aCtx.fillStyle = glowGrad;
+          aCtx.globalAlpha = 0.06;
+          aCtx.beginPath();
+          aCtx.arc(aW / 2, y, radius * 5, 0, Math.PI * 2);
+          aCtx.fill();
+          aCtx.globalAlpha = 1;
 
           aCtx.beginPath();
           aCtx.arc(aW / 2, y, radius, 0, Math.PI * 2);
@@ -2283,16 +2370,17 @@
           aCtx.globalAlpha = 1;
         }
 
-        // Job node
+        // Job node with glow
         const jobPulse = 1 + 0.10 * Math.sin(Date.now() / 500 + jobY);
         const jobRadius = 9 * jobPulse;
-        const jobGrad = aCtx.createRadialGradient(aW / 2, jobY, 0, aW / 2, jobY, jobRadius + 14);
-        jobGrad.addColorStop(0, 'rgba(255, 255, 255, 0.7)');
-        jobGrad.addColorStop(0.4, 'rgba(59, 130, 246, 0.5)');
+        const jobGrad = aCtx.createRadialGradient(aW / 2, jobY, 0, aW / 2, jobY, jobRadius + 20);
+        jobGrad.addColorStop(0, 'rgba(255, 255, 255, 0.5)');
+        jobGrad.addColorStop(0.2, 'rgba(59, 130, 246, 0.4)');
+        jobGrad.addColorStop(0.7, 'rgba(59, 130, 246, 0.15)');
         jobGrad.addColorStop(1, 'rgba(59, 130, 246, 0)');
         aCtx.fillStyle = jobGrad;
         aCtx.beginPath();
-        aCtx.arc(aW / 2, jobY, jobRadius + 14, 0, Math.PI * 2);
+        aCtx.arc(aW / 2, jobY, jobRadius + 20, 0, Math.PI * 2);
         aCtx.fill();
 
         aCtx.beginPath();
@@ -2309,7 +2397,7 @@
 
       // ============================================================
       // SYSTEM BEHAVIOUR 3: PROTOCOL COMPILER — Mode Lock
-      // Relaxed, meditative, slow.
+      // Relaxed, meditative, with mist & glow.
       // ============================================================
       const cCanvas = document.getElementById('behaviourCompiler');
       const cCtx = cCanvas.getContext('2d');
@@ -2329,6 +2417,19 @@
       let isLocking = false;
       let pulseRing = 0;
       let pulseRingActive = false;
+
+      // Mist for compiler
+      let cMist = [];
+      for (let i = 0; i < 6; i++) {
+        cMist.push({
+          x: Math.random() * cW,
+          y: Math.random() * cH,
+          r: 40 + Math.random() * 70,
+          opacity: 0.015 + Math.random() * 0.025,
+          dx: (Math.random() - 0.5) * 0.1,
+          dy: (Math.random() - 0.5) * 0.1,
+        });
+      }
 
       function triggerLock() {
         if (isLocking) return;
@@ -2370,6 +2471,22 @@
       function animateCompiler() {
         cCtx.clearRect(0, 0, cW, cH);
 
+        // Mist layer
+        for (let m of cMist) {
+          m.x += m.dx;
+          m.y += m.dy;
+          if (m.x < -m.r || m.x > cW + m.r) m.dx *= -1;
+          if (m.y < -m.r || m.y > cH + m.r) m.dy *= -1;
+          const grad = cCtx.createRadialGradient(m.x, m.y, 0, m.x, m.y, m.r);
+          grad.addColorStop(0, `rgba(255, 255, 255, ${m.opacity * 0.5})`);
+          grad.addColorStop(0.5, `rgba(255, 255, 255, ${m.opacity})`);
+          grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+          cCtx.fillStyle = grad;
+          cCtx.beginPath();
+          cCtx.arc(m.x, m.y, m.r, 0, Math.PI * 2);
+          cCtx.fill();
+        }
+
         for (let i = 0; i < modeSpeeds.length; i++) {
           if (Math.random() < 0.0005) {
             modeSpeeds[i] = 0.001 + Math.random() * 0.004;
@@ -2384,14 +2501,14 @@
           pulseRing += 0.015;
           if (pulseRing > 1) pulseRingActive = false;
           const ringRadius = 30 + pulseRing * 80;
-          cCtx.strokeStyle = `rgba(167, 139, 107, ${0.1 * (1 - pulseRing)})`;
+          cCtx.strokeStyle = `rgba(167, 139, 107, ${0.08 * (1 - pulseRing)})`;
           cCtx.lineWidth = 1.0;
           cCtx.beginPath();
           cCtx.arc(cx, cy, ringRadius, 0, Math.PI * 2);
           cCtx.stroke();
         }
 
-        cCtx.strokeStyle = 'rgba(80, 80, 80, 0.05)';
+        cCtx.strokeStyle = 'rgba(80, 80, 80, 0.04)';
         cCtx.lineWidth = 0.4;
         cCtx.setLineDash([3, 8]);
         cCtx.beginPath();
@@ -2415,15 +2532,16 @@
           cCtx.stroke();
         }
 
-        // Compiler
+        // Compiler with glow
         const compPulse = 1 + 0.06 * Math.sin(Date.now() / 600 + Math.sin(Date.now() / 3000) * 0.3);
         const compRadius = 18 * compPulse;
-        const compGrad = cCtx.createRadialGradient(cx, cy, 0, cx, cy, compRadius + 12);
-        compGrad.addColorStop(0, 'rgba(167, 139, 107, 0.2)');
+        const compGrad = cCtx.createRadialGradient(cx, cy, 0, cx, cy, compRadius + 18);
+        compGrad.addColorStop(0, 'rgba(167, 139, 107, 0.25)');
+        compGrad.addColorStop(0.3, 'rgba(167, 139, 107, 0.1)');
         compGrad.addColorStop(1, 'rgba(167, 139, 107, 0)');
         cCtx.fillStyle = compGrad;
         cCtx.beginPath();
-        cCtx.arc(cx, cy, compRadius + 12, 0, Math.PI * 2);
+        cCtx.arc(cx, cy, compRadius + 18, 0, Math.PI * 2);
         cCtx.fill();
 
         cCtx.beginPath();
@@ -2433,7 +2551,7 @@
         cCtx.fill();
         cCtx.globalAlpha = 1;
 
-        // Modes
+        // Modes with glow
         for (let i = 0; i < modeAngles.length; i++) {
           const angle = modeAngles[i];
           const mx = cx + Math.cos(angle) * orbitRadius;
@@ -2443,9 +2561,21 @@
           const r = isLocked ? (7 + 4 * lockProgress) : 7;
           const alpha = isLocked ? (0.3 + 0.5 * lockProgress) : 0.25;
 
+          // Glow
+          const glowGrad = cCtx.createRadialGradient(mx, my, 0, mx, my, r * 5);
+          glowGrad.addColorStop(0, modeColors[i]);
+          glowGrad.addColorStop(0.3, modeColors[i]);
+          glowGrad.addColorStop(1, 'rgba(255,255,255,0)');
+          cCtx.fillStyle = glowGrad;
+          cCtx.globalAlpha = 0.06;
+          cCtx.beginPath();
+          cCtx.arc(mx, my, r * 5, 0, Math.PI * 2);
+          cCtx.fill();
+          cCtx.globalAlpha = 1;
+
           if (isLocked) {
             const grad = cCtx.createRadialGradient(mx, my, 0, mx, my, r + 14);
-            grad.addColorStop(0, `rgba(255, 255, 255, ${0.12 * lockProgress})`);
+            grad.addColorStop(0, `rgba(255, 255, 255, ${0.1 * lockProgress})`);
             grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
             cCtx.fillStyle = grad;
             cCtx.beginPath();
