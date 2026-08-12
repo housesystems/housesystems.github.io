@@ -1204,10 +1204,29 @@
         font-size: 0.7rem;
       }
 
+      /* ----- FIX: System Behaviour containers on mobile ----- */
+      .behaviour-wrapper {
+        width: 100%;
+        max-width: 100%;
+        overflow: hidden;
+      }
+
       .behaviour-container {
-        padding: 0.5rem;
+        width: 100%;
+        max-width: 100%;
         aspect-ratio: 3 / 4;
-        max-height: 240px;
+        max-height: 200px;
+        padding: 0.4rem;
+        overflow: hidden;
+      }
+
+      .behaviour-container canvas {
+        width: 100% !important;
+        height: 100% !important;
+        max-width: 100%;
+        max-height: 100%;
+        display: block;
+        object-fit: contain;
       }
 
       .metrics-grid {
@@ -2040,7 +2059,6 @@
       const barrierY = bH / 2;
       let bFlash = 0;
 
-      // Mist particles
       let mistParticles = [];
       for (let i = 0; i < 6; i++) {
         mistParticles.push({
@@ -2106,7 +2124,6 @@
       function animateBuilder() {
         bCtx.clearRect(0, 0, bW, bH);
 
-        // Mist layer
         for (let m of mistParticles) {
           m.x += m.dx;
           m.y += m.dy;
@@ -2124,7 +2141,6 @@
 
         bFlash *= 0.97;
 
-        // Move cluster centers very slowly
         clusterShiftTimer += 0.0002;
         for (let i = 0; i < clusterCenters.length; i++) {
           clusterCenters[i].x += Math.sin(clusterShiftTimer + i * 2) * 0.08;
@@ -2133,11 +2149,9 @@
           clusterCenters[i].y = Math.max(20, Math.min(bH - 20, clusterCenters[i].y));
         }
 
-        // Barrier — more visible
         const slowPulse = Date.now() / 6000;
         const barrierPulse = barrierRadius + 3 * Math.sin(slowPulse + Math.sin(slowPulse * 0.3) * 0.5);
 
-        // Inner glow
         const innerGlow = bCtx.createRadialGradient(barrierX, barrierY, 0, barrierX, barrierY, barrierPulse);
         innerGlow.addColorStop(0, 'rgba(59, 130, 246, 0.08)');
         innerGlow.addColorStop(0.8, 'rgba(59, 130, 246, 0.03)');
@@ -2147,7 +2161,6 @@
         bCtx.arc(barrierX, barrierY, barrierPulse, 0, Math.PI * 2);
         bCtx.fill();
 
-        // Outer glow
         const outerGlow = bCtx.createRadialGradient(barrierX, barrierY, barrierPulse * 0.5, barrierX, barrierY, barrierPulse *
         2);
         outerGlow.addColorStop(0, `rgba(59, 130, 246, ${0.04 + bFlash * 0.15})`);
@@ -2168,7 +2181,6 @@
         bCtx.globalAlpha = 1;
         bCtx.setLineDash([]);
 
-        // Update nodes
         for (let node of bNodes) {
           node.angle += node.speed * node.orbitDir;
           node.phase += 0.001 + Math.random() * 0.0005;
@@ -2190,7 +2202,6 @@
           node.y = barrierY + Math.sin(node.angle) * node.dist;
         }
 
-        // Webs
         const webDensity = 0.2 + 0.15 * Math.sin(Date.now() / 12000);
         bCtx.lineWidth = 0.25;
         for (let i = 0; i < bNodes.length; i++) {
@@ -2210,7 +2221,6 @@
           }
         }
 
-        // Nodes with glow
         for (let node of bNodes) {
           const pulse = 1 + 0.1 * Math.sin(node.phase);
           const r = node.radius * pulse;
