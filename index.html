@@ -11,7 +11,7 @@
 
   <style>
     /* ============================================================
-       VARIABLES & RESET (unchanged from previous)
+       VARIABLES & RESET
     ============================================================ */
     :root {
       --bg-page: #edece6;
@@ -116,6 +116,7 @@
       box-shadow: 0 4px 24px var(--shadow-color), 0 1px 2px rgba(0,0,0,0.02);
       position: relative;
       z-index: 1;
+      overflow: hidden;
     }
 
     a:focus-visible,
@@ -185,6 +186,7 @@
       line-height: 1.05;
       margin-bottom: 0.25rem;
       color: var(--text-primary);
+      word-break: break-word;
     }
 
     .hero .title {
@@ -192,6 +194,7 @@
       font-weight: 400;
       color: var(--text-secondary);
       letter-spacing: -0.01em;
+      word-break: break-word;
     }
 
     /* ----- METHODOLOGY ----- */
@@ -396,6 +399,7 @@
       font-size: 1rem;
       color: var(--text-primary);
       letter-spacing: -0.01em;
+      word-break: break-word;
     }
 
     .metrics {
@@ -478,6 +482,7 @@
       font-weight: 400;
       letter-spacing: -0.01em;
       animation: contentReveal 0.4s var(--transition-ios);
+      word-wrap: break-word;
     }
 
     .work-item .description p {
@@ -560,6 +565,7 @@
       max-width: 700px;
       font-weight: 400;
       animation: contentReveal 0.35s var(--transition-ios);
+      word-wrap: break-word;
     }
 
     .case-study .case-content strong {
@@ -803,6 +809,7 @@
       max-width: 680px;
       font-weight: 400;
       margin-bottom: 0.5rem;
+      word-wrap: break-word;
     }
 
     .now-section p strong {
@@ -915,6 +922,7 @@
       transition: all 0.2s var(--transition-ios);
       font-weight: 400;
       padding: 0.1rem 0;
+      word-break: break-word;
     }
 
     .contact-static .contact-list a:hover {
@@ -1090,2417 +1098,23 @@
     }
 
     /* ============================================================
-       RESPONSIVE
+       RESPONSIVE — FIXED MOBILE OVERFLOW
     ============================================================ */
-    @media (max-width: 600px) {
-      body { padding: 0.75rem; }
-      .container { padding: 1.5rem 1rem 1.25rem; border-radius: var(--radius-card); }
-      nav { flex-direction: column; align-items: flex-start; gap: 0.75rem; border-bottom: none; padding-bottom: 0; margin-bottom: 2rem; }
-      .nav-right { width: 100%; justify-content: flex-end; padding-bottom: 1rem; border-bottom: 1px solid var(--border-light); }
-      .hero { margin-bottom: 1.5rem; }
-      .methodology p { font-size: 0.85rem; }
-      .process-grid { grid-template-columns: 1fr; gap: 0.5rem; }
-      .process-step { padding-left: 0.5rem; }
-      .process-step p { max-width: 100%; }
-      .trust-metrics { gap: 1rem 1.5rem; margin: 1rem 0 1.5rem; padding-top: 1rem; }
-      .trust-metrics .item { font-size: 0.7rem; }
-      .trust-metrics .item .number { font-size: 0.95rem; }
-      summary { padding: 1rem 0.75rem; }
-      .summary-left .name { font-size: 0.9rem; }
-      .metrics { font-size: 0.5rem; padding: 0.1rem 0.4rem; }
-      .chevron { width: 30px; height: 30px; }
-      .work-item .description { padding: 0 0.75rem 0.5rem; font-size: 0.8rem; max-width: 100%; }
-      .work-item .deployment { padding: 0.25rem 0.75rem 1rem; font-size: 0.6rem; }
-      .case-study .case-content { font-size: 0.75rem; }
-      .behaviour-container { padding: 0.5rem; aspect-ratio: 3 / 4; max-height: 240px; }
-      .metrics-grid { grid-template-columns: 1fr 1fr; gap: 0.5rem; padding: 0.5rem; }
-      .metric-item .metric-value { font-size: 0.7rem; white-space: normal; flex-wrap: wrap; }
-      .metric-item .metric-value .badge { font-size: 0.45rem; }
-      .clients-list { gap: 0.5rem 1rem; }
-      .clients-list span { font-size: 0.8rem; }
-      .now-section p { font-size: 0.85rem; }
-      .live-feed-box { height: 220px; padding: 0.5rem; }
-      .legend { gap: 0.4rem 1rem; }
-      .legend-item { font-size: 0.55rem; }
-      .legend-item .dot { width: 6px; height: 6px; }
-      .contact-static .contact-list { flex-direction: column; gap: 0.75rem; }
-      .modal { margin: 1.5rem; padding: 2rem 1.5rem 1.5rem; }
-      .modal .close-btn { top: 0.75rem; right: 1rem; font-size: 1rem; width: 28px; height: 28px; }
-    }
-
-    /* ============================================================
-       PRINT
-    ============================================================ */
-    @media print {
-      body { background: #fff !important; padding: 0.5in !important; }
-      body::before { display: none !important; }
-      .container { background: #fff !important; border: none !important; box-shadow: none !important; padding: 0 !important; animation: none !important; backdrop-filter: none !important; }
-      nav { border-bottom: 1px solid #ccc !important; margin-bottom: 2rem !important; }
-      .contact-btn, .modal-overlay { display: none !important; }
-      .brand { color: #000 !important; }
-      .hero h1 { color: #000 !important; }
-      .hero .title { color: #333 !important; }
-      .methodology p { color: #333 !important; }
-      .process-step { border-left-color: #ddd !important; }
-      .process-step h4 { color: #000 !important; }
-      .process-step p { color: #555 !important; }
-      .section-label { color: #666 !important; }
-      details.work-item { border-color: #ddd !important; background: #fafafa !important; backdrop-filter: none !important; }
-      .work-item .description { color: #333 !important; }
-      .case-study .case-content { color: #333 !important; }
-      .case-study .case-content strong { color: #000 !important; }
-      .behaviour-container { border-color: #ddd !important; background: #fafafa !important; }
-      .behaviour-wrapper .behaviour-label { color: #777 !important; }
-      .behaviour-container canvas { display: none !important; }
-      .metrics-grid { border-color: #ddd !important; background: #fafafa !important; }
-      .metric-item .metric-label { color: #777 !important; }
-      .metric-item .metric-value { color: #000 !important; }
-      .metric-item .metric-value .before { color: #555 !important; }
-      .metric-item .metric-value .arrow { color: #999 !important; }
-      .metric-item .metric-value .badge { color: #3a7a5a !important; background: #eee !important; }
-      .metric-item .metric-value .badge.accent { color: #6a4a7a !important; }
-      .metric-item .metric-value .badge.warm { color: #8a6a4a !important; }
-      .clients-section { border-color: #ddd !important; }
-      .clients-section .clients-label { color: #777 !important; }
-      .clients-list span { color: #333 !important; }
-      .now-section { border-color: #ddd !important; background: #fafafa !important; backdrop-filter: none !important; }
-      .now-section p { color: #333 !important; }
-      .now-section .now-tags span { background: #eee !important; border-color: #ccc !important; color: #333 !important; }
-      .live-feed-section { border-color: #ddd !important; }
-      .live-feed-section .live-feed-label { color: #777 !important; }
-      .live-feed-box { border-color: #ddd !important; background: #fafafa !important; height: 200px !important; }
-      .live-feed-box canvas { display: none !important; }
-      .legend { display: none !important; }
-      .contact-static .contact-list a { color: #333 !important; }
-      .contact-static .availability { color: #555 !important; }
-      footer { color: #999 !important; border-top-color: #ddd !important; }
-      body::before { display: none !important; }
-      * { color-adjust: exact !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-      .metrics { background: #eee !important; border-color: #ccc !important; color: #333 !important; }
-      .contact-static .availability .dot { background: #3a9e6b !important; }
-      .trust-metrics { border-top-color: #ddd !important; }
-      .stack-line { color: #555 !important; }
-      .stack-line span { color: #333 !important; }
-    }
-  </style>
-</head>
-
-<body>
-  <div class="container">
-
-    <!-- NAV -->
-    <nav>
-      <div class="brand">house</div>
-      <div class="nav-right">
-        <button class="contact-btn" id="contactNavBtn">Contact</button>
-      </div>
-    </nav>
-
-    <!-- HERO -->
-    <div class="hero">
-      <h1>Isaac Jacob Dajay</h1>
-      <div class="title">Production Systems Architect / Protocol Designer</div>
-    </div>
-
-    <!-- METHODOLOGY -->
-    <div class="methodology fade-item">
-      <div class="label">Methodology</div>
-      <p>
-        I design production-grade AI systems through <strong>protocol architecture</strong> —
-        defining the rules that govern execution, isolate job data, and preserve fidelity.
-        Every machine I build is project-agnostic, contamination-free, and built to ship.
-        The philosophy is simple: <strong>protocol persists. job data dies.</strong>
-      </p>
-    </div>
-
-    <!-- PROCESS -->
-    <div class="process fade-item">
-      <div class="process-label">How I work</div>
-      <div class="process-grid">
-        <div class="process-step fade-item delay-1">
-          <span class="step-number">01</span>
-          <h4>Diagnose</h4>
-          <p>Understand the production environment, identify failure classes, and classify resource authority.</p>
-        </div>
-        <div class="process-step fade-item delay-2">
-          <span class="step-number">02</span>
-          <h4>Architect</h4>
-          <p>Design system architecture with protocol separation, isolation layers, and fidelity controls.</p>
-        </div>
-        <div class="process-step fade-item delay-3">
-          <span class="step-number">03</span>
-          <h4>Compile</h4>
-          <p>Build executable master prompts, lock output modes, and enforce resource authority.</p>
-        </div>
-        <div class="process-step fade-item delay-4">
-          <span class="step-number">04</span>
-          <h4>Deploy</h4>
-          <p>Ship to production, monitor outcomes, iterate, and refine the protocol.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- TRUST METRICS -->
-    <div class="trust-metrics">
-      <div class="item fade-item delay-1"><span class="number">4</span> deployments</div>
-      <div class="item fade-item delay-2"><span class="number">3</span> client projects</div>
-      <div class="item fade-item delay-3"><span class="number">60%</span> avg. QA reduction</div>
-    </div>
-
-    <!-- WORK -->
-    <section id="work">
-      <div class="section-label">Selected work</div>
-      <div class="work-list">
-
-        <!-- ==========================================================
-        BUILDER SYSTEMS
-        ========================================================== -->
-        <details class="work-item fade-item delay-1">
-          <summary>
-            <span class="summary-left">
-              <span class="name">BUILDER SYSTEMS</span>
-              <span class="metrics">runtime · 4 deployments</span>
-            </span>
-            <span class="summary-right">
-              <span class="meta">v6.5</span>
-              <span class="chevron">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
-              </span>
-            </span>
-          </summary>
-          <div class="description">
-            <p>Portable runtime policy that governs AI execution across fresh environments. Enforces outcome-driven behavior, evidence-based validation, and strict isolation — preventing cross-job contamination without ceremony.</p>
-            <div class="stack-line"><span>Stack:</span> BUILDER SYSTEMS runtime</div>
-
-            <details class="case-study">
-              <summary>
-                <span>View case study →</span>
-              </summary>
-              <div class="case-content">
-                <div class="section-block">
-                  <h4>Problem</h4>
-                  <p>A design agency managing 5+ simultaneous brand campaigns faced persistent AI output contamination — assets from Brand A regularly appearing in Brand B's deliverables. Manual QA consumed 20+ hours per week with no reliable solution.</p>
-                </div>
-                <div class="section-block">
-                  <h4>Solution Architecture</h4>
-                  <p>Deployed BUILDER SYSTEMS as the governing runtime policy for all AI executions. Enforced strict Current Job isolation, evidence-gated execution, and zero cross-job memory. Each campaign was treated as a closed production package with independent resource authority.</p>
-                </div>
-                <div class="metrics-grid">
-                  <div class="metric-item">
-                    <span class="metric-label">QA Hours/Week</span>
-                    <span class="metric-value">
-                      <span class="before">20+ hrs</span>
-                      <span class="arrow">→</span>
-                      <span class="after">8 hrs</span>
-                      <span class="badge">−60%</span>
-                    </span>
-                  </div>
-                  <div class="metric-item">
-                    <span class="metric-label">Cross‑contamination</span>
-                    <span class="metric-value">
-                      <span class="before">frequent</span>
-                      <span class="arrow">→</span>
-                      <span class="after">zero</span>
-                      <span class="badge accent">40+ jobs</span>
-                    </span>
-                  </div>
-                  <div class="metric-item">
-                    <span class="metric-label">Manual QA</span>
-                    <span class="metric-value">
-                      <span class="before">unreliable</span>
-                      <span class="arrow">→</span>
-                      <span class="after">protocol</span>
-                      <span class="badge warm">shipped</span>
-                    </span>
-                  </div>
-                </div>
-                <div class="section-block">
-                  <h4>Results</h4>
-                  <ul>
-                    <li><strong>Zero cross-contamination</strong> across 40+ jobs</li>
-                    <li><strong>60% reduction</strong> in manual QA time</li>
-                    <li>Protocol-level protections now ship with every new client engagement</li>
-                  </ul>
-                </div>
-
-                <!-- SYSTEM BEHAVIOUR: Isolation Barrier -->
-                <div class="behaviour-wrapper">
-                  <div class="behaviour-label">— system behaviour —</div>
-                  <div class="behaviour-container">
-                    <canvas id="behaviourBuilder" width="300" height="400"></canvas>
-                  </div>
-                </div>
-
-              </div>
-            </details>
-          </div>
-          <div class="deployment">Deployed across 4 client production environments</div>
-        </details>
-
-        <!-- ==========================================================
-        SYSTEMS ARCHITECTURE
-        ========================================================== -->
-        <details class="work-item fade-item delay-2">
-          <summary>
-            <span class="summary-left">
-              <span class="name">SYSTEMS ARCHITECTURE</span>
-              <span class="metrics">architecture · 3 projects</span>
-            </span>
-            <span class="summary-right">
-              <span class="meta">canonical</span>
-              <span class="chevron">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
-              </span>
-            </span>
-          </summary>
-          <div class="description">
-            <p>Diagnoses production environments and designs the architecture required for controlled generative output. Separates permanent protocol from temporary job data — ensuring each execution is clean and repeatable.</p>
-            <div class="stack-line"><span>Stack:</span> SYSTEMS ARCHITECTURE methodology</div>
-
-            <details class="case-study">
-              <summary>
-                <span>View case study →</span>
-              </summary>
-              <div class="case-content">
-                <div class="section-block">
-                  <h4>Problem</h4>
-                  <p>An e-commerce company's generative copywriting system kept hallucinating product specs and mixing inventory data across regional catalogs. The root cause: the production architecture had no separation between protocol and job data.</p>
-                </div>
-                <div class="section-block">
-                  <h4>Solution Architecture</h4>
-                  <p>Applied SYSTEMS ARCHITECTURE to diagnose the failure class — protocol vs. job data conflict. Redesigned the production ecosystem with explicit separation layers, resource authority classification, and fidelity-protected source assets.</p>
-                </div>
-                <div class="metrics-grid">
-                  <div class="metric-item">
-                    <span class="metric-label">Hallucination Rate</span>
-                    <span class="metric-value">
-                      <span class="before">12%</span>
-                      <span class="arrow">→</span>
-                      <span class="after">&lt; 2%</span>
-                      <span class="badge">−83%</span>
-                    </span>
-                  </div>
-                  <div class="metric-item">
-                    <span class="metric-label">Product Lines</span>
-                    <span class="metric-value">
-                      <span class="before">1</span>
-                      <span class="arrow">→</span>
-                      <span class="after">3</span>
-                      <span class="badge accent">supported</span>
-                    </span>
-                  </div>
-                  <div class="metric-item">
-                    <span class="metric-label">Architecture</span>
-                    <span class="metric-value">
-                      <span class="before">ad‑hoc</span>
-                      <span class="arrow">→</span>
-                      <span class="after">reusable</span>
-                      <span class="badge warm">pattern</span>
-                    </span>
-                  </div>
-                </div>
-                <div class="section-block">
-                  <h4>Results</h4>
-                  <ul>
-                    <li>Architecture now supports <strong>3 distinct product lines</strong></li>
-                    <li>Hallucination rate dropped <strong>below 2%</strong></li>
-                    <li>Reusable architecture pattern now deployed across future client projects</li>
-                  </ul>
-                </div>
-
-                <!-- SYSTEM BEHAVIOUR: Layer Flow -->
-                <div class="behaviour-wrapper">
-                  <div class="behaviour-label">— system behaviour —</div>
-                  <div class="behaviour-container">
-                    <canvas id="behaviourArchitecture" width="300" height="400"></canvas>
-                  </div>
-                </div>
-
-              </div>
-            </details>
-          </div>
-          <div class="deployment">Active across multiple project implementations</div>
-        </details>
-
-        <!-- ==========================================================
-        PROTOCOL COMPILER
-        ========================================================== -->
-        <details class="work-item fade-item delay-3">
-          <summary>
-            <span class="summary-left">
-              <span class="name">PROTOCOL COMPILER</span>
-              <span class="metrics">compiler · 2 deployments</span>
-            </span>
-            <span class="summary-right">
-              <span class="meta">v1.0</span>
-              <span class="chevron">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
-              </span>
-            </span>
-          </summary>
-          <div class="description">
-            <p>Translates architectural specifications into directly executable, fidelity-locked master prompts. Locks output modes, enforces resource authority, and prevents unsupported assumptions — built for production deployment.</p>
-            <div class="stack-line"><span>Stack:</span> PROTOCOL COMPILER · prompt engineering</div>
-
-            <details class="case-study">
-              <summary>
-                <span>View case study →</span>
-              </summary>
-              <div class="case-content">
-                <div class="section-block">
-                  <h4>Problem</h4>
-                  <p>A video production team needed to generate AI motion prompts consistently for client ad campaigns. The existing system suffered from mode drift — the graphic office would rewrite copy, and the copy office would generate prompts. Consistency was non-existent.</p>
-                </div>
-                <div class="section-block">
-                  <h4>Solution Architecture</h4>
-                  <p>Implemented the PROTOCOL COMPILER to lock output modes and compile strict master prompts from architectural handoffs. Each office was rebuilt with a single dominant production purpose and enforced output-mode locks.</p>
-                </div>
-                <div class="metrics-grid">
-                  <div class="metric-item">
-                    <span class="metric-label">Revision Cycle</span>
-                    <span class="metric-value">
-                      <span class="before">2 hrs</span>
-                      <span class="arrow">→</span>
-                      <span class="after">15 min</span>
-                      <span class="badge">−87.5%</span>
-                    </span>
-                  </div>
-                  <div class="metric-item">
-                    <span class="metric-label">Mode Compliance</span>
-                    <span class="metric-value">
-                      <span class="before">inconsistent</span>
-                      <span class="arrow">→</span>
-                      <span class="after">100%</span>
-                      <span class="badge accent">locked</span>
-                    </span>
-                  </div>
-                  <div class="metric-item">
-                    <span class="metric-label">Deployments</span>
-                    <span class="metric-value">
-                      <span class="before">1</span>
-                      <span class="arrow">→</span>
-                      <span class="after">2</span>
-                      <span class="badge warm">active</span>
-                    </span>
-                  </div>
-                </div>
-                <div class="section-block">
-                  <h4>Results</h4>
-                  <ul>
-                    <li><strong>100% output-mode compliance</strong> across 2 deployments</li>
-                    <li>Prompt revision cycle reduced from <strong>2 hours to 15 minutes</strong></li>
-                    <li>Compiler now serves as the standard entry point for all new client production workflows</li>
-                  </ul>
-                </div>
-
-                <!-- SYSTEM BEHAVIOUR: Mode Lock -->
-                <div class="behaviour-wrapper">
-                  <div class="behaviour-label">— system behaviour —</div>
-                  <div class="behaviour-container">
-                    <canvas id="behaviourCompiler" width="300" height="400"></canvas>
-                  </div>
-                </div>
-
-              </div>
-            </details>
-          </div>
-          <div class="deployment">In active use for client production workflows</div>
-        </details>
-
-      </div>
-    </section>
-
-    <!-- CLIENTS / INDUSTRIES -->
-    <div class="clients-section fade-item">
-      <div class="clients-label">Previously</div>
-      <div class="clients-list">
-        <span>Backend Systems</span>
-        <span>Production Optimization</span>
-        <span>AI Infrastructure</span>
-      </div>
-    </div>
-
-    <!-- NOW -->
-    <div class="now-section fade-item">
-      <div class="label">Now</div>
-      <p>
-        <strong>BUILDER SYSTEMS v7.0</strong> — refining runtime policy with tighter
-        job isolation and faster architectural handoffs.
-      </p>
-      <p>
-        <strong>Protocol Compiler v2.0</strong> — designing multi-agent orchestration
-        that translates architectural specifications into executable workflows across
-        distributed production offices.
-      </p>
-      <p>
-        <strong>Systems Architecture Framework</strong> — formalizing the methodology
-        into a reusable, open specification for controlled AI production.
-      </p>
-      <div class="now-tags">
-        <span>BUILDER SYSTEMS v7.0</span>
-        <span>Protocol Compiler v2.0</span>
-        <span>Systems Architecture</span>
-      </div>
-    </div>
-
-    <!-- LIVE FEED OF DEVELOPMENT -->
-    <div class="live-feed-section fade-item">
-      <div class="live-feed-label">— Live feed of development —</div>
-      <div class="live-feed-box">
-        <canvas id="liveFeedCanvas"></canvas>
-      </div>
-      <div class="legend">
-        <span class="legend-item"><span class="dot" style="background:#3b82f6;"></span> Protocol</span>
-        <span class="legend-item"><span class="dot" style="background:#10b981;"></span> Job</span>
-        <span class="legend-item"><span class="dot" style="background:#f59e0b;"></span> Data</span>
-        <span class="legend-item"><span class="dot" style="background:#ef4444;"></span> Output</span>
-        <span class="legend-item"><span class="dot" style="background:#8b5cf6;"></span> Architecture</span>
-        <span class="legend-item"><span class="dot" style="background:#f97316;"></span> Fidelity</span>
-        <span class="legend-item"><span class="dot" style="background:#6b7280;"></span> Runtime</span>
-        <span class="legend-item"><span class="dot" style="background:#a78b6b;"></span> Compiler</span>
-      </div>
-    </div>
-
-    <!-- CONTACT -->
-    <section id="contact" class="contact-static">
-      <div class="section-label">Connect</div>
-      <div class="contact-list">
-        <a href="https://discord.com/users/house666420" target="_blank" rel="noopener noreferrer">Discord</a>
-        <a href="https://github.com/housesystems" target="_blank" rel="noopener noreferrer">GitHub</a>
-      </div>
-      <div class="availability">
-        <span class="dot"></span> Available for engagements
-      </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer>
-      house · 2026
-    </footer>
-
-  </div>
-
-  <!-- MODAL -->
-  <div class="modal-overlay" id="contactModal">
-    <div class="modal">
-      <button class="close-btn" id="modalCloseBtn">✕</button>
-      <h2>Contact</h2>
-      <div class="modal-links">
-        <a href="https://discord.com/users/house666420" target="_blank" rel="noopener noreferrer">Discord</a>
-        <a href="https://github.com/housesystems" target="_blank" rel="noopener noreferrer">GitHub</a>
-      </div>
-      <div class="modal-availability">
-        <span class="dot"></span> Available for engagements
-      </div>
-    </div>
-  </div>
-
-  <script>
-    (function() {
-      // ============================================================
-      // MODAL
-      // ============================================================
-      const modalOverlay = document.getElementById('contactModal');
-      const contactBtn = document.getElementById('contactNavBtn');
-      const closeBtn = document.getElementById('modalCloseBtn');
-
-      function openModal() {
-        modalOverlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
-      }
-
-      function closeModal() {
-        modalOverlay.classList.remove('active');
-        document.body.style.overflow = '';
-      }
-
-      contactBtn.addEventListener('click', openModal);
-      closeBtn.addEventListener('click', closeModal);
-
-      modalOverlay.addEventListener('click', function(e) {
-        if (e.target === modalOverlay) {
-          closeModal();
-        }
-      });
-
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
-          closeModal();
-        }
-      });
-
-      // ============================================================
-      // SCROLL ANIMATIONS
-      // ============================================================
-      const fadeItems = document.querySelectorAll('.fade-item');
-
-      if ('IntersectionObserver' in window) {
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              entry.target.style.opacity = '1';
-              entry.target.style.animationPlayState = 'running';
-            }
-          });
-        }, {
-          threshold: 0.08,
-          rootMargin: '0px 0px -20px 0px'
-        });
-
-        fadeItems.forEach(item => {
-          item.style.animationPlayState = 'paused';
-          observer.observe(item);
-        });
-      } else {
-        fadeItems.forEach(item => {
-          item.style.opacity = '1';
-          item.style.animation = 'none';
-        });
-      }
-
-      // ============================================================
-      // HAPTIC FEEDBACK
-      // ============================================================
-      document.querySelectorAll('summary, .contact-btn, .close-btn, .modal-links a').forEach(el => {
-        el.addEventListener('click', function() {
-          const target = this;
-          target.style.transition = 'transform 0.08s ease';
-          target.style.transform = 'scale(0.97)';
-          setTimeout(() => {
-            target.style.transform = 'scale(1)';
-          }, 100);
-        });
-      });
-
-      // ============================================================
-      // LIVE FEED OF DEVELOPMENT (main canvas)
-      // ============================================================
-      const feedCanvas = document.getElementById('liveFeedCanvas');
-      const feedContainer = feedCanvas.parentElement;
-
-      function isMobile() {
-        return window.innerWidth < 600;
-      }
-
-      function resizeFeedCanvas() {
-        const rect = feedContainer.getBoundingClientRect();
-        feedCanvas.width = rect.width - 2;
-        feedCanvas.height = rect.height - 2;
-      }
-
-      resizeFeedCanvas();
-      window.addEventListener('resize', resizeFeedCanvas);
-
-      const feedCtx = feedCanvas.getContext('2d');
-      let feedWidth = feedCanvas.width;
-      let feedHeight = feedCanvas.height;
-
-      const coreColors = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#f97316', '#6b7280', '#a78b6b'];
-      const neutralColors = ['#8a8078', '#7a7268', '#6a6a60', '#5a7a5a', '#7a6a5a', '#8a7a6a', '#807870', '#5a5a50'];
-
-      function getRandomCoreColor() {
-        return coreColors[Math.floor(Math.random() * coreColors.length)];
-      }
-
-      function getRandomColor() {
-        return Math.random() < 0.6 ? getRandomCoreColor() : neutralColors[Math.floor(Math.random() * neutralColors.length)];
-      }
-
-      function getNodeCount() {
-        return isMobile() ? 12 : 20;
-      }
-
-      function getThreshold() {
-        return isMobile() ? 140 : 180;
-      }
-
-      function getRadius() {
-        return isMobile() ? 3 + Math.random() * 4 : 4 + Math.random() * 5;
-      }
-
-      let feedNodes = [];
-      let feedThreshold = getThreshold();
-      let thresholdDir = 0.3;
-
-      function initFeedNodes() {
-        const count = getNodeCount();
-        feedNodes = [];
-        for (let i = 0; i < count; i++) {
-          feedNodes.push({
-            x: Math.random() * feedWidth,
-            y: Math.random() * feedHeight,
-            vx: (Math.random() - 0.5) * 0.3,
-            vy: (Math.random() - 0.5) * 0.3,
-            radius: getRadius(),
-            color: getRandomColor(),
-            pulseSpeed: 0.003 + Math.random() * 0.01,
-            phase: Math.random() * Math.PI * 2,
-          });
-        }
-      }
-      initFeedNodes();
-
-      function animateFeed() {
-        const w = feedCanvas.width;
-        const h = feedCanvas.height;
-
-        feedCtx.clearRect(0, 0, w, h);
-
-        feedThreshold += thresholdDir;
-        const tMin = isMobile() ? 100 : 140;
-        const tMax = isMobile() ? 190 : 240;
-        if (feedThreshold > tMax || feedThreshold < tMin) {
-          thresholdDir *= -1;
-        }
-
-        for (let node of feedNodes) {
-          node.x += node.vx;
-          node.y += node.vy;
-          node.phase += node.pulseSpeed;
-
-          if (node.x < 0 || node.x > w) node.vx *= -1;
-          if (node.y < 0 || node.y > h) node.vy *= -1;
-
-          node.x = Math.max(0, Math.min(w, node.x));
-          node.y = Math.max(0, Math.min(h, node.y));
-        }
-
-        const lineWidth = isMobile() ? 0.6 : 1;
-        feedCtx.lineWidth = lineWidth;
-        for (let i = 0; i < feedNodes.length; i++) {
-          for (let j = i + 1; j < feedNodes.length; j++) {
-            const dx = feedNodes[i].x - feedNodes[j].x;
-            const dy = feedNodes[i].y - feedNodes[j].y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < feedThreshold) {
-              const alpha = 1 - (dist / feedThreshold);
-              feedCtx.strokeStyle = `rgba(80, 80, 80, ${alpha * 0.5})`;
-              feedCtx.beginPath();
-              feedCtx.moveTo(feedNodes[i].x, feedNodes[i].y);
-              feedCtx.lineTo(feedNodes[j].x, feedNodes[j].y);
-              feedCtx.stroke();
-            }
-          }
-        }
-
-        for (let node of feedNodes) {
-          const pulse = 1 + 0.15 * Math.sin(node.phase);
-          const r = node.radius * pulse;
-          const alpha = 0.6 + 0.3 * Math.sin(node.phase * 0.7);
-          feedCtx.beginPath();
-          feedCtx.arc(node.x, node.y, r, 0, Math.PI * 2);
-          feedCtx.fillStyle = node.color;
-          feedCtx.globalAlpha = alpha;
-          feedCtx.fill();
-          feedCtx.globalAlpha = 1;
-
-          const grd = feedCtx.createRadialGradient(node.x, node.y, 0, node.x, node.y, r * 3);
-          grd.addColorStop(0, node.color);
-          grd.addColorStop(1, 'transparent');
-          feedCtx.fillStyle = grd;
-          feedCtx.globalAlpha = 0.08;
-          feedCtx.beginPath();
-          feedCtx.arc(node.x, node.y, r * 3, 0, Math.PI * 2);
-          feedCtx.fill();
-          feedCtx.globalAlpha = 1;
-        }
-
-        requestAnimationFrame(animateFeed);
-      }
-
-      function handleFeedResize() {
-        resizeFeedCanvas();
-        const newCount = getNodeCount();
-        if (newCount !== feedNodes.length) {
-          initFeedNodes();
-        } else {
-          for (let node of feedNodes) {
-            node.x = Math.max(0, Math.min(feedCanvas.width, node.x));
-            node.y = Math.max(0, Math.min(feedCanvas.height, node.y));
-          }
-        }
-        feedThreshold = getThreshold();
-      }
-
-      window.addEventListener('resize', handleFeedResize);
-      animateFeed();
-
-      // ============================================================
-      // SYSTEM BEHAVIOUR 1: BUILDER SYSTEMS — Isolation Barrier
-      // 2x slower, central barrier more visible.
-      // ============================================================
-      const bCanvas = document.getElementById('behaviourBuilder');
-      const bCtx = bCanvas.getContext('2d');
-      const bW = bCanvas.width,
-        bH = bCanvas.height;
-
-      const barrierRadius = 60;
-      const barrierX = bW / 2;
-      const barrierY = bH / 2;
-      let bFlash = 0;
-
-      // Mist particles
-      let mistParticles = [];
-      for (let i = 0; i < 6; i++) {
-        mistParticles.push({
-          x: Math.random() * bW,
-          y: Math.random() * bH,
-          r: 40 + Math.random() * 80,
-          opacity: 0.015 + Math.random() * 0.025,
-          dx: (Math.random() - 0.5) * 0.06,
-          dy: (Math.random() - 0.5) * 0.06,
-        });
-      }
-
-      let bNodes = [];
-      const bNodeCount = 10;
-      for (let i = 0; i < bNodeCount; i++) {
-        const angle = Math.random() * Math.PI * 2;
-        const dist = barrierRadius + 15 + Math.random() * 90;
-        bNodes.push({
-          x: barrierX + Math.cos(angle) * dist,
-          y: barrierY + Math.sin(angle) * dist,
-          angle: angle,
-          dist: dist,
-          speed: 0.0003 + Math.random() * 0.001, // 2x slower
-          phase: Math.random() * Math.PI * 2,
-          radius: 3 + Math.random() * 5,
-          color: getRandomCoreColor(),
-          targetDist: dist,
-          attacking: false,
-          attackTimer: 0,
-          orbitDir: Math.random() > 0.5 ? 1 : -1,
-          cluster: Math.floor(Math.random() * 2),
-        });
-      }
-
-      let clusterCenters = [
-        { x: barrierX - 80, y: barrierY - 40 },
-        { x: barrierX + 80, y: barrierY + 40 },
-      ];
-
-      function triggerSoftAttack() {
-        if (bNodes.length === 0) return;
-        let node = bNodes[Math.floor(Math.random() * bNodes.length)];
-        if (node.attacking) return;
-        node.attacking = true;
-        node.attackTimer = 0;
-        node.targetDist = 8 + Math.random() * 12;
-        bFlash = 0.35;
-
-        setTimeout(() => {
-          node.targetDist = barrierRadius + 20 + Math.random() * 70;
-          setTimeout(() => {
-            node.attacking = false;
-          }, 1000 + Math.random() * 1500);
-        }, 1200 + Math.random() * 1800);
-
-        // Less frequent attacks
-        setTimeout(triggerSoftAttack, 8000 + Math.random() * 10000);
-      }
-
-      setTimeout(triggerSoftAttack, 4000 + Math.random() * 5000);
-
-      let clusterShiftTimer = 0;
-
-      function animateBuilder() {
-        bCtx.clearRect(0, 0, bW, bH);
-
-        // Mist layer
-        for (let m of mistParticles) {
-          m.x += m.dx;
-          m.y += m.dy;
-          if (m.x < -m.r || m.x > bW + m.r) m.dx *= -1;
-          if (m.y < -m.r || m.y > bH + m.r) m.dy *= -1;
-          const grad = bCtx.createRadialGradient(m.x, m.y, 0, m.x, m.y, m.r);
-          grad.addColorStop(0, `rgba(255, 255, 255, ${m.opacity * 0.5})`);
-          grad.addColorStop(0.5, `rgba(255, 255, 255, ${m.opacity})`);
-          grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
-          bCtx.fillStyle = grad;
-          bCtx.beginPath();
-          bCtx.arc(m.x, m.y, m.r, 0, Math.PI * 2);
-          bCtx.fill();
-        }
-
-        bFlash *= 0.97;
-
-        // Move cluster centers very slowly
-        clusterShiftTimer += 0.0002;
-        for (let i = 0; i < clusterCenters.length; i++) {
-          clusterCenters[i].x += Math.sin(clusterShiftTimer + i * 2) * 0.08;
-          clusterCenters[i].y += Math.cos(clusterShiftTimer * 0.7 + i * 1.5) * 0.08;
-          clusterCenters[i].x = Math.max(20, Math.min(bW - 20, clusterCenters[i].x));
-          clusterCenters[i].y = Math.max(20, Math.min(bH - 20, clusterCenters[i].y));
-        }
-
-        // Barrier — more visible
-        const slowPulse = Date.now() / 6000;
-        const barrierPulse = barrierRadius + 3 * Math.sin(slowPulse + Math.sin(slowPulse * 0.3) * 0.5);
-
-        // Inner glow
-        const innerGlow = bCtx.createRadialGradient(barrierX, barrierY, 0, barrierX, barrierY, barrierPulse);
-        innerGlow.addColorStop(0, 'rgba(59, 130, 246, 0.08)');
-        innerGlow.addColorStop(0.8, 'rgba(59, 130, 246, 0.03)');
-        innerGlow.addColorStop(1, 'rgba(59, 130, 246, 0)');
-        bCtx.fillStyle = innerGlow;
-        bCtx.beginPath();
-        bCtx.arc(barrierX, barrierY, barrierPulse, 0, Math.PI * 2);
-        bCtx.fill();
-
-        // Outer glow
-        const outerGlow = bCtx.createRadialGradient(barrierX, barrierY, barrierPulse * 0.5, barrierX, barrierY, barrierPulse *
-        2);
-        outerGlow.addColorStop(0, `rgba(59, 130, 246, ${0.04 + bFlash * 0.15})`);
-        outerGlow.addColorStop(0.5, `rgba(59, 130, 246, ${0.02 + bFlash * 0.08})`);
-        outerGlow.addColorStop(1, 'rgba(59, 130, 246, 0)');
-        bCtx.fillStyle = outerGlow;
-        bCtx.beginPath();
-        bCtx.arc(barrierX, barrierY, barrierPulse * 2, 0, Math.PI * 2);
-        bCtx.fill();
-
-        // Barrier stroke — thicker and more opaque
-        bCtx.strokeStyle = '#3b82f6';
-        bCtx.lineWidth = 1.8;
-        bCtx.setLineDash([4, 8]);
-        bCtx.globalAlpha = 0.55 + 0.15 * Math.sin(slowPulse * 0.7);
-        bCtx.beginPath();
-        bCtx.arc(barrierX, barrierY, barrierPulse, 0, Math.PI * 2);
-        bCtx.stroke();
-        bCtx.globalAlpha = 1;
-        bCtx.setLineDash([]);
-
-        // Update nodes
-        for (let node of bNodes) {
-          node.angle += node.speed * node.orbitDir;
-          node.phase += 0.001 + Math.random() * 0.0005;
-          if (node.attacking) {
-            node.attackTimer += 0.002;
-          }
-
-          if (!node.attacking && Math.random() < 0.0002) {
-            const c = clusterCenters[node.cluster % clusterCenters.length];
-            node.targetDist = barrierRadius + 30 + Math.random() * 60;
-          }
-
-          node.dist += (node.targetDist - node.dist) * 0.008;
-          if (node.dist < barrierRadius + 2) {
-            node.dist = barrierRadius + 2;
-            node.targetDist = barrierRadius + 20 + Math.random() * 70;
-          }
-          node.x = barrierX + Math.cos(node.angle) * node.dist;
-          node.y = barrierY + Math.sin(node.angle) * node.dist;
-        }
-
-        // Webs — even more subtle
-        const webDensity = 0.2 + 0.15 * Math.sin(Date.now() / 12000);
-        bCtx.lineWidth = 0.25;
-        for (let i = 0; i < bNodes.length; i++) {
-          for (let j = i + 1; j < bNodes.length; j++) {
-            const dx = bNodes[i].x - bNodes[j].x;
-            const dy = bNodes[i].y - bNodes[j].y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            const maxDist = 110 + 15 * Math.sin(Date.now() / 12000 + i + j);
-            if (dist < maxDist && bNodes[i].dist > barrierRadius + 6 && bNodes[j].dist > barrierRadius + 6) {
-              const alpha = 1 - dist / maxDist;
-              bCtx.strokeStyle = `rgba(80, 80, 80, ${alpha * 0.08 * webDensity})`;
-              bCtx.beginPath();
-              bCtx.moveTo(bNodes[i].x, bNodes[i].y);
-              bCtx.lineTo(bNodes[j].x, bNodes[j].y);
-              bCtx.stroke();
-            }
-          }
-        }
-
-        // Nodes with glow
-        for (let node of bNodes) {
-          const pulse = 1 + 0.1 * Math.sin(node.phase);
-          const r = node.radius * pulse;
-
-          // Glow
-          const glowGrad = bCtx.createRadialGradient(node.x, node.y, 0, node.x, node.y, r * 4);
-          glowGrad.addColorStop(0, node.color);
-          glowGrad.addColorStop(0.15, node.color);
-          glowGrad.addColorStop(0.6, node.color);
-          glowGrad.addColorStop(1, 'rgba(255,255,255,0)');
-          bCtx.fillStyle = glowGrad;
-          bCtx.globalAlpha = 0.08;
-          bCtx.beginPath();
-          bCtx.arc(node.x, node.y, r * 4, 0, Math.PI * 2);
-          bCtx.fill();
-          bCtx.globalAlpha = 1;
-
-          // Node
-          const alpha = 0.5 + 0.25 * Math.sin(node.phase * 0.35);
-          bCtx.beginPath();
-          bCtx.arc(node.x, node.y, r, 0, Math.PI * 2);
-          bCtx.fillStyle = node.color;
-          bCtx.globalAlpha = alpha;
-          bCtx.fill();
-          bCtx.globalAlpha = 1;
-        }
-
-        requestAnimationFrame(animateBuilder);
-      }
-
-      animateBuilder();
-
-      // ============================================================
-      // SYSTEM BEHAVIOUR 2: SYSTEMS ARCHITECTURE — Layer Flow
-      // (unchanged, already slow)
-      // ============================================================
-      const aCanvas = document.getElementById('behaviourArchitecture');
-      const aCtx = aCanvas.getContext('2d');
-      const aW = aCanvas.width,
-        aH = aCanvas.height;
-
-      const layerPositions = [40, 95, 150, 205, 260, 350];
-      const layerColors = ['#8b5cf6', '#3b82f6', '#10b981', '#f59e0b', '#f97316', '#ef4444'];
-      let currentLayerIndex = 0;
-      let targetLayerIndex = 0;
-      let jobProgress = 0;
-      let jobY = layerPositions[0];
-      let pulseTimer = 0;
-      let branchActive = false;
-      let branchY1 = 0,
-        branchY2 = 0;
-      let branchProgress = 0;
-
-      let aMist = [];
-      for (let i = 0; i < 6; i++) {
-        aMist.push({
-          x: Math.random() * aW,
-          y: Math.random() * aH,
-          r: 50 + Math.random() * 80,
-          opacity: 0.015 + Math.random() * 0.025,
-          dx: (Math.random() - 0.5) * 0.08,
-          dy: (Math.random() - 0.5) * 0.08,
-        });
-      }
-
-      function moveJob() {
-        let newTarget = Math.floor(Math.random() * layerPositions.length);
-        while (newTarget === targetLayerIndex && layerPositions.length > 1) {
-          newTarget = Math.floor(Math.random() * layerPositions.length);
-        }
-        targetLayerIndex = newTarget;
-        jobProgress = 0;
-        const duration = 5000 + Math.random() * 6000;
-        const startY = layerPositions[currentLayerIndex];
-        const endY = layerPositions[targetLayerIndex];
-        const startTime = Date.now();
-
-        if (Math.random() < 0.15) {
-          branchActive = true;
-          branchProgress = 0;
-          branchY1 = startY + (endY - startY) * 0.3;
-          branchY2 = startY + (endY - startY) * 0.6;
-        } else {
-          branchActive = false;
-        }
-
-        function animateJobMove() {
-          const elapsed = Date.now() - startTime;
-          jobProgress = Math.min(elapsed / duration, 1);
-          const ease = 1 - Math.pow(1 - jobProgress, 3);
-          jobY = startY + (endY - startY) * ease;
-
-          if (branchActive) {
-            branchProgress = Math.min(elapsed / (duration * 0.5), 1);
-          }
-
-          if (jobProgress < 1) {
-            requestAnimationFrame(animateJobMove);
-          } else {
-            currentLayerIndex = targetLayerIndex;
-            pulseTimer = 1.2;
-            setTimeout(() => { pulseTimer = 0; }, 1500);
-            setTimeout(moveJob, 4000 + Math.random() * 6000);
-          }
-        }
-        animateJobMove();
-      }
-
-      setTimeout(moveJob, 2000 + Math.random() * 4000);
-
-      function animateArchitecture() {
-        aCtx.clearRect(0, 0, aW, aH);
-
-        for (let m of aMist) {
-          m.x += m.dx;
-          m.y += m.dy;
-          if (m.x < -m.r || m.x > aW + m.r) m.dx *= -1;
-          if (m.y < -m.r || m.y > aH + m.r) m.dy *= -1;
-          const grad = aCtx.createRadialGradient(m.x, m.y, 0, m.x, m.y, m.r);
-          grad.addColorStop(0, `rgba(255, 255, 255, ${m.opacity * 0.5})`);
-          grad.addColorStop(0.5, `rgba(255, 255, 255, ${m.opacity})`);
-          grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
-          aCtx.fillStyle = grad;
-          aCtx.beginPath();
-          aCtx.arc(m.x, m.y, m.r, 0, Math.PI * 2);
-          aCtx.fill();
-        }
-
-        if (pulseTimer > 0) pulseTimer *= 0.993;
-
-        const threadOpacity = 0.05 + 0.03 * Math.sin(Date.now() / 8000);
-        aCtx.lineWidth = 0.3;
-        for (let i = 0; i < layerPositions.length - 1; i++) {
-          const y1 = layerPositions[i];
-          const y2 = layerPositions[i + 1];
-          aCtx.strokeStyle = `rgba(80, 80, 80, ${threadOpacity})`;
-          aCtx.beginPath();
-          aCtx.moveTo(aW / 2 - 70, y1);
-          aCtx.lineTo(aW / 2 - 70, y2);
-          aCtx.stroke();
-          aCtx.beginPath();
-          aCtx.moveTo(aW / 2 + 70, y1);
-          aCtx.lineTo(aW / 2 + 70, y2);
-          aCtx.stroke();
-        }
-
-        if (branchActive && branchProgress < 1) {
-          aCtx.strokeStyle = `rgba(59, 130, 246, ${0.05 * (1 - branchProgress)})`;
-          aCtx.lineWidth = 0.4;
-          aCtx.setLineDash([2, 6]);
-          const midX = aW / 2;
-          const offset = 30 * branchProgress;
-          aCtx.beginPath();
-          aCtx.moveTo(midX, branchY1);
-          aCtx.lineTo(midX - offset, (branchY1 + branchY2) / 2);
-          aCtx.lineTo(midX, branchY2);
-          aCtx.stroke();
-          aCtx.setLineDash([]);
-        }
-
-        for (let i = 0; i < layerPositions.length; i++) {
-          const y = layerPositions[i];
-          const isActive = (i === currentLayerIndex);
-          const radius = isActive ? (14 + 3 * Math.sin(Date.now() / 4000 + i)) : 7;
-          const alpha = isActive ? 0.8 : 0.2;
-
-          if (isActive && pulseTimer > 0.01) {
-            const grad = aCtx.createRadialGradient(aW / 2, y, 0, aW / 2, y, 35 * pulseTimer);
-            grad.addColorStop(0, `rgba(59, 130, 246, ${0.06 * pulseTimer})`);
-            grad.addColorStop(1, 'rgba(59, 130, 246, 0)');
-            aCtx.fillStyle = grad;
-            aCtx.beginPath();
-            aCtx.arc(aW / 2, y, 35 * pulseTimer, 0, Math.PI * 2);
-            aCtx.fill();
-          }
-
-          const glowGrad = aCtx.createRadialGradient(aW / 2, y, 0, aW / 2, y, radius * 5);
-          glowGrad.addColorStop(0, layerColors[i]);
-          glowGrad.addColorStop(0.3, layerColors[i]);
-          glowGrad.addColorStop(1, 'rgba(255,255,255,0)');
-          aCtx.fillStyle = glowGrad;
-          aCtx.globalAlpha = 0.05;
-          aCtx.beginPath();
-          aCtx.arc(aW / 2, y, radius * 5, 0, Math.PI * 2);
-          aCtx.fill();
-          aCtx.globalAlpha = 1;
-
-          aCtx.beginPath();
-          aCtx.arc(aW / 2, y, radius, 0, Math.PI * 2);
-          aCtx.fillStyle = layerColors[i];
-          aCtx.globalAlpha = alpha;
-          aCtx.fill();
-          aCtx.globalAlpha = 1;
-        }
-
-        const jobPulse = 1 + 0.10 * Math.sin(Date.now() / 600 + jobY);
-        const jobRadius = 9 * jobPulse;
-        const jobGrad = aCtx.createRadialGradient(aW / 2, jobY, 0, aW / 2, jobY, jobRadius + 20);
-        jobGrad.addColorStop(0, 'rgba(255, 255, 255, 0.5)');
-        jobGrad.addColorStop(0.2, 'rgba(59, 130, 246, 0.4)');
-        jobGrad.addColorStop(0.7, 'rgba(59, 130, 246, 0.15)');
-        jobGrad.addColorStop(1, 'rgba(59, 130, 246, 0)');
-        aCtx.fillStyle = jobGrad;
-        aCtx.beginPath();
-        aCtx.arc(aW / 2, jobY, jobRadius + 20, 0, Math.PI * 2);
-        aCtx.fill();
-
-        aCtx.beginPath();
-        aCtx.arc(aW / 2, jobY, jobRadius, 0, Math.PI * 2);
-        aCtx.fillStyle = '#3b82f6';
-        aCtx.globalAlpha = 0.8;
-        aCtx.fill();
-        aCtx.globalAlpha = 1;
-
-        requestAnimationFrame(animateArchitecture);
-      }
-
-      animateArchitecture();
-
-      // ============================================================
-      // SYSTEM BEHAVIOUR 3: PROTOCOL COMPILER — Mode Lock
-      // (unchanged, already slow)
-      // ============================================================
-      const cCanvas = document.getElementById('behaviourCompiler');
-      const cCtx = cCanvas.getContext('2d');
-      const cW = cCanvas.width,
-        cH = cCanvas.height;
-
-      const modeColors = ['#ef4444', '#f59e0b', '#8b5cf6', '#10b981'];
-      const cx = cW / 2,
-        cy = cH / 2;
-      const orbitRadius = 80;
-      let modeAngles = [0, Math.PI / 2, Math.PI, 3 * Math.PI / 2];
-      let modeSpeeds = [0.001 + Math.random() * 0.004, 0.002 + Math.random() * 0.004, 0.001 + Math.random() * 0.004, 0.002 +
-        Math.random() * 0.004
-      ];
-      let lockedIndex = -1;
-      let lockProgress = 0;
-      let isLocking = false;
-      let pulseRing = 0;
-      let pulseRingActive = false;
-
-      let cMist = [];
-      for (let i = 0; i < 6; i++) {
-        cMist.push({
-          x: Math.random() * cW,
-          y: Math.random() * cH,
-          r: 40 + Math.random() * 70,
-          opacity: 0.015 + Math.random() * 0.025,
-          dx: (Math.random() - 0.5) * 0.08,
-          dy: (Math.random() - 0.5) * 0.08,
-        });
-      }
-
-      function triggerLock() {
-        if (isLocking) return;
-        isLocking = true;
-        const newLock = Math.floor(Math.random() * modeColors.length);
-        lockedIndex = newLock;
-        lockProgress = 0;
-        pulseRingActive = true;
-        pulseRing = 0;
-
-        const duration = 2500 + Math.random() * 2500;
-        const startTime = Date.now();
-
-        function animateLock() {
-          const elapsed = Date.now() - startTime;
-          lockProgress = Math.min(elapsed / duration, 1);
-          const ease = 1 - Math.pow(1 - lockProgress, 3);
-
-          if (lockProgress < 1) {
-            requestAnimationFrame(animateLock);
-          } else {
-            isLocking = false;
-            pulseRingActive = false;
-            setTimeout(() => {
-              if (Math.random() < 0.6) {
-                triggerLock();
-              } else {
-                lockedIndex = -1;
-                setTimeout(triggerLock, 4000 + Math.random() * 5000);
-              }
-            }, 4000 + Math.random() * 5000);
-          }
-        }
-        animateLock();
-      }
-
-      setTimeout(triggerLock, 2500 + Math.random() * 3500);
-
-      function animateCompiler() {
-        cCtx.clearRect(0, 0, cW, cH);
-
-        for (let m of cMist) {
-          m.x += m.dx;
-          m.y += m.dy;
-          if (m.x < -m.r || m.x > cW + m.r) m.dx *= -1;
-          if (m.y < -m.r || m.y > cH + m.r) m.dy *= -1;
-          const grad = cCtx.createRadialGradient(m.x, m.y, 0, m.x, m.y, m.r);
-          grad.addColorStop(0, `rgba(255, 255, 255, ${m.opacity * 0.5})`);
-          grad.addColorStop(0.5, `rgba(255, 255, 255, ${m.opacity})`);
-          grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
-          cCtx.fillStyle = grad;
-          cCtx.beginPath();
-          cCtx.arc(m.x, m.y, m.r, 0, Math.PI * 2);
-          cCtx.fill();
-        }
-
-        for (let i = 0; i < modeSpeeds.length; i++) {
-          if (Math.random() < 0.0005) {
-            modeSpeeds[i] = 0.001 + Math.random() * 0.004;
-          }
-        }
-
-        for (let i = 0; i < modeAngles.length; i++) {
-          modeAngles[i] += modeSpeeds[i];
-        }
-
-        if (pulseRingActive) {
-          pulseRing += 0.01;
-          if (pulseRing > 1) pulseRingActive = false;
-          const ringRadius = 30 + pulseRing * 80;
-          cCtx.strokeStyle = `rgba(167, 139, 107, ${0.06 * (1 - pulseRing)})`;
-          cCtx.lineWidth = 0.8;
-          cCtx.beginPath();
-          cCtx.arc(cx, cy, ringRadius, 0, Math.PI * 2);
-          cCtx.stroke();
-        }
-
-        cCtx.strokeStyle = 'rgba(80, 80, 80, 0.03)';
-        cCtx.lineWidth = 0.3;
-        cCtx.setLineDash([3, 8]);
-        cCtx.beginPath();
-        cCtx.arc(cx, cy, orbitRadius, 0, Math.PI * 2);
-        cCtx.stroke();
-        cCtx.setLineDash([]);
-
-        for (let i = 0; i < modeAngles.length; i++) {
-          const angle = modeAngles[i];
-          const mx = cx + Math.cos(angle) * orbitRadius;
-          const my = cy + Math.sin(angle) * orbitRadius;
-          const isLocked = (i === lockedIndex);
-
-          const width = isLocked ? (0.2 + 1.5 * lockProgress) : 0.15;
-          const alpha = isLocked ? (0.08 + 0.5 * lockProgress) : 0.05;
-          cCtx.strokeStyle = `rgba(80, 80, 80, ${alpha})`;
-          cCtx.lineWidth = width;
-          cCtx.beginPath();
-          cCtx.moveTo(cx, cy);
-          cCtx.lineTo(mx, my);
-          cCtx.stroke();
-        }
-
-        const compPulse = 1 + 0.05 * Math.sin(Date.now() / 700 + Math.sin(Date.now() / 4000) * 0.3);
-        const compRadius = 18 * compPulse;
-        const compGrad = cCtx.createRadialGradient(cx, cy, 0, cx, cy, compRadius + 18);
-        compGrad.addColorStop(0, 'rgba(167, 139, 107, 0.2)');
-        compGrad.addColorStop(0.3, 'rgba(167, 139, 107, 0.08)');
-        compGrad.addColorStop(1, 'rgba(167, 139, 107, 0)');
-        cCtx.fillStyle = compGrad;
-        cCtx.beginPath();
-        cCtx.arc(cx, cy, compRadius + 18, 0, Math.PI * 2);
-        cCtx.fill();
-
-        cCtx.beginPath();
-        cCtx.arc(cx, cy, compRadius, 0, Math.PI * 2);
-        cCtx.fillStyle = '#a78b6b';
-        cCtx.globalAlpha = 0.6;
-        cCtx.fill();
-        cCtx.globalAlpha = 1;
-
-        for (let i = 0; i < modeAngles.length; i++) {
-          const angle = modeAngles[i];
-          const mx = cx + Math.cos(angle) * orbitRadius;
-          const my = cy + Math.sin(angle) * orbitRadius;
-          const isLocked = (i === lockedIndex);
-
-          const r = isLocked ? (7 + 4 * lockProgress) : 7;
-          const alpha = isLocked ? (0.3 + 0.5 * lockProgress) : 0.2;
-
-          const glowGrad = cCtx.createRadialGradient(mx, my, 0, mx, my, r * 5);
-          glowGrad.addColorStop(0, modeColors[i]);
-          glowGrad.addColorStop(0.3, modeColors[i]);
-          glowGrad.addColorStop(1, 'rgba(255,255,255,0)');
-          cCtx.fillStyle = glowGrad;
-          cCtx.globalAlpha = 0.05;
-          cCtx.beginPath();
-          cCtx.arc(mx, my, r * 5, 0, Math.PI * 2);
-          cCtx.fill();
-          cCtx.globalAlpha = 1;
-
-          if (isLocked) {
-            const grad = cCtx.createRadialGradient(mx, my, 0, mx, my, r + 14);
-            grad.addColorStop(0, `rgba(255, 255, 255, ${0.08 * lockProgress})`);
-            grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
-            cCtx.fillStyle = grad;
-            cCtx.beginPath();
-            cCtx.arc(mx, my, r + 14, 0, Math.PI * 2);
-            cCtx.fill();
-          }
-
-          cCtx.beginPath();
-          cCtx.arc(mx, my, r, 0, Math.PI * 2);
-          cCtx.fillStyle = modeColors[i];
-          cCtx.globalAlpha = alpha;
-          cCtx.fill();
-          cCtx.globalAlpha = 1;
-        }
-
-        requestAnimationFrame(animateCompiler);
-      }
-
-      animateCompiler();
-
-    })();
-  </script>
-</body>
-</html>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--bg-page);
-      color: var(--text-primary);
-      padding: 1.5rem;
-      line-height: 1.5;
-      -webkit-font-smoothing: antialiased;
-      font-weight: 400;
-      position: relative;
-      overflow-x: hidden;
-    }
-
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-      z-index: 9999;
-      opacity: var(--grain-opacity);
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
-      background-repeat: repeat;
-      background-size: 256px 256px;
-    }
-
-    /* ============================================================
-       ANIMATIONS
-       ============================================================ */
-    @keyframes fadeUp {
-      0% { opacity: 0; transform: translateY(12px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
-    .fade-item {
-      opacity: 0;
-      animation: fadeUp 0.6s var(--transition-ios) forwards;
-    }
-
-    .fade-item.delay-1 { animation-delay: 0.05s; }
-    .fade-item.delay-2 { animation-delay: 0.1s; }
-    .fade-item.delay-3 { animation-delay: 0.15s; }
-    .fade-item.delay-4 { animation-delay: 0.2s; }
-    .fade-item.delay-5 { animation-delay: 0.25s; }
-
-    @keyframes contentReveal {
-      0% { opacity: 0; transform: translateY(-6px) scale(0.99); }
-      100% { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
-    /* ============================================================
-       CONTAINER
-       ============================================================ */
-    @keyframes containerFade {
-      0% { opacity: 0; transform: translateY(8px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      background: rgba(244, 242, 237, 0.92);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      padding: 2.5rem 2.5rem 2rem;
-      border: 1px solid rgba(212, 210, 204, 0.5);
-      border-radius: var(--radius-ios);
-      animation: containerFade 0.6s var(--transition-ios) forwards;
-      box-shadow: 0 4px 24px var(--shadow-color), 0 1px 2px rgba(0,0,0,0.02);
-      position: relative;
-      z-index: 1;
-    }
-
-    a:focus-visible,
-    summary:focus-visible,
-    button:focus-visible {
-      outline: 1.5px solid var(--text-primary);
-      outline-offset: 2px;
-      border-radius: 1px;
-    }
-
-    summary:focus-visible {
-      background: var(--bg-hover);
-    }
-
-    /* ----- NAV ----- */
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-bottom: 2rem;
-      border-bottom: 1px solid var(--border-light);
-      margin-bottom: 3rem;
-    }
-
-    .brand {
-      font-size: 1.5rem;
-      font-weight: 600;
-      text-transform: lowercase;
-      letter-spacing: -0.02em;
-      color: var(--text-primary);
-      transition: color 0.2s ease;
-    }
-
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 2rem;
-    }
-
-    .contact-btn {
-      background: none;
-      border: none;
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      font-weight: 400;
-      cursor: pointer;
-      transition: all 0.2s var(--transition-ios);
-      font-family: 'Inter', sans-serif;
-      padding: 0.3rem 0;
-      border-bottom: 1px solid transparent;
-    }
-
-    .contact-btn:hover {
-      color: var(--text-primary);
-      transform: scale(1.02);
-    }
-
-    /* ----- HERO ----- */
-    .hero {
-      margin-bottom: 3rem;
-    }
-
-    .hero h1 {
-      font-size: clamp(2.8rem, 6vw, 5rem);
-      font-weight: 600;
-      letter-spacing: -0.03em;
-      line-height: 1.05;
-      margin-bottom: 0.25rem;
-      color: var(--text-primary);
-    }
-
-    .hero .title {
-      font-size: 1.25rem;
-      font-weight: 400;
-      color: var(--text-secondary);
-      letter-spacing: -0.01em;
-    }
-
-    /* ----- METHODOLOGY ----- */
-    .methodology {
-      margin: 2rem 0 2.5rem;
-      padding: 2rem 0;
-      border-top: 1px solid var(--border-light);
-      border-bottom: 1px solid var(--border-light);
-    }
-
-    .methodology .label {
-      font-size: 0.65rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--text-muted-lighter);
-      font-weight: 500;
-      margin-bottom: 0.5rem;
-    }
-
-    .methodology p {
-      font-size: 0.95rem;
-      color: var(--text-secondary);
-      line-height: 1.7;
-      max-width: 680px;
-      font-weight: 400;
-    }
-
-    .methodology p strong {
-      color: var(--text-primary);
-      font-weight: 500;
-    }
-
-    /* ============================================================
-       PROCESS (How I Work)
-       ============================================================ */
-    .process {
-      margin: 2rem 0 2.5rem;
-      padding: 2rem 0;
-      border-top: 1px solid var(--border-light);
-      border-bottom: 1px solid var(--border-light);
-    }
-
-    .process .process-label {
-      font-size: 0.65rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--text-muted-lighter);
-      font-weight: 500;
-      margin-bottom: 1rem;
-    }
-
-    .process-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 1rem;
-    }
-
-    .process-step {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      padding: 0.75rem 0.25rem;
-      border-left: 2px solid var(--border-light);
-      padding-left: 1rem;
-      transition: border-color 0.2s ease;
-    }
-
-    .process-step:hover {
-      border-left-color: var(--text-primary);
-    }
-
-    .process-step .step-number {
-      font-size: 0.6rem;
-      font-weight: 500;
-      color: var(--text-muted-lighter);
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      margin-bottom: 0.2rem;
-    }
-
-    .process-step h4 {
-      font-size: 0.9rem;
-      font-weight: 500;
-      color: var(--text-primary);
-      margin-bottom: 0.2rem;
-    }
-
-    .process-step p {
-      font-size: 0.75rem;
-      color: var(--text-muted-light);
-      line-height: 1.5;
-      font-weight: 400;
-      max-width: 220px;
-    }
-
-    /* ----- TRUST METRICS ----- */
-    .trust-metrics {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.5rem 2.5rem;
-      margin: 1.5rem 0 2.5rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid var(--border-light);
-    }
-
-    .trust-metrics .item {
-      display: flex;
-      align-items: baseline;
-      gap: 0.35rem;
-      font-size: 0.8rem;
-      color: var(--text-muted-lighter);
-      font-weight: 400;
-    }
-
-    .trust-metrics .item .number {
-      font-size: 1.1rem;
-      font-weight: 500;
-      color: var(--text-secondary);
-    }
-
-    /* ============================================================
-       WORK LIST — iOS STYLE DROPDOWN
-       ============================================================ */
-    section {
-      margin-bottom: 3rem;
-    }
-
-    .section-label {
-      font-size: 0.65rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--text-muted);
-      margin-bottom: 1.5rem;
-      font-weight: 500;
-    }
-
-    .work-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
-    details.work-item {
-      display: block;
-      border: 1px solid var(--border-light);
-      border-radius: var(--radius-card);
-      padding: 0;
-      transition: all 0.35s var(--transition-ios);
-      background: rgba(244, 242, 237, 0.3);
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
-      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
-    }
-
-    details.work-item:hover {
-      border-color: var(--border-dark);
-      box-shadow: 0 4px 16px var(--shadow-ios);
-    }
-
-    details.work-item[open] {
-      border-color: var(--border-dark);
-      background: rgba(244, 242, 237, 0.7);
-      box-shadow: 0 6px 24px var(--shadow-ios), 0 1px 2px rgba(0,0,0,0.02);
-    }
-
-    summary {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.25rem 1.25rem;
-      cursor: pointer;
-      list-style: none;
-      user-select: none;
-      border-radius: var(--radius-card);
-      transition: all 0.3s var(--transition-ios);
-      -webkit-tap-highlight-color: transparent;
-      touch-action: manipulation;
-      position: relative;
-      background: transparent;
-    }
-
-    summary:hover {
-      background: rgba(234, 232, 226, 0.5);
-    }
-
-    summary:active {
-      transform: scale(0.99);
-      background: rgba(234, 232, 226, 0.7);
-    }
-
-    summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .summary-left {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 0.6rem 0.3rem;
-    }
-
-    .summary-left .name {
-      font-weight: 500;
-      font-size: 1rem;
-      color: var(--text-primary);
-      letter-spacing: -0.01em;
-    }
-
-    .metrics {
-      font-size: 0.55rem;
-      font-weight: 400;
-      color: var(--text-muted-light);
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      background: var(--bg-metrics);
-      padding: 0.1rem 0.6rem;
-      border-radius: 20px;
-      border: 1px solid var(--border-light);
-      white-space: nowrap;
-      transition: all 0.2s ease;
-    }
-
-    summary:hover .metrics {
-      background: var(--bg-metrics-hover);
-      border-color: var(--border-dark);
-    }
-
-    .summary-right {
-      display: flex;
-      align-items: center;
-      flex-shrink: 0;
-      gap: 0.75rem;
-    }
-
-    .summary-right .meta {
-      color: var(--text-muted-light);
-      font-size: 0.8rem;
-      font-weight: 400;
-      transition: color 0.2s ease;
-    }
-
-    summary:hover .meta {
-      color: var(--text-secondary);
-    }
-
-    .chevron {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      background: rgba(0, 0, 0, 0.04);
-      border: 1px solid rgba(0, 0, 0, 0.05);
-      transition: all 0.4s var(--transition-ios);
-      flex-shrink: 0;
-      color: var(--text-muted-light);
-    }
-
-    .chevron svg {
-      transition: transform 0.4s var(--transition-ios);
-    }
-
-    details[open] .chevron svg {
-      transform: rotate(180deg);
-    }
-
-    summary:hover .chevron {
-      background: rgba(0, 0, 0, 0.08);
-      border-color: rgba(0, 0, 0, 0.1);
-      color: var(--text-primary);
-    }
-
-    details[open] .chevron {
-      background: rgba(0, 0, 0, 0.07);
-      border-color: rgba(0, 0, 0, 0.09);
-      color: var(--text-primary);
-    }
-
-    .work-item .description {
-      padding: 0 1.25rem 0.5rem;
-      color: var(--text-secondary);
-      font-size: 0.85rem;
-      line-height: 1.6;
-      max-width: 700px;
-      font-weight: 400;
-      letter-spacing: -0.01em;
-      animation: contentReveal 0.4s var(--transition-ios);
-    }
-
-    .work-item .description p {
-      margin-bottom: 0.5rem;
-    }
-
-    .work-item .deployment {
-      padding: 0.25rem 1.25rem 1.25rem;
-      font-size: 0.65rem;
-      color: var(--text-muted-lighter);
-      letter-spacing: 0.02em;
-      font-weight: 400;
-      animation: contentReveal 0.45s var(--transition-ios);
-    }
-
-    .work-item .deployment::before {
-      content: "→ ";
-    }
-
-    .stack-line {
-      margin: 0.25rem 0 0.5rem;
-      font-size: 0.65rem;
-      color: var(--text-muted-lighter);
-      letter-spacing: 0.03em;
-      font-weight: 400;
-    }
-
-    .stack-line span {
-      color: var(--text-muted);
-    }
-
-    /* ============================================================
-       CASE STUDY
-       ============================================================ */
-    .case-study {
-      margin-top: 0.75rem;
-      border-top: 1px solid var(--border-light);
-      padding-top: 0.75rem;
-      transition: border-color 0.3s ease;
-    }
-
-    .case-study summary {
-      padding: 0.4rem 0.8rem;
-      margin: 0 -0.25rem;
-      cursor: pointer;
-      list-style: none;
-      font-size: 0.75rem;
-      color: var(--text-muted-light);
-      font-weight: 400;
-      background: transparent;
-      border: 1px solid var(--border-light);
-      border-radius: 20px;
-      transition: all 0.25s var(--transition-ios);
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      width: auto;
-      touch-action: manipulation;
-    }
-
-    .case-study summary:active {
-      transform: scale(0.98);
-    }
-
-    .case-study summary:hover {
-      color: var(--text-primary);
-      border-color: var(--text-muted);
-      background: rgba(0, 0, 0, 0.02);
-    }
-
-    .case-study summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .case-study .case-content {
-      padding: 0.75rem 0.25rem 0.25rem;
-      font-size: 0.8rem;
-      line-height: 1.7;
-      color: var(--text-secondary);
-      max-width: 700px;
-      font-weight: 400;
-      animation: contentReveal 0.35s var(--transition-ios);
-    }
-
-    .case-study .case-content strong {
-      color: var(--text-primary);
-      font-weight: 500;
-    }
-
-    .case-study .case-content .section-block {
-      margin: 0.75rem 0;
-    }
-
-    .case-study .case-content .section-block h4 {
-      font-size: 0.75rem;
-      font-weight: 500;
-      color: var(--text-primary);
-      margin-bottom: 0.2rem;
-      letter-spacing: -0.01em;
-    }
-
-    .case-study .case-content .section-block p {
-      font-size: 0.8rem;
-      color: var(--text-secondary);
-      line-height: 1.7;
-    }
-
-    .case-study .case-content .section-block ul {
-      list-style: none;
-      padding: 0;
-      margin: 0.25rem 0 0.5rem;
-    }
-
-    .case-study .case-content .section-block ul li {
-      font-size: 0.75rem;
-      color: var(--text-secondary);
-      padding: 0.15rem 0 0.15rem 1.2rem;
-      position: relative;
-      line-height: 1.6;
-    }
-
-    .case-study .case-content .section-block ul li::before {
-      content: "•";
-      position: absolute;
-      left: 0;
-      color: var(--text-muted-light);
-    }
-
-    /* ============================================================
-       SYSTEM BEHAVIOUR — portrait block
-       ============================================================ */
-    .behaviour-wrapper {
-      margin: 1.25rem 0 0.25rem;
-    }
-
-    .behaviour-wrapper .behaviour-label {
-      font-size: 0.6rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--text-muted-lighter);
-      font-weight: 400;
-      margin-bottom: 0.5rem;
-    }
-
-    .behaviour-container {
-      padding: 0.75rem;
-      border: 1px solid var(--border-light);
-      border-radius: var(--radius-card);
-      background: rgba(0, 0, 0, 0.015);
-      transition: border-color 0.3s ease;
-      aspect-ratio: 3 / 4;
-      max-height: 320px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .behaviour-container:hover {
-      border-color: var(--border-dark);
-    }
-
-    .behaviour-container canvas {
-      display: block;
-      width: 100%;
-      height: 100%;
-      border-radius: calc(var(--radius-card) - 4px);
-      background: rgba(0, 0, 0, 0.015);
-    }
-
-    /* ============================================================
-       KEY METRICS
-       ============================================================ */
-    .metrics-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.75rem;
-      margin: 1rem 0 1.25rem;
-      padding: 0.75rem 0.5rem;
-      background: rgba(0, 0, 0, 0.015);
-      border-radius: var(--radius-card);
-      border: 1px solid var(--border-light);
-    }
-
-    .metric-item {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      padding: 0.15rem 0.25rem;
-      min-height: 44px;
-    }
-
-    .metric-item .metric-label {
-      font-size: 0.55rem;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      color: var(--text-muted-lighter);
-      font-weight: 400;
-      margin-bottom: 0.1rem;
-    }
-
-    .metric-item .metric-value {
-      font-size: 0.75rem;
-      font-weight: 500;
-      color: var(--text-primary);
-      letter-spacing: -0.01em;
-      white-space: nowrap;
-      display: flex;
-      align-items: center;
-      gap: 0.15rem;
-      flex-wrap: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 100%;
-    }
-
-    .metric-item .metric-value .before {
-      color: var(--text-muted-light);
-      font-weight: 400;
-    }
-
-    .metric-item .metric-value .arrow {
-      color: var(--text-muted-lighter);
-      font-weight: 300;
-      margin: 0 0.1rem;
-      flex-shrink: 0;
-    }
-
-    .metric-item .metric-value .after {
-      color: var(--text-primary);
-      font-weight: 500;
-      white-space: nowrap;
-    }
-
-    .metric-item .metric-value .badge {
-      display: inline-block;
-      font-size: 0.5rem;
-      font-weight: 500;
-      color: #3a7a5a;
-      background: rgba(58, 158, 107, 0.12);
-      padding: 0.05rem 0.35rem;
-      border-radius: 12px;
-      margin-left: 0.2rem;
-      letter-spacing: 0.01em;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-
-    .metric-item .metric-value .badge.accent {
-      color: #6a4a7a;
-      background: rgba(106, 74, 122, 0.1);
-    }
-
-    .metric-item .metric-value .badge.warm {
-      color: #8a6a4a;
-      background: rgba(176, 122, 90, 0.1);
-    }
-
-    /* ============================================================
-       CLIENTS / INDUSTRIES
-       ============================================================ */
-    .clients-section {
-      margin: 2rem 0 2.5rem;
-      padding: 2rem 0;
-      border-top: 1px solid var(--border-light);
-      border-bottom: 1px solid var(--border-light);
-    }
-
-    .clients-section .clients-label {
-      font-size: 0.65rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--text-muted-lighter);
-      font-weight: 500;
-      margin-bottom: 0.5rem;
-    }
-
-    .clients-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem 1.5rem;
-    }
-
-    .clients-list span {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-      font-weight: 400;
-    }
-
-    /* ============================================================
-       NOW SECTION
-       ============================================================ */
-    .now-section {
-      padding: 1.5rem 1.25rem;
-      border: 1px solid var(--border-light);
-      border-radius: var(--radius-card);
-      margin-bottom: 2rem;
-      background: rgba(244, 242, 237, 0.4);
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
-      transition: all 0.3s var(--transition-ios);
-    }
-
-    .now-section:hover {
-      border-color: var(--border-dark);
-      box-shadow: 0 4px 16px var(--shadow-ios);
-    }
-
-    .now-section .label {
-      font-size: 0.65rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--text-muted-lighter);
-      font-weight: 500;
-      margin-bottom: 0.5rem;
-    }
-
-    .now-section p {
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      line-height: 1.7;
-      max-width: 680px;
-      font-weight: 400;
-      margin-bottom: 0.5rem;
-    }
-
-    .now-section p strong {
-      color: var(--text-primary);
-      font-weight: 500;
-    }
-
-    .now-section .now-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem 1rem;
-      margin-top: 0.5rem;
-    }
-
-    .now-section .now-tags span {
-      font-size: 0.7rem;
-      color: var(--text-muted-light);
-      background: var(--bg-metrics);
-      padding: 0.1rem 0.6rem;
-      border-radius: 20px;
-      border: 1px solid var(--border-light);
-    }
-
-    /* ============================================================
-       LIVE FEED OF DEVELOPMENT
-       ============================================================ */
-    .live-feed-section {
-      margin: 2rem 0 2.5rem;
-      padding: 2rem 0;
-      border-top: 1px solid var(--border-light);
-      border-bottom: 1px solid var(--border-light);
-    }
-
-    .live-feed-section .live-feed-label {
-      font-size: 0.65rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--text-muted-lighter);
-      font-weight: 500;
-      margin-bottom: 1rem;
-    }
-
-    .live-feed-box {
-      background: rgba(0, 0, 0, 0.015);
-      border: 1px solid var(--border-light);
-      border-radius: var(--radius-card);
-      padding: 0.75rem;
-      overflow: hidden;
-      position: relative;
-      height: 320px;
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
-      transition: border-color 0.3s ease;
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3);
-    }
-
-    .live-feed-box:hover {
-      border-color: var(--border-dark);
-    }
-
-    .live-feed-box canvas {
-      display: block;
-      width: 100%;
-      height: 100%;
-      border-radius: calc(var(--radius-card) - 2px);
-    }
-
-    /* Legend */
-    .legend {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem 1.5rem;
-      margin-top: 1rem;
-      padding: 0.25rem 0.25rem;
-      justify-content: center;
-    }
-
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 0.35rem;
-      font-size: 0.65rem;
-      color: var(--text-muted-light);
-      font-weight: 400;
-      letter-spacing: 0.02em;
-    }
-
-    .legend-item .dot {
-      display: inline-block;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-
-    /* ============================================================
-       CONTACT
-       ============================================================ */
-    .contact-static .contact-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2.5rem;
-    }
-
-    .contact-static .contact-list a {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 0.9rem;
-      border-bottom: 1px solid transparent;
-      transition: all 0.2s var(--transition-ios);
-      font-weight: 400;
-      padding: 0.1rem 0;
-    }
-
-    .contact-static .contact-list a:hover {
-      color: var(--text-primary);
-      border-bottom-color: var(--text-primary);
-      transform: translateX(2px);
-    }
-
-    .contact-static .availability {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.8rem;
-      color: var(--text-muted-lighter);
-      font-weight: 400;
-      letter-spacing: 0.02em;
-      margin-top: 0.75rem;
-    }
-
-    .contact-static .availability .dot {
-      display: inline-block;
-      width: 6px;
-      height: 6px;
-      background: #3a9e6b;
-      border-radius: 50%;
-      flex-shrink: 0;
-      animation: pulse-dot 2.5s ease-in-out infinite;
-    }
-
-    @keyframes pulse-dot {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.4; transform: scale(0.85); }
-    }
-
-    /* ----- FOOTER ----- */
-    footer {
-      margin-top: 2.5rem;
-      padding-top: 2rem;
-      border-top: 1px solid var(--border-light);
-      text-align: center;
-      font-size: 0.7rem;
-      color: var(--text-muted-lighter);
-      letter-spacing: 0.05em;
-      text-transform: lowercase;
-      font-weight: 400;
-    }
-
-    /* ============================================================
-       MODAL (iOS-style)
-       ============================================================ */
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: var(--modal-overlay);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      z-index: 10000;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transition: opacity 0.35s ease;
-    }
-
-    .modal-overlay.active {
-      display: flex;
-      opacity: 1;
-    }
-
-    .modal {
-      background: rgba(244, 242, 237, 0.96);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(212, 210, 204, 0.6);
-      border-radius: var(--radius-ios);
-      padding: 2.5rem 2.5rem 2rem;
-      max-width: 380px;
-      width: 100%;
-      box-shadow: 0 20px 60px var(--shadow-ios), 0 8px 24px rgba(0,0,0,0.04);
-      transform: scale(0.94) translateY(12px);
-      transition: transform 0.4s var(--transition-ios);
-      position: relative;
-    }
-
-    .modal-overlay.active .modal {
-      transform: scale(1) translateY(0);
-    }
-
-    .modal .close-btn {
-      position: absolute;
-      top: 1rem;
-      right: 1.25rem;
-      background: none;
-      border: none;
-      font-size: 1.2rem;
-      color: var(--text-muted);
-      cursor: pointer;
-      transition: all 0.2s var(--transition-ios);
-      font-family: 'Inter', sans-serif;
-      line-height: 1;
-      padding: 0.25rem;
-      border-radius: 50%;
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .modal .close-btn:hover {
-      color: var(--text-primary);
-      background: rgba(0,0,0,0.04);
-      transform: scale(1.05);
-    }
-
-    .modal .close-btn:active {
-      transform: scale(0.92);
-    }
-
-    .modal h2 {
-      font-size: 0.95rem;
-      font-weight: 500;
-      color: var(--text-primary);
-      margin-bottom: 1.5rem;
-      letter-spacing: -0.01em;
-    }
-
-    .modal .modal-links {
-      display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
-    }
-
-    .modal .modal-links a {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 0.9rem;
-      padding: 0.6rem 0.5rem;
-      border-radius: var(--radius-card);
-      transition: all 0.2s var(--transition-ios);
-      font-weight: 400;
-      margin: 0 -0.5rem;
-    }
-
-    .modal .modal-links a:hover {
-      color: var(--text-primary);
-      background: rgba(0,0,0,0.03);
-      transform: translateX(4px);
-    }
-
-    .modal .modal-availability {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      margin-top: 1.5rem;
-      padding-top: 1rem;
-      border-top: 1px solid var(--border-light);
-      font-size: 0.75rem;
-      color: var(--text-muted-lighter);
-    }
-
-    .modal .modal-availability .dot {
-      display: inline-block;
-      width: 5px;
-      height: 5px;
-      background: #3a9e6b;
-      border-radius: 50%;
-      flex-shrink: 0;
-      animation: pulse-dot 2.5s ease-in-out infinite;
-    }
-
-    /* ============================================================
-       RESPONSIVE
-       ============================================================ */
     @media (max-width: 600px) {
       body {
-        padding: 0.75rem;
+        padding: 0.5rem;
+        overflow-x: hidden;
       }
 
       .container {
-        padding: 1.5rem 1rem 1.25rem;
+        padding: 1rem 0.75rem 1rem;
         border-radius: var(--radius-card);
+        overflow: hidden;
+      }
+
+      .container * {
+        max-width: 100%;
+        word-wrap: break-word;
       }
 
       nav {
@@ -3521,6 +1135,16 @@
 
       .hero {
         margin-bottom: 1.5rem;
+      }
+
+      .hero h1 {
+        font-size: clamp(2rem, 10vw, 2.8rem);
+        word-break: break-word;
+      }
+
+      .hero .title {
+        font-size: 1rem;
+        word-break: break-word;
       }
 
       .methodology p {
@@ -3554,11 +1178,12 @@
         padding: 1rem 0.75rem;
       }
       .summary-left .name {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
+        word-break: break-word;
       }
       .metrics {
-        font-size: 0.5rem;
-        padding: 0.1rem 0.4rem;
+        font-size: 0.45rem;
+        padding: 0.05rem 0.35rem;
       }
       .chevron {
         width: 30px;
@@ -3566,17 +1191,17 @@
       }
 
       .work-item .description {
-        padding: 0 0.75rem 0.5rem;
-        font-size: 0.8rem;
+        padding: 0 0.5rem 0.5rem;
+        font-size: 0.75rem;
         max-width: 100%;
       }
       .work-item .deployment {
-        padding: 0.25rem 0.75rem 1rem;
+        padding: 0.25rem 0.5rem 1rem;
         font-size: 0.6rem;
       }
 
       .case-study .case-content {
-        font-size: 0.75rem;
+        font-size: 0.7rem;
       }
 
       .behaviour-container {
@@ -3591,7 +1216,7 @@
         padding: 0.5rem;
       }
       .metric-item .metric-value {
-        font-size: 0.7rem;
+        font-size: 0.65rem;
         white-space: normal;
         flex-wrap: wrap;
       }
@@ -3603,15 +1228,15 @@
         gap: 0.5rem 1rem;
       }
       .clients-list span {
-        font-size: 0.8rem;
+        font-size: 0.75rem;
       }
 
       .now-section p {
-        font-size: 0.85rem;
+        font-size: 0.8rem;
       }
 
       .live-feed-box {
-        height: 220px;
+        height: 180px;
         padding: 0.5rem;
       }
 
@@ -3630,6 +1255,9 @@
         flex-direction: column;
         gap: 0.75rem;
       }
+      .contact-static .contact-list a {
+        font-size: 0.85rem;
+      }
 
       .modal {
         margin: 1.5rem;
@@ -3646,7 +1274,7 @@
 
     /* ============================================================
        PRINT
-       ============================================================ */
+    ============================================================ */
     @media print {
       body {
         background: #fff !important;
@@ -4401,7 +2029,6 @@
 
       // ============================================================
       // SYSTEM BEHAVIOUR 1: BUILDER SYSTEMS — Isolation Barrier
-      // Fewer nodes (10), relaxed, meditative.
       // ============================================================
       const bCanvas = document.getElementById('behaviourBuilder');
       const bCtx = bCanvas.getContext('2d');
@@ -4421,13 +2048,13 @@
           y: Math.random() * bH,
           r: 40 + Math.random() * 80,
           opacity: 0.015 + Math.random() * 0.025,
-          dx: (Math.random() - 0.5) * 0.12,
-          dy: (Math.random() - 0.5) * 0.12,
+          dx: (Math.random() - 0.5) * 0.06,
+          dy: (Math.random() - 0.5) * 0.06,
         });
       }
 
       let bNodes = [];
-      const bNodeCount = 10; // reduced from 16
+      const bNodeCount = 10;
       for (let i = 0; i < bNodeCount; i++) {
         const angle = Math.random() * Math.PI * 2;
         const dist = barrierRadius + 15 + Math.random() * 90;
@@ -4436,7 +2063,7 @@
           y: barrierY + Math.sin(angle) * dist,
           angle: angle,
           dist: dist,
-          speed: 0.001 + Math.random() * 0.004,
+          speed: 0.0003 + Math.random() * 0.001,
           phase: Math.random() * Math.PI * 2,
           radius: 3 + Math.random() * 5,
           color: getRandomCoreColor(),
@@ -4460,19 +2087,19 @@
         node.attacking = true;
         node.attackTimer = 0;
         node.targetDist = 8 + Math.random() * 12;
-        bFlash = 0.5;
+        bFlash = 0.35;
 
         setTimeout(() => {
           node.targetDist = barrierRadius + 20 + Math.random() * 70;
           setTimeout(() => {
             node.attacking = false;
-          }, 600 + Math.random() * 1200);
-        }, 800 + Math.random() * 1500);
+          }, 1000 + Math.random() * 1500);
+        }, 1200 + Math.random() * 1800);
 
-        setTimeout(triggerSoftAttack, 4000 + Math.random() * 6000);
+        setTimeout(triggerSoftAttack, 8000 + Math.random() * 10000);
       }
 
-      setTimeout(triggerSoftAttack, 2000 + Math.random() * 4000);
+      setTimeout(triggerSoftAttack, 4000 + Math.random() * 5000);
 
       let clusterShiftTimer = 0;
 
@@ -4495,33 +2122,46 @@
           bCtx.fill();
         }
 
-        bFlash *= 0.98;
+        bFlash *= 0.97;
 
-        // Move cluster centers slowly
-        clusterShiftTimer += 0.0005;
+        // Move cluster centers very slowly
+        clusterShiftTimer += 0.0002;
         for (let i = 0; i < clusterCenters.length; i++) {
-          clusterCenters[i].x += Math.sin(clusterShiftTimer + i * 2) * 0.15;
-          clusterCenters[i].y += Math.cos(clusterShiftTimer * 0.7 + i * 1.5) * 0.15;
+          clusterCenters[i].x += Math.sin(clusterShiftTimer + i * 2) * 0.08;
+          clusterCenters[i].y += Math.cos(clusterShiftTimer * 0.7 + i * 1.5) * 0.08;
           clusterCenters[i].x = Math.max(20, Math.min(bW - 20, clusterCenters[i].x));
           clusterCenters[i].y = Math.max(20, Math.min(bH - 20, clusterCenters[i].y));
         }
 
-        // Barrier
-        const slowPulse = Date.now() / 4000;
+        // Barrier — more visible
+        const slowPulse = Date.now() / 6000;
         const barrierPulse = barrierRadius + 3 * Math.sin(slowPulse + Math.sin(slowPulse * 0.3) * 0.5);
-        const grad = bCtx.createRadialGradient(barrierX, barrierY, 0, barrierX, barrierY, barrierPulse + 25);
-        grad.addColorStop(0, `rgba(59, 130, 246, ${0.04 + bFlash * 0.2})`);
-        grad.addColorStop(0.4, `rgba(59, 130, 246, ${0.02 + bFlash * 0.1})`);
-        grad.addColorStop(1, 'rgba(59, 130, 246, 0)');
-        bCtx.fillStyle = grad;
+
+        // Inner glow
+        const innerGlow = bCtx.createRadialGradient(barrierX, barrierY, 0, barrierX, barrierY, barrierPulse);
+        innerGlow.addColorStop(0, 'rgba(59, 130, 246, 0.08)');
+        innerGlow.addColorStop(0.8, 'rgba(59, 130, 246, 0.03)');
+        innerGlow.addColorStop(1, 'rgba(59, 130, 246, 0)');
+        bCtx.fillStyle = innerGlow;
         bCtx.beginPath();
-        bCtx.arc(barrierX, barrierY, barrierPulse + 25, 0, Math.PI * 2);
+        bCtx.arc(barrierX, barrierY, barrierPulse, 0, Math.PI * 2);
+        bCtx.fill();
+
+        // Outer glow
+        const outerGlow = bCtx.createRadialGradient(barrierX, barrierY, barrierPulse * 0.5, barrierX, barrierY, barrierPulse *
+        2);
+        outerGlow.addColorStop(0, `rgba(59, 130, 246, ${0.04 + bFlash * 0.15})`);
+        outerGlow.addColorStop(0.5, `rgba(59, 130, 246, ${0.02 + bFlash * 0.08})`);
+        outerGlow.addColorStop(1, 'rgba(59, 130, 246, 0)');
+        bCtx.fillStyle = outerGlow;
+        bCtx.beginPath();
+        bCtx.arc(barrierX, barrierY, barrierPulse * 2, 0, Math.PI * 2);
         bCtx.fill();
 
         bCtx.strokeStyle = '#3b82f6';
-        bCtx.lineWidth = 1.0;
-        bCtx.setLineDash([4, 10]);
-        bCtx.globalAlpha = 0.3 + 0.15 * Math.sin(slowPulse * 0.7);
+        bCtx.lineWidth = 1.8;
+        bCtx.setLineDash([4, 8]);
+        bCtx.globalAlpha = 0.55 + 0.15 * Math.sin(slowPulse * 0.7);
         bCtx.beginPath();
         bCtx.arc(barrierX, barrierY, barrierPulse, 0, Math.PI * 2);
         bCtx.stroke();
@@ -4531,17 +2171,17 @@
         // Update nodes
         for (let node of bNodes) {
           node.angle += node.speed * node.orbitDir;
-          node.phase += 0.004 + Math.random() * 0.002;
+          node.phase += 0.001 + Math.random() * 0.0005;
           if (node.attacking) {
-            node.attackTimer += 0.005;
+            node.attackTimer += 0.002;
           }
 
-          if (!node.attacking && Math.random() < 0.0005) {
+          if (!node.attacking && Math.random() < 0.0002) {
             const c = clusterCenters[node.cluster % clusterCenters.length];
             node.targetDist = barrierRadius + 30 + Math.random() * 60;
           }
 
-          node.dist += (node.targetDist - node.dist) * 0.015;
+          node.dist += (node.targetDist - node.dist) * 0.008;
           if (node.dist < barrierRadius + 2) {
             node.dist = barrierRadius + 2;
             node.targetDist = barrierRadius + 20 + Math.random() * 70;
@@ -4551,17 +2191,17 @@
         }
 
         // Webs
-        const webDensity = 0.3 + 0.25 * Math.sin(Date.now() / 8000);
-        bCtx.lineWidth = 0.4;
+        const webDensity = 0.2 + 0.15 * Math.sin(Date.now() / 12000);
+        bCtx.lineWidth = 0.25;
         for (let i = 0; i < bNodes.length; i++) {
           for (let j = i + 1; j < bNodes.length; j++) {
             const dx = bNodes[i].x - bNodes[j].x;
             const dy = bNodes[i].y - bNodes[j].y;
             const dist = Math.sqrt(dx * dx + dy * dy);
-            const maxDist = 140 + 30 * Math.sin(Date.now() / 8000 + i + j);
+            const maxDist = 110 + 15 * Math.sin(Date.now() / 12000 + i + j);
             if (dist < maxDist && bNodes[i].dist > barrierRadius + 6 && bNodes[j].dist > barrierRadius + 6) {
               const alpha = 1 - dist / maxDist;
-              bCtx.strokeStyle = `rgba(80, 80, 80, ${alpha * 0.12 * webDensity})`;
+              bCtx.strokeStyle = `rgba(80, 80, 80, ${alpha * 0.08 * webDensity})`;
               bCtx.beginPath();
               bCtx.moveTo(bNodes[i].x, bNodes[i].y);
               bCtx.lineTo(bNodes[j].x, bNodes[j].y);
@@ -4572,24 +2212,22 @@
 
         // Nodes with glow
         for (let node of bNodes) {
-          const pulse = 1 + 0.12 * Math.sin(node.phase);
+          const pulse = 1 + 0.1 * Math.sin(node.phase);
           const r = node.radius * pulse;
 
-          // Glow
           const glowGrad = bCtx.createRadialGradient(node.x, node.y, 0, node.x, node.y, r * 4);
           glowGrad.addColorStop(0, node.color);
           glowGrad.addColorStop(0.15, node.color);
           glowGrad.addColorStop(0.6, node.color);
           glowGrad.addColorStop(1, 'rgba(255,255,255,0)');
           bCtx.fillStyle = glowGrad;
-          bCtx.globalAlpha = 0.12;
+          bCtx.globalAlpha = 0.08;
           bCtx.beginPath();
           bCtx.arc(node.x, node.y, r * 4, 0, Math.PI * 2);
           bCtx.fill();
           bCtx.globalAlpha = 1;
 
-          // Node
-          const alpha = 0.5 + 0.3 * Math.sin(node.phase * 0.5);
+          const alpha = 0.5 + 0.25 * Math.sin(node.phase * 0.35);
           bCtx.beginPath();
           bCtx.arc(node.x, node.y, r, 0, Math.PI * 2);
           bCtx.fillStyle = node.color;
@@ -4605,7 +2243,6 @@
 
       // ============================================================
       // SYSTEM BEHAVIOUR 2: SYSTEMS ARCHITECTURE — Layer Flow
-      // Relaxed, meditative, with mist & glow.
       // ============================================================
       const aCanvas = document.getElementById('behaviourArchitecture');
       const aCtx = aCanvas.getContext('2d');
@@ -4624,7 +2261,6 @@
         branchY2 = 0;
       let branchProgress = 0;
 
-      // Mist for architecture
       let aMist = [];
       for (let i = 0; i < 6; i++) {
         aMist.push({
@@ -4632,8 +2268,8 @@
           y: Math.random() * aH,
           r: 50 + Math.random() * 80,
           opacity: 0.015 + Math.random() * 0.025,
-          dx: (Math.random() - 0.5) * 0.1,
-          dy: (Math.random() - 0.5) * 0.1,
+          dx: (Math.random() - 0.5) * 0.08,
+          dy: (Math.random() - 0.5) * 0.08,
         });
       }
 
@@ -4644,7 +2280,7 @@
         }
         targetLayerIndex = newTarget;
         jobProgress = 0;
-        const duration = 4000 + Math.random() * 5000;
+        const duration = 5000 + Math.random() * 6000;
         const startY = layerPositions[currentLayerIndex];
         const endY = layerPositions[targetLayerIndex];
         const startTime = Date.now();
@@ -4673,19 +2309,18 @@
           } else {
             currentLayerIndex = targetLayerIndex;
             pulseTimer = 1.2;
-            setTimeout(() => { pulseTimer = 0; }, 1200);
-            setTimeout(moveJob, 3500 + Math.random() * 5000);
+            setTimeout(() => { pulseTimer = 0; }, 1500);
+            setTimeout(moveJob, 4000 + Math.random() * 6000);
           }
         }
         animateJobMove();
       }
 
-      setTimeout(moveJob, 1500 + Math.random() * 3000);
+      setTimeout(moveJob, 2000 + Math.random() * 4000);
 
       function animateArchitecture() {
         aCtx.clearRect(0, 0, aW, aH);
 
-        // Mist layer
         for (let m of aMist) {
           m.x += m.dx;
           m.y += m.dy;
@@ -4701,10 +2336,9 @@
           aCtx.fill();
         }
 
-        if (pulseTimer > 0) pulseTimer *= 0.995;
+        if (pulseTimer > 0) pulseTimer *= 0.993;
 
-        // Vertical threads
-        const threadOpacity = 0.06 + 0.04 * Math.sin(Date.now() / 7000);
+        const threadOpacity = 0.05 + 0.03 * Math.sin(Date.now() / 8000);
         aCtx.lineWidth = 0.3;
         for (let i = 0; i < layerPositions.length - 1; i++) {
           const y1 = layerPositions[i];
@@ -4720,9 +2354,8 @@
           aCtx.stroke();
         }
 
-        // Branch threads
         if (branchActive && branchProgress < 1) {
-          aCtx.strokeStyle = `rgba(59, 130, 246, ${0.06 * (1 - branchProgress)})`;
+          aCtx.strokeStyle = `rgba(59, 130, 246, ${0.05 * (1 - branchProgress)})`;
           aCtx.lineWidth = 0.4;
           aCtx.setLineDash([2, 6]);
           const midX = aW / 2;
@@ -4735,16 +2368,15 @@
           aCtx.setLineDash([]);
         }
 
-        // Layers with glow
         for (let i = 0; i < layerPositions.length; i++) {
           const y = layerPositions[i];
           const isActive = (i === currentLayerIndex);
-          const radius = isActive ? (14 + 3 * Math.sin(Date.now() / 3000 + i)) : 7;
+          const radius = isActive ? (14 + 3 * Math.sin(Date.now() / 4000 + i)) : 7;
           const alpha = isActive ? 0.8 : 0.2;
 
           if (isActive && pulseTimer > 0.01) {
             const grad = aCtx.createRadialGradient(aW / 2, y, 0, aW / 2, y, 35 * pulseTimer);
-            grad.addColorStop(0, `rgba(59, 130, 246, ${0.08 * pulseTimer})`);
+            grad.addColorStop(0, `rgba(59, 130, 246, ${0.06 * pulseTimer})`);
             grad.addColorStop(1, 'rgba(59, 130, 246, 0)');
             aCtx.fillStyle = grad;
             aCtx.beginPath();
@@ -4752,13 +2384,12 @@
             aCtx.fill();
           }
 
-          // Layer glow
           const glowGrad = aCtx.createRadialGradient(aW / 2, y, 0, aW / 2, y, radius * 5);
           glowGrad.addColorStop(0, layerColors[i]);
           glowGrad.addColorStop(0.3, layerColors[i]);
           glowGrad.addColorStop(1, 'rgba(255,255,255,0)');
           aCtx.fillStyle = glowGrad;
-          aCtx.globalAlpha = 0.06;
+          aCtx.globalAlpha = 0.05;
           aCtx.beginPath();
           aCtx.arc(aW / 2, y, radius * 5, 0, Math.PI * 2);
           aCtx.fill();
@@ -4772,8 +2403,7 @@
           aCtx.globalAlpha = 1;
         }
 
-        // Job node with glow
-        const jobPulse = 1 + 0.10 * Math.sin(Date.now() / 500 + jobY);
+        const jobPulse = 1 + 0.10 * Math.sin(Date.now() / 600 + jobY);
         const jobRadius = 9 * jobPulse;
         const jobGrad = aCtx.createRadialGradient(aW / 2, jobY, 0, aW / 2, jobY, jobRadius + 20);
         jobGrad.addColorStop(0, 'rgba(255, 255, 255, 0.5)');
@@ -4799,7 +2429,6 @@
 
       // ============================================================
       // SYSTEM BEHAVIOUR 3: PROTOCOL COMPILER — Mode Lock
-      // Relaxed, meditative, with mist & glow.
       // ============================================================
       const cCanvas = document.getElementById('behaviourCompiler');
       const cCtx = cCanvas.getContext('2d');
@@ -4820,7 +2449,6 @@
       let pulseRing = 0;
       let pulseRingActive = false;
 
-      // Mist for compiler
       let cMist = [];
       for (let i = 0; i < 6; i++) {
         cMist.push({
@@ -4828,8 +2456,8 @@
           y: Math.random() * cH,
           r: 40 + Math.random() * 70,
           opacity: 0.015 + Math.random() * 0.025,
-          dx: (Math.random() - 0.5) * 0.1,
-          dy: (Math.random() - 0.5) * 0.1,
+          dx: (Math.random() - 0.5) * 0.08,
+          dy: (Math.random() - 0.5) * 0.08,
         });
       }
 
@@ -4842,7 +2470,7 @@
         pulseRingActive = true;
         pulseRing = 0;
 
-        const duration = 2000 + Math.random() * 2000;
+        const duration = 2500 + Math.random() * 2500;
         const startTime = Date.now();
 
         function animateLock() {
@@ -4860,20 +2488,19 @@
                 triggerLock();
               } else {
                 lockedIndex = -1;
-                setTimeout(triggerLock, 3000 + Math.random() * 4000);
+                setTimeout(triggerLock, 4000 + Math.random() * 5000);
               }
-            }, 3500 + Math.random() * 4000);
+            }, 4000 + Math.random() * 5000);
           }
         }
         animateLock();
       }
 
-      setTimeout(triggerLock, 2000 + Math.random() * 3000);
+      setTimeout(triggerLock, 2500 + Math.random() * 3500);
 
       function animateCompiler() {
         cCtx.clearRect(0, 0, cW, cH);
 
-        // Mist layer
         for (let m of cMist) {
           m.x += m.dx;
           m.y += m.dy;
@@ -4900,18 +2527,18 @@
         }
 
         if (pulseRingActive) {
-          pulseRing += 0.015;
+          pulseRing += 0.01;
           if (pulseRing > 1) pulseRingActive = false;
           const ringRadius = 30 + pulseRing * 80;
-          cCtx.strokeStyle = `rgba(167, 139, 107, ${0.08 * (1 - pulseRing)})`;
-          cCtx.lineWidth = 1.0;
+          cCtx.strokeStyle = `rgba(167, 139, 107, ${0.06 * (1 - pulseRing)})`;
+          cCtx.lineWidth = 0.8;
           cCtx.beginPath();
           cCtx.arc(cx, cy, ringRadius, 0, Math.PI * 2);
           cCtx.stroke();
         }
 
-        cCtx.strokeStyle = 'rgba(80, 80, 80, 0.04)';
-        cCtx.lineWidth = 0.4;
+        cCtx.strokeStyle = 'rgba(80, 80, 80, 0.03)';
+        cCtx.lineWidth = 0.3;
         cCtx.setLineDash([3, 8]);
         cCtx.beginPath();
         cCtx.arc(cx, cy, orbitRadius, 0, Math.PI * 2);
@@ -4934,12 +2561,11 @@
           cCtx.stroke();
         }
 
-        // Compiler with glow
-        const compPulse = 1 + 0.06 * Math.sin(Date.now() / 600 + Math.sin(Date.now() / 3000) * 0.3);
+        const compPulse = 1 + 0.05 * Math.sin(Date.now() / 700 + Math.sin(Date.now() / 4000) * 0.3);
         const compRadius = 18 * compPulse;
         const compGrad = cCtx.createRadialGradient(cx, cy, 0, cx, cy, compRadius + 18);
-        compGrad.addColorStop(0, 'rgba(167, 139, 107, 0.25)');
-        compGrad.addColorStop(0.3, 'rgba(167, 139, 107, 0.1)');
+        compGrad.addColorStop(0, 'rgba(167, 139, 107, 0.2)');
+        compGrad.addColorStop(0.3, 'rgba(167, 139, 107, 0.08)');
         compGrad.addColorStop(1, 'rgba(167, 139, 107, 0)');
         cCtx.fillStyle = compGrad;
         cCtx.beginPath();
@@ -4949,11 +2575,10 @@
         cCtx.beginPath();
         cCtx.arc(cx, cy, compRadius, 0, Math.PI * 2);
         cCtx.fillStyle = '#a78b6b';
-        cCtx.globalAlpha = 0.7;
+        cCtx.globalAlpha = 0.6;
         cCtx.fill();
         cCtx.globalAlpha = 1;
 
-        // Modes with glow
         for (let i = 0; i < modeAngles.length; i++) {
           const angle = modeAngles[i];
           const mx = cx + Math.cos(angle) * orbitRadius;
@@ -4961,15 +2586,14 @@
           const isLocked = (i === lockedIndex);
 
           const r = isLocked ? (7 + 4 * lockProgress) : 7;
-          const alpha = isLocked ? (0.3 + 0.5 * lockProgress) : 0.25;
+          const alpha = isLocked ? (0.3 + 0.5 * lockProgress) : 0.2;
 
-          // Glow
           const glowGrad = cCtx.createRadialGradient(mx, my, 0, mx, my, r * 5);
           glowGrad.addColorStop(0, modeColors[i]);
           glowGrad.addColorStop(0.3, modeColors[i]);
           glowGrad.addColorStop(1, 'rgba(255,255,255,0)');
           cCtx.fillStyle = glowGrad;
-          cCtx.globalAlpha = 0.06;
+          cCtx.globalAlpha = 0.05;
           cCtx.beginPath();
           cCtx.arc(mx, my, r * 5, 0, Math.PI * 2);
           cCtx.fill();
@@ -4977,7 +2601,7 @@
 
           if (isLocked) {
             const grad = cCtx.createRadialGradient(mx, my, 0, mx, my, r + 14);
-            grad.addColorStop(0, `rgba(255, 255, 255, ${0.1 * lockProgress})`);
+            grad.addColorStop(0, `rgba(255, 255, 255, ${0.08 * lockProgress})`);
             grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
             cCtx.fillStyle = grad;
             cCtx.beginPath();
