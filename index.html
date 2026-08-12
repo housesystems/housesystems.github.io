@@ -1,0 +1,1983 @@
+<!DOCTYPE html>
+<html lang="en" class=""><head><script>window.livecodes = window.livecodes || {};</script><title>housesystems</title><meta name="title" content="housesystems"><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><style id="__livecodes_styles__"></style><script src="https://cdn.jsdelivr.net/npm/es-module-shims@1.10.0/dist/es-module-shims.js" async=""></script><script type="importmap">{
+  "imports": {}
+}</script></head><body>
+
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Isaac Jacob Dajay — house</title>
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='10' fill='%23f6f5f0'/%3E%3Ctext x='50' y='70' font-family='Inter, sans-serif' font-size='58' font-weight='600' text-anchor='middle' fill='%231a1a1a'%3Eh%3C/text%3E%3C/svg%3E">
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&amp;display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-page: #edece6;
+      --bg-container: #f4f2ed;
+      --text-primary: #1a1a1a;
+      --text-secondary: #3a3a3a;
+      --text-muted: #6a6a6a;
+      --text-muted-light: #7a7a7a;
+      --text-muted-lighter: #8a8a8a;
+      --border-light: #d4d2cc;
+      --border-medium: #ceccc6;
+      --border-dark: #c2c0b8;
+      --bg-hover: #eae8e2;
+      --bg-metrics: #e2e0d8;
+      --bg-metrics-hover: #d8d6ce;
+      --shadow-color: rgba(0,0,0,0.04);
+      --shadow-ios: rgba(0,0,0,0.06);
+      --grain-opacity: 0.03;
+      --modal-overlay: rgba(0,0,0,0.3);
+      --radius-ios: 14px;
+      --radius-card: 10px;
+      --transition-ios: cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-page);
+      color: var(--text-primary);
+      padding: 1.5rem;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      font-weight: 400;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: var(--grain-opacity);
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 256px 256px;
+    }
+
+    /* ============================================================
+       ANIMATIONS
+       ============================================================ */
+    @keyframes fadeUp {
+      0% { opacity: 0; transform: translateY(12px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-item {
+      opacity: 0;
+      animation: fadeUp 0.6s var(--transition-ios) forwards;
+    }
+
+    .fade-item.delay-1 { animation-delay: 0.05s; }
+    .fade-item.delay-2 { animation-delay: 0.1s; }
+    .fade-item.delay-3 { animation-delay: 0.15s; }
+    .fade-item.delay-4 { animation-delay: 0.2s; }
+    .fade-item.delay-5 { animation-delay: 0.25s; }
+
+    @keyframes contentReveal {
+      0% { opacity: 0; transform: translateY(-6px) scale(0.99); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* ============================================================
+       CONTAINER
+       ============================================================ */
+    @keyframes containerFade {
+      0% { opacity: 0; transform: translateY(8px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: rgba(244, 242, 237, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      padding: 2.5rem 2.5rem 2rem;
+      border: 1px solid rgba(212, 210, 204, 0.5);
+      border-radius: var(--radius-ios);
+      animation: containerFade 0.6s var(--transition-ios) forwards;
+      box-shadow: 0 4px 24px var(--shadow-color), 0 1px 2px rgba(0,0,0,0.02);
+      position: relative;
+      z-index: 1;
+    }
+
+    a:focus-visible,
+    summary:focus-visible,
+    button:focus-visible {
+      outline: 1.5px solid var(--text-primary);
+      outline-offset: 2px;
+      border-radius: 1px;
+    }
+
+    summary:focus-visible {
+      background: var(--bg-hover);
+    }
+
+    /* ----- NAV ----- */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border-light);
+      margin-bottom: 3rem;
+    }
+
+    .brand {
+      font-size: 1.5rem;
+      font-weight: 600;
+      text-transform: lowercase;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      transition: color 0.2s ease;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .contact-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      font-weight: 400;
+      cursor: pointer;
+      transition: all 0.2s var(--transition-ios);
+      font-family: 'Inter', sans-serif;
+      padding: 0.3rem 0;
+      border-bottom: 1px solid transparent;
+    }
+
+    .contact-btn:hover {
+      color: var(--text-primary);
+      transform: scale(1.02);
+    }
+
+    /* ----- HERO ----- */
+    .hero {
+      margin-bottom: 3rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      margin-bottom: 0.25rem;
+      color: var(--text-primary);
+    }
+
+    .hero .title {
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: var(--text-secondary);
+      letter-spacing: -0.01em;
+    }
+
+    /* ----- METHODOLOGY ----- */
+    .methodology {
+      margin: 2rem 0 2.5rem;
+      padding: 2rem 0;
+      border-top: 1px solid var(--border-light);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .methodology .label {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted-lighter);
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .methodology p {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      max-width: 680px;
+      font-weight: 400;
+    }
+
+    .methodology p strong {
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    /* ============================================================
+       PROCESS (How I Work)
+       ============================================================ */
+    .process {
+      margin: 2rem 0 2.5rem;
+      padding: 2rem 0;
+      border-top: 1px solid var(--border-light);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .process .process-label {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted-lighter);
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+    }
+
+    .process-step {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 0.75rem 0.25rem;
+      border-left: 2px solid var(--border-light);
+      padding-left: 1rem;
+      transition: border-color 0.2s ease;
+    }
+
+    .process-step:hover {
+      border-left-color: var(--text-primary);
+    }
+
+    .process-step .step-number {
+      font-size: 0.6rem;
+      font-weight: 500;
+      color: var(--text-muted-lighter);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 0.2rem;
+    }
+
+    .process-step h4 {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 0.2rem;
+    }
+
+    .process-step p {
+      font-size: 0.75rem;
+      color: var(--text-muted-light);
+      line-height: 1.5;
+      font-weight: 400;
+      max-width: 220px;
+    }
+
+    /* ----- TRUST METRICS ----- */
+    .trust-metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem 2.5rem;
+      margin: 1.5rem 0 2.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-light);
+    }
+
+    .trust-metrics .item {
+      display: flex;
+      align-items: baseline;
+      gap: 0.35rem;
+      font-size: 0.8rem;
+      color: var(--text-muted-lighter);
+      font-weight: 400;
+    }
+
+    .trust-metrics .item .number {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+
+    /* ============================================================
+       WORK LIST — iOS STYLE DROPDOWN
+       ============================================================ */
+    section {
+      margin-bottom: 3rem;
+    }
+
+    .section-label {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      font-weight: 500;
+    }
+
+    .work-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    details.work-item {
+      display: block;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-card);
+      padding: 0;
+      transition: all 0.35s var(--transition-ios);
+      background: rgba(244, 242, 237, 0.3);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+    }
+
+    details.work-item:hover {
+      border-color: var(--border-dark);
+      box-shadow: 0 4px 16px var(--shadow-ios);
+    }
+
+    details.work-item[open] {
+      border-color: var(--border-dark);
+      background: rgba(244, 242, 237, 0.7);
+      box-shadow: 0 6px 24px var(--shadow-ios), 0 1px 2px rgba(0,0,0,0.02);
+    }
+
+    summary {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 1.25rem;
+      cursor: pointer;
+      list-style: none;
+      user-select: none;
+      border-radius: var(--radius-card);
+      transition: all 0.3s var(--transition-ios);
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+      position: relative;
+      background: transparent;
+    }
+
+    summary:hover {
+      background: rgba(234, 232, 226, 0.5);
+    }
+
+    summary:active {
+      transform: scale(0.99);
+      background: rgba(234, 232, 226, 0.7);
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .summary-left {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.6rem 0.3rem;
+    }
+
+    .summary-left .name {
+      font-weight: 500;
+      font-size: 1rem;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+    }
+
+    .metrics {
+      font-size: 0.55rem;
+      font-weight: 400;
+      color: var(--text-muted-light);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      background: var(--bg-metrics);
+      padding: 0.1rem 0.6rem;
+      border-radius: 20px;
+      border: 1px solid var(--border-light);
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+
+    summary:hover .metrics {
+      background: var(--bg-metrics-hover);
+      border-color: var(--border-dark);
+    }
+
+    .summary-right {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+      gap: 0.75rem;
+    }
+
+    .summary-right .meta {
+      color: var(--text-muted-light);
+      font-size: 0.8rem;
+      font-weight: 400;
+      transition: color 0.2s ease;
+    }
+
+    summary:hover .meta {
+      color: var(--text-secondary);
+    }
+
+    .chevron {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.04);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      transition: all 0.4s var(--transition-ios);
+      flex-shrink: 0;
+      color: var(--text-muted-light);
+    }
+
+    .chevron svg {
+      transition: transform 0.4s var(--transition-ios);
+    }
+
+    details[open] .chevron svg {
+      transform: rotate(180deg);
+    }
+
+    summary:hover .chevron {
+      background: rgba(0, 0, 0, 0.08);
+      border-color: rgba(0, 0, 0, 0.1);
+      color: var(--text-primary);
+    }
+
+    details[open] .chevron {
+      background: rgba(0, 0, 0, 0.07);
+      border-color: rgba(0, 0, 0, 0.09);
+      color: var(--text-primary);
+    }
+
+    .work-item .description {
+      padding: 0 1.25rem 0.5rem;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      line-height: 1.6;
+      max-width: 700px;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      animation: contentReveal 0.4s var(--transition-ios);
+    }
+
+    .work-item .description p {
+      margin-bottom: 0.5rem;
+    }
+
+    .work-item .deployment {
+      padding: 0.25rem 1.25rem 1.25rem;
+      font-size: 0.65rem;
+      color: var(--text-muted-lighter);
+      letter-spacing: 0.02em;
+      font-weight: 400;
+      animation: contentReveal 0.45s var(--transition-ios);
+    }
+
+    .work-item .deployment::before {
+      content: "→ ";
+    }
+
+    .stack-line {
+      margin: 0.25rem 0 0.5rem;
+      font-size: 0.65rem;
+      color: var(--text-muted-lighter);
+      letter-spacing: 0.03em;
+      font-weight: 400;
+    }
+
+    .stack-line span {
+      color: var(--text-muted);
+    }
+
+    /* ============================================================
+       CASE STUDY
+       ============================================================ */
+    .case-study {
+      margin-top: 0.75rem;
+      border-top: 1px solid var(--border-light);
+      padding-top: 0.75rem;
+      transition: border-color 0.3s ease;
+    }
+
+    .case-study summary {
+      padding: 0.5rem 0.25rem 0.3rem;
+      margin: 0 -0.25rem;
+      cursor: pointer;
+      list-style: none;
+      font-size: 0.75rem;
+      color: var(--text-muted-light);
+      font-weight: 400;
+      background: transparent;
+      border-bottom: 1px solid transparent;
+      transition: all 0.25s var(--transition-ios);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      width: auto;
+      border-radius: 0;
+      touch-action: manipulation;
+    }
+
+    .case-study summary:active {
+      transform: scale(0.98);
+    }
+
+    .case-study summary:hover {
+      color: var(--text-primary);
+      border-bottom-color: var(--text-primary);
+      background: transparent;
+    }
+
+    .case-study summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .case-study .case-content {
+      padding: 0.75rem 0.25rem 0.25rem;
+      font-size: 0.8rem;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      max-width: 700px;
+      font-weight: 400;
+      animation: contentReveal 0.35s var(--transition-ios);
+    }
+
+    .case-study .case-content strong {
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    .case-study .case-content .case-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--border-light);
+      font-size: 0.7rem;
+      color: var(--text-muted-light);
+    }
+
+    .case-study .case-content .case-meta span {
+      display: block;
+      cursor: default;
+      transition: color 0.2s ease;
+      padding: 0.1rem 0;
+      border-bottom: 1px dotted transparent;
+    }
+
+    .case-study .case-content .case-meta span:hover {
+      color: var(--text-primary);
+      border-bottom-color: var(--text-muted-light);
+    }
+
+    .case-study .case-content .case-meta .label {
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-size: 0.55rem;
+      color: var(--text-muted);
+    }
+
+    .case-study .case-content .case-meta span:hover .label {
+      color: var(--text-secondary);
+    }
+
+    .case-study .case-content .read-time {
+      margin-top: 0.75rem;
+      font-size: 0.65rem;
+      color: var(--text-muted-lighter);
+      letter-spacing: 0.03em;
+    }
+
+    .case-study .case-content .read-time::before {
+      content: "⏱ ";
+    }
+
+    .case-study .case-content .section-block {
+      margin: 0.75rem 0;
+    }
+
+    .case-study .case-content .section-block h4 {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 0.2rem;
+      letter-spacing: -0.01em;
+    }
+
+    .case-study .case-content .section-block p {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    .case-study .case-content .section-block ul {
+      list-style: none;
+      padding: 0;
+      margin: 0.25rem 0 0.5rem;
+    }
+
+    .case-study .case-content .section-block ul li {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      padding: 0.15rem 0 0.15rem 1.2rem;
+      position: relative;
+      line-height: 1.6;
+    }
+
+    .case-study .case-content .section-block ul li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--text-muted-light);
+    }
+
+    /* ============================================================
+       KEY METRICS
+       ============================================================ */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+      margin: 1rem 0 1.25rem;
+      padding: 0.75rem 0.5rem;
+      background: rgba(0, 0, 0, 0.015);
+      border-radius: var(--radius-card);
+      border: 1px solid var(--border-light);
+    }
+
+    .metric-item {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 0.15rem 0.25rem;
+      min-height: 44px;
+    }
+
+    .metric-item .metric-label {
+      font-size: 0.55rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-muted-lighter);
+      font-weight: 400;
+      margin-bottom: 0.1rem;
+    }
+
+    .metric-item .metric-value {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 0.15rem;
+      flex-wrap: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+    }
+
+    .metric-item .metric-value .before {
+      color: var(--text-muted-light);
+      font-weight: 400;
+    }
+
+    .metric-item .metric-value .arrow {
+      color: var(--text-muted-lighter);
+      font-weight: 300;
+      margin: 0 0.1rem;
+      flex-shrink: 0;
+    }
+
+    .metric-item .metric-value .after {
+      color: var(--text-primary);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .metric-item .metric-value .badge {
+      display: inline-block;
+      font-size: 0.5rem;
+      font-weight: 500;
+      color: #3a7a5a;
+      background: rgba(58, 158, 107, 0.12);
+      padding: 0.05rem 0.35rem;
+      border-radius: 12px;
+      margin-left: 0.2rem;
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .metric-item .metric-value .badge.accent {
+      color: #6a4a7a;
+      background: rgba(106, 74, 122, 0.1);
+    }
+
+    .metric-item .metric-value .badge.warm {
+      color: #8a6a4a;
+      background: rgba(176, 122, 90, 0.1);
+    }
+
+    /* ============================================================
+       CLIENTS / INDUSTRIES
+       ============================================================ */
+    .clients-section {
+      margin: 2rem 0 2.5rem;
+      padding: 2rem 0;
+      border-top: 1px solid var(--border-light);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .clients-section .clients-label {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted-lighter);
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .clients-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem 1.5rem;
+    }
+
+    .clients-list span {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      font-weight: 400;
+    }
+
+    /* ============================================================
+       NOW SECTION
+       ============================================================ */
+    .now-section {
+      padding: 1.5rem 1.25rem;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-card);
+      margin-bottom: 2rem;
+      background: rgba(244, 242, 237, 0.4);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      transition: all 0.3s var(--transition-ios);
+    }
+
+    .now-section:hover {
+      border-color: var(--border-dark);
+      box-shadow: 0 4px 16px var(--shadow-ios);
+    }
+
+    .now-section .label {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted-lighter);
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .now-section p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      max-width: 680px;
+      font-weight: 400;
+      margin-bottom: 0.5rem;
+    }
+
+    .now-section p strong {
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    .now-section .now-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .now-section .now-tags span {
+      font-size: 0.7rem;
+      color: var(--text-muted-light);
+      background: var(--bg-metrics);
+      padding: 0.1rem 0.6rem;
+      border-radius: 20px;
+      border: 1px solid var(--border-light);
+    }
+
+    /* ============================================================
+       LIVE FEED OF DEVELOPMENT
+       ============================================================ */
+    .live-feed-section {
+      margin: 2rem 0 2.5rem;
+      padding: 2rem 0;
+      border-top: 1px solid var(--border-light);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .live-feed-section .live-feed-label {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted-lighter);
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+
+    .live-feed-box {
+      background: rgba(0, 0, 0, 0.015);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-card);
+      padding: 0.75rem;
+      overflow: hidden;
+      position: relative;
+      height: 320px;
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      transition: border-color 0.3s ease;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3);
+    }
+
+    .live-feed-box:hover {
+      border-color: var(--border-dark);
+    }
+
+    .live-feed-box canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border-radius: calc(var(--radius-card) - 2px);
+    }
+
+    /* Legend */
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem 1.5rem;
+      margin-top: 1rem;
+      padding: 0.25rem 0.25rem;
+      justify-content: center;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.65rem;
+      color: var(--text-muted-light);
+      font-weight: 400;
+      letter-spacing: 0.02em;
+    }
+
+    .legend-item .dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ============================================================
+       CONTACT
+       ============================================================ */
+    .contact-static .contact-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2.5rem;
+    }
+
+    .contact-static .contact-list a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      border-bottom: 1px solid transparent;
+      transition: all 0.2s var(--transition-ios);
+      font-weight: 400;
+      padding: 0.1rem 0;
+    }
+
+    .contact-static .contact-list a:hover {
+      color: var(--text-primary);
+      border-bottom-color: var(--text-primary);
+      transform: translateX(2px);
+    }
+
+    .contact-static .availability {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      color: var(--text-muted-lighter);
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      margin-top: 0.75rem;
+    }
+
+    .contact-static .availability .dot {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background: #3a9e6b;
+      border-radius: 50%;
+      flex-shrink: 0;
+      animation: pulse-dot 2.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    /* ----- FOOTER ----- */
+    footer {
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-light);
+      text-align: center;
+      font-size: 0.7rem;
+      color: var(--text-muted-lighter);
+      letter-spacing: 0.05em;
+      text-transform: lowercase;
+      font-weight: 400;
+    }
+
+    /* ============================================================
+       MODAL (iOS-style)
+       ============================================================ */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--modal-overlay);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      z-index: 10000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .modal {
+      background: rgba(244, 242, 237, 0.96);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(212, 210, 204, 0.6);
+      border-radius: var(--radius-ios);
+      padding: 2.5rem 2.5rem 2rem;
+      max-width: 380px;
+      width: 100%;
+      box-shadow: 0 20px 60px var(--shadow-ios), 0 8px 24px rgba(0,0,0,0.04);
+      transform: scale(0.94) translateY(12px);
+      transition: transform 0.4s var(--transition-ios);
+      position: relative;
+    }
+
+    .modal-overlay.active .modal {
+      transform: scale(1) translateY(0);
+    }
+
+    .modal .close-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1.25rem;
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s var(--transition-ios);
+      font-family: 'Inter', sans-serif;
+      line-height: 1;
+      padding: 0.25rem;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal .close-btn:hover {
+      color: var(--text-primary);
+      background: rgba(0,0,0,0.04);
+      transform: scale(1.05);
+    }
+
+    .modal .close-btn:active {
+      transform: scale(0.92);
+    }
+
+    .modal h2 {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.01em;
+    }
+
+    .modal .modal-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .modal .modal-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      padding: 0.6rem 0.5rem;
+      border-radius: var(--radius-card);
+      transition: all 0.2s var(--transition-ios);
+      font-weight: 400;
+      margin: 0 -0.5rem;
+    }
+
+    .modal .modal-links a:hover {
+      color: var(--text-primary);
+      background: rgba(0,0,0,0.03);
+      transform: translateX(4px);
+    }
+
+    .modal .modal-availability {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-light);
+      font-size: 0.75rem;
+      color: var(--text-muted-lighter);
+    }
+
+    .modal .modal-availability .dot {
+      display: inline-block;
+      width: 5px;
+      height: 5px;
+      background: #3a9e6b;
+      border-radius: 50%;
+      flex-shrink: 0;
+      animation: pulse-dot 2.5s ease-in-out infinite;
+    }
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (max-width: 600px) {
+      body {
+        padding: 0.75rem;
+      }
+
+      .container {
+        padding: 1.5rem 1rem 1.25rem;
+        border-radius: var(--radius-card);
+      }
+
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+        border-bottom: none;
+        padding-bottom: 0;
+        margin-bottom: 2rem;
+      }
+
+      .nav-right {
+        width: 100%;
+        justify-content: flex-end;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid var(--border-light);
+      }
+
+      .hero {
+        margin-bottom: 1.5rem;
+      }
+
+      .methodology p {
+        font-size: 0.85rem;
+      }
+
+      .process-grid {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+      }
+      .process-step {
+        padding-left: 0.5rem;
+      }
+      .process-step p {
+        max-width: 100%;
+      }
+
+      .trust-metrics {
+        gap: 1rem 1.5rem;
+        margin: 1rem 0 1.5rem;
+        padding-top: 1rem;
+      }
+      .trust-metrics .item {
+        font-size: 0.7rem;
+      }
+      .trust-metrics .item .number {
+        font-size: 0.95rem;
+      }
+
+      summary {
+        padding: 1rem 0.75rem;
+      }
+      .summary-left .name {
+        font-size: 0.9rem;
+      }
+      .metrics {
+        font-size: 0.5rem;
+        padding: 0.1rem 0.4rem;
+      }
+      .chevron {
+        width: 30px;
+        height: 30px;
+      }
+
+      .work-item .description {
+        padding: 0 0.75rem 0.5rem;
+        font-size: 0.8rem;
+        max-width: 100%;
+      }
+      .work-item .deployment {
+        padding: 0.25rem 0.75rem 1rem;
+        font-size: 0.6rem;
+      }
+
+      .case-study .case-content {
+        font-size: 0.75rem;
+      }
+      .case-study .case-content .case-meta {
+        gap: 1rem;
+        flex-direction: column;
+      }
+
+      .metrics-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+        padding: 0.5rem;
+      }
+      .metric-item .metric-value {
+        font-size: 0.7rem;
+        white-space: normal;
+        flex-wrap: wrap;
+      }
+      .metric-item .metric-value .badge {
+        font-size: 0.45rem;
+      }
+
+      .clients-list {
+        gap: 0.5rem 1rem;
+      }
+      .clients-list span {
+        font-size: 0.8rem;
+      }
+
+      .now-section p {
+        font-size: 0.85rem;
+      }
+
+      .live-feed-box {
+        height: 220px;
+        padding: 0.5rem;
+      }
+
+      .legend {
+        gap: 0.4rem 1rem;
+      }
+      .legend-item {
+        font-size: 0.55rem;
+      }
+      .legend-item .dot {
+        width: 6px;
+        height: 6px;
+      }
+
+      .contact-static .contact-list {
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .modal {
+        margin: 1.5rem;
+        padding: 2rem 1.5rem 1.5rem;
+      }
+      .modal .close-btn {
+        top: 0.75rem;
+        right: 1rem;
+        font-size: 1rem;
+        width: 28px;
+        height: 28px;
+      }
+    }
+
+    /* ============================================================
+       PRINT
+       ============================================================ */
+    @media print {
+      body {
+        background: #fff !important;
+        padding: 0.5in !important;
+      }
+      body::before { display: none !important; }
+
+      .container {
+        background: #fff !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        animation: none !important;
+        backdrop-filter: none !important;
+      }
+
+      nav {
+        border-bottom: 1px solid #ccc !important;
+        margin-bottom: 2rem !important;
+      }
+
+      .contact-btn, .modal-overlay { display: none !important; }
+
+      .brand { color: #000 !important; }
+      .hero h1 { color: #000 !important; }
+      .hero .title { color: #333 !important; }
+      .methodology p { color: #333 !important; }
+
+      .process-step {
+        border-left-color: #ddd !important;
+      }
+      .process-step h4 { color: #000 !important; }
+      .process-step p { color: #555 !important; }
+
+      .section-label { color: #666 !important; }
+
+      details.work-item {
+        border-color: #ddd !important;
+        background: #fafafa !important;
+        backdrop-filter: none !important;
+      }
+
+      .work-item .description { color: #333 !important; }
+      .case-study .case-content { color: #333 !important; }
+      .case-study .case-content strong { color: #000 !important; }
+      .case-study .case-content .case-meta { color: #555 !important; border-top-color: #ddd !important; }
+      .case-study .case-content .case-meta .label { color: #777 !important; }
+
+      .metrics-grid {
+        border-color: #ddd !important;
+        background: #fafafa !important;
+      }
+      .metric-item .metric-label { color: #777 !important; }
+      .metric-item .metric-value { color: #000 !important; }
+      .metric-item .metric-value .before { color: #555 !important; }
+      .metric-item .metric-value .arrow { color: #999 !important; }
+      .metric-item .metric-value .badge { color: #3a7a5a !important; background: #eee !important; }
+      .metric-item .metric-value .badge.accent { color: #6a4a7a !important; }
+      .metric-item .metric-value .badge.warm { color: #8a6a4a !important; }
+
+      .clients-section {
+        border-color: #ddd !important;
+      }
+      .clients-section .clients-label { color: #777 !important; }
+      .clients-list span { color: #333 !important; }
+
+      .now-section {
+        border-color: #ddd !important;
+        background: #fafafa !important;
+        backdrop-filter: none !important;
+      }
+      .now-section p { color: #333 !important; }
+      .now-section .now-tags span { background: #eee !important; border-color: #ccc !important; color: #333 !important; }
+
+      .live-feed-section {
+        border-color: #ddd !important;
+      }
+      .live-feed-section .live-feed-label { color: #777 !important; }
+      .live-feed-box {
+        border-color: #ddd !important;
+        background: #fafafa !important;
+        height: 200px !important;
+      }
+      .live-feed-box canvas { display: none !important; }
+      .legend { display: none !important; }
+
+      .contact-static .contact-list a { color: #333 !important; }
+      .contact-static .availability { color: #555 !important; }
+      footer { color: #999 !important; border-top-color: #ddd !important; }
+
+      body::before { display: none !important; }
+      * { color-adjust: exact !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+      .metrics { background: #eee !important; border-color: #ccc !important; color: #333 !important; }
+      .contact-static .availability .dot { background: #3a9e6b !important; }
+      .trust-metrics { border-top-color: #ddd !important; }
+      .stack-line { color: #555 !important; }
+      .stack-line span { color: #333 !important; }
+      .case-study .case-content .read-time { color: #777 !important; }
+    }
+  </style>
+
+
+
+  <div class="container">
+
+    <!-- NAV -->
+    <nav>
+      <div class="brand">house</div>
+      <div class="nav-right">
+        <button class="contact-btn" id="contactNavBtn">Contact</button>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <div class="hero">
+      <h1>Isaac Jacob Dajay</h1>
+      <div class="title">Production Systems Architect / Protocol Designer</div>
+    </div>
+
+    <!-- METHODOLOGY -->
+    <div class="methodology fade-item">
+      <div class="label">Methodology</div>
+      <p>
+        I design production-grade AI systems through <strong>protocol architecture</strong> —
+        defining the rules that govern execution, isolate job data, and preserve fidelity.
+        Every machine I build is project-agnostic, contamination-free, and built to ship.
+        The philosophy is simple: <strong>protocol persists. job data dies.</strong>
+      </p>
+    </div>
+
+    <!-- PROCESS -->
+    <div class="process fade-item">
+      <div class="process-label">How I work</div>
+      <div class="process-grid">
+        <div class="process-step fade-item delay-1">
+          <span class="step-number">01</span>
+          <h4>Diagnose</h4>
+          <p>Understand the production environment, identify failure classes, and classify resource authority.</p>
+        </div>
+        <div class="process-step fade-item delay-2">
+          <span class="step-number">02</span>
+          <h4>Architect</h4>
+          <p>Design system architecture with protocol separation, isolation layers, and fidelity controls.</p>
+        </div>
+        <div class="process-step fade-item delay-3">
+          <span class="step-number">03</span>
+          <h4>Compile</h4>
+          <p>Build executable master prompts, lock output modes, and enforce resource authority.</p>
+        </div>
+        <div class="process-step fade-item delay-4">
+          <span class="step-number">04</span>
+          <h4>Deploy</h4>
+          <p>Ship to production, monitor outcomes, iterate, and refine the protocol.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- TRUST METRICS -->
+    <div class="trust-metrics">
+      <div class="item fade-item delay-1"><span class="number">4</span> deployments</div>
+      <div class="item fade-item delay-2"><span class="number">3</span> client projects</div>
+      <div class="item fade-item delay-3"><span class="number">60%</span> avg. QA reduction</div>
+    </div>
+
+    <!-- WORK -->
+    <section id="work">
+      <div class="section-label">Selected work</div>
+      <div class="work-list">
+
+        <!-- BUILDER SYSTEMS -->
+        <details class="work-item fade-item delay-1">
+          <summary>
+            <span class="summary-left">
+              <span class="name">BUILDER SYSTEMS</span>
+              <span class="metrics">runtime · 4 deployments</span>
+            </span>
+            <span class="summary-right">
+              <span class="meta">v6.5</span>
+              <span class="chevron">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </span>
+            </span>
+          </summary>
+          <div class="description">
+            <p>Portable runtime policy that governs AI execution across fresh environments. Enforces outcome-driven behavior, evidence-based validation, and strict isolation — preventing cross-job contamination without ceremony.</p>
+            <div class="stack-line"><span>Stack:</span> BUILDER SYSTEMS runtime</div>
+
+            <details class="case-study">
+              <summary>
+                <span>View case study →</span>
+              </summary>
+              <div class="case-content">
+                <div class="section-block">
+                  <h4>Problem</h4>
+                  <p>A design agency managing 5+ simultaneous brand campaigns faced persistent AI output contamination — assets from Brand A regularly appearing in Brand B's deliverables. Manual QA consumed 20+ hours per week with no reliable solution.</p>
+                </div>
+                <div class="section-block">
+                  <h4>Solution Architecture</h4>
+                  <p>Deployed BUILDER SYSTEMS as the governing runtime policy for all AI executions. Enforced strict Current Job isolation, evidence-gated execution, and zero cross-job memory. Each campaign was treated as a closed production package with independent resource authority.</p>
+                </div>
+                <div class="metrics-grid">
+                  <div class="metric-item">
+                    <span class="metric-label">QA Hours/Week</span>
+                    <span class="metric-value">
+                      <span class="before">20+ hrs</span>
+                      <span class="arrow">→</span>
+                      <span class="after">8 hrs</span>
+                      <span class="badge">−60%</span>
+                    </span>
+                  </div>
+                  <div class="metric-item">
+                    <span class="metric-label">Cross‑contamination</span>
+                    <span class="metric-value">
+                      <span class="before">frequent</span>
+                      <span class="arrow">→</span>
+                      <span class="after">zero</span>
+                      <span class="badge accent">40+ jobs</span>
+                    </span>
+                  </div>
+                  <div class="metric-item">
+                    <span class="metric-label">Manual QA</span>
+                    <span class="metric-value">
+                      <span class="before">unreliable</span>
+                      <span class="arrow">→</span>
+                      <span class="after">protocol</span>
+                      <span class="badge warm">shipped</span>
+                    </span>
+                  </div>
+                </div>
+                <div class="section-block">
+                  <h4>Results</h4>
+                  <ul>
+                    <li><strong>Zero cross-contamination</strong> across 40+ jobs</li>
+                    <li><strong>60% reduction</strong> in manual QA time</li>
+                    <li>Protocol-level protections now ship with every new client engagement</li>
+                  </ul>
+                </div>
+                <div class="case-meta">
+                  <span title="Industry: Design"><span class="label">Client</span> Design Agency (confidential)</span>
+                  <span title="Project timeline"><span class="label">Duration</span> 3 months</span>
+                  <span title="Measurable outcome"><span class="label">Impact</span> 60% QA reduction</span>
+                </div>
+                <div class="read-time">3 min read</div>
+              </div>
+            </details>
+          </div>
+          <div class="deployment">Deployed across 4 client production environments</div>
+        </details>
+
+        <!-- SYSTEMS ARCHITECTURE -->
+        <details class="work-item fade-item delay-2">
+          <summary>
+            <span class="summary-left">
+              <span class="name">SYSTEMS ARCHITECTURE</span>
+              <span class="metrics">architecture · 3 projects</span>
+            </span>
+            <span class="summary-right">
+              <span class="meta">canonical</span>
+              <span class="chevron">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </span>
+            </span>
+          </summary>
+          <div class="description">
+            <p>Diagnoses production environments and designs the architecture required for controlled generative output. Separates permanent protocol from temporary job data — ensuring each execution is clean and repeatable.</p>
+            <div class="stack-line"><span>Stack:</span> SYSTEMS ARCHITECTURE methodology</div>
+
+            <details class="case-study">
+              <summary>
+                <span>View case study →</span>
+              </summary>
+              <div class="case-content">
+                <div class="section-block">
+                  <h4>Problem</h4>
+                  <p>An e-commerce company's generative copywriting system kept hallucinating product specs and mixing inventory data across regional catalogs. The root cause: the production architecture had no separation between protocol and job data.</p>
+                </div>
+                <div class="section-block">
+                  <h4>Solution Architecture</h4>
+                  <p>Applied SYSTEMS ARCHITECTURE to diagnose the failure class — protocol vs. job data conflict. Redesigned the production ecosystem with explicit separation layers, resource authority classification, and fidelity-protected source assets.</p>
+                </div>
+                <div class="metrics-grid">
+                  <div class="metric-item">
+                    <span class="metric-label">Hallucination Rate</span>
+                    <span class="metric-value">
+                      <span class="before">12%</span>
+                      <span class="arrow">→</span>
+                      <span class="after">&lt; 2%</span>
+                      <span class="badge">−83%</span>
+                    </span>
+                  </div>
+                  <div class="metric-item">
+                    <span class="metric-label">Product Lines</span>
+                    <span class="metric-value">
+                      <span class="before">1</span>
+                      <span class="arrow">→</span>
+                      <span class="after">3</span>
+                      <span class="badge accent">supported</span>
+                    </span>
+                  </div>
+                  <div class="metric-item">
+                    <span class="metric-label">Architecture</span>
+                    <span class="metric-value">
+                      <span class="before">ad‑hoc</span>
+                      <span class="arrow">→</span>
+                      <span class="after">reusable</span>
+                      <span class="badge warm">pattern</span>
+                    </span>
+                  </div>
+                </div>
+                <div class="section-block">
+                  <h4>Results</h4>
+                  <ul>
+                    <li>Architecture now supports <strong>3 distinct product lines</strong></li>
+                    <li>Hallucination rate dropped <strong>below 2%</strong></li>
+                    <li>Reusable architecture pattern now deployed across future client projects</li>
+                  </ul>
+                </div>
+                <div class="case-meta">
+                  <span title="Industry: E-commerce"><span class="label">Client</span> E-commerce Platform (confidential)</span>
+                  <span title="Project timeline"><span class="label">Duration</span> 2 months</span>
+                  <span title="Measurable outcome"><span class="label">Impact</span> Hallucination rate &lt; 2%</span>
+                </div>
+                <div class="read-time">4 min read</div>
+              </div>
+            </details>
+          </div>
+          <div class="deployment">Active across multiple project implementations</div>
+        </details>
+
+        <!-- PROTOCOL COMPILER -->
+        <details class="work-item fade-item delay-3">
+          <summary>
+            <span class="summary-left">
+              <span class="name">PROTOCOL COMPILER</span>
+              <span class="metrics">compiler · 2 deployments</span>
+            </span>
+            <span class="summary-right">
+              <span class="meta">v1.0</span>
+              <span class="chevron">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </span>
+            </span>
+          </summary>
+          <div class="description">
+            <p>Translates architectural specifications into directly executable, fidelity-locked master prompts. Locks output modes, enforces resource authority, and prevents unsupported assumptions — built for production deployment.</p>
+            <div class="stack-line"><span>Stack:</span> PROTOCOL COMPILER · prompt engineering</div>
+
+            <details class="case-study">
+              <summary>
+                <span>View case study →</span>
+              </summary>
+              <div class="case-content">
+                <div class="section-block">
+                  <h4>Problem</h4>
+                  <p>A video production team needed to generate AI motion prompts consistently for client ad campaigns. The existing system suffered from mode drift — the graphic office would rewrite copy, and the copy office would generate prompts. Consistency was non-existent.</p>
+                </div>
+                <div class="section-block">
+                  <h4>Solution Architecture</h4>
+                  <p>Implemented the PROTOCOL COMPILER to lock output modes and compile strict master prompts from architectural handoffs. Each office was rebuilt with a single dominant production purpose and enforced output-mode locks.</p>
+                </div>
+                <div class="metrics-grid">
+                  <div class="metric-item">
+                    <span class="metric-label">Revision Cycle</span>
+                    <span class="metric-value">
+                      <span class="before">2 hrs</span>
+                      <span class="arrow">→</span>
+                      <span class="after">15 min</span>
+                      <span class="badge">−87.5%</span>
+                    </span>
+                  </div>
+                  <div class="metric-item">
+                    <span class="metric-label">Mode Compliance</span>
+                    <span class="metric-value">
+                      <span class="before">inconsistent</span>
+                      <span class="arrow">→</span>
+                      <span class="after">100%</span>
+                      <span class="badge accent">locked</span>
+                    </span>
+                  </div>
+                  <div class="metric-item">
+                    <span class="metric-label">Deployments</span>
+                    <span class="metric-value">
+                      <span class="before">1</span>
+                      <span class="arrow">→</span>
+                      <span class="after">2</span>
+                      <span class="badge warm">active</span>
+                    </span>
+                  </div>
+                </div>
+                <div class="section-block">
+                  <h4>Results</h4>
+                  <ul>
+                    <li><strong>100% output-mode compliance</strong> across 2 deployments</li>
+                    <li>Prompt revision cycle reduced from <strong>2 hours to 15 minutes</strong></li>
+                    <li>Compiler now serves as the standard entry point for all new client production workflows</li>
+                  </ul>
+                </div>
+                <div class="case-meta">
+                  <span title="Industry: Video Production"><span class="label">Client</span> Video Production Studio (confidential)</span>
+                  <span title="Project timeline"><span class="label">Duration</span> 1.5 months</span>
+                  <span title="Measurable outcome"><span class="label">Impact</span> 100% mode compliance</span>
+                </div>
+                <div class="read-time">3 min read</div>
+              </div>
+            </details>
+          </div>
+          <div class="deployment">In active use for client production workflows</div>
+        </details>
+
+      </div>
+    </section>
+
+    <!-- CLIENTS / INDUSTRIES -->
+    <div class="clients-section fade-item">
+      <div class="clients-label">Previously</div>
+      <div class="clients-list">
+        <span>Backend Systems</span>
+        <span>Production Optimization</span>
+        <span>AI Infrastructure</span>
+      </div>
+    </div>
+
+    <!-- NOW -->
+    <div class="now-section fade-item">
+      <div class="label">Now</div>
+      <p>
+        <strong>BUILDER SYSTEMS v7.0</strong> — refining runtime policy with tighter
+        job isolation and faster architectural handoffs.
+      </p>
+      <p>
+        <strong>Protocol Compiler v2.0</strong> — designing multi-agent orchestration
+        that translates architectural specifications into executable workflows across
+        distributed production offices.
+      </p>
+      <p>
+        <strong>Systems Architecture Framework</strong> — formalizing the methodology
+        into a reusable, open specification for controlled AI production.
+      </p>
+      <div class="now-tags">
+        <span>BUILDER SYSTEMS v7.0</span>
+        <span>Protocol Compiler v2.0</span>
+        <span>Systems Architecture</span>
+      </div>
+    </div>
+
+    <!-- LIVE FEED OF DEVELOPMENT -->
+    <div class="live-feed-section fade-item">
+      <div class="live-feed-label">— Live feed of development —</div>
+      <div class="live-feed-box">
+        <canvas id="liveFeedCanvas"></canvas>
+      </div>
+      <!-- Legend -->
+      <div class="legend">
+        <span class="legend-item"><span class="dot" style="background:#3b82f6;"></span> Protocol</span>
+        <span class="legend-item"><span class="dot" style="background:#10b981;"></span> Job</span>
+        <span class="legend-item"><span class="dot" style="background:#f59e0b;"></span> Data</span>
+        <span class="legend-item"><span class="dot" style="background:#ef4444;"></span> Output</span>
+        <span class="legend-item"><span class="dot" style="background:#8b5cf6;"></span> Architecture</span>
+        <span class="legend-item"><span class="dot" style="background:#f97316;"></span> Fidelity</span>
+        <span class="legend-item"><span class="dot" style="background:#6b7280;"></span> Runtime</span>
+        <span class="legend-item"><span class="dot" style="background:#a78b6b;"></span> Compiler</span>
+      </div>
+    </div>
+
+    <!-- CONTACT -->
+    <section id="contact" class="contact-static">
+      <div class="section-label">Connect</div>
+      <div class="contact-list">
+        <a href="https://discord.com/users/house666420" target="_blank" rel="noopener noreferrer">Discord</a>
+        <a href="https://github.com/housesystems" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </div>
+      <div class="availability">
+        <span class="dot"></span> Available for engagements
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      house · 2026
+    </footer>
+
+  </div>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="contactModal">
+    <div class="modal">
+      <button class="close-btn" id="modalCloseBtn">✕</button>
+      <h2>Contact</h2>
+      <div class="modal-links">
+        <a href="https://discord.com/users/house666420" target="_blank" rel="noopener noreferrer">Discord</a>
+        <a href="https://github.com/housesystems" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </div>
+      <div class="modal-availability">
+        <span class="dot"></span> Available for engagements
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      // Modal
+      const modalOverlay = document.getElementById('contactModal');
+      const contactBtn = document.getElementById('contactNavBtn');
+      const closeBtn = document.getElementById('modalCloseBtn');
+
+      function openModal() {
+        modalOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeModal() {
+        modalOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      contactBtn.addEventListener('click', openModal);
+      closeBtn.addEventListener('click', closeModal);
+
+      modalOverlay.addEventListener('click', function(e) {
+        if (e.target === modalOverlay) {
+          closeModal();
+        }
+      });
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
+          closeModal();
+        }
+      });
+
+      // Intersection Observer for scroll animations
+      const fadeItems = document.querySelectorAll('.fade-item');
+
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.style.opacity = '1';
+              entry.target.style.animationPlayState = 'running';
+            }
+          });
+        }, {
+          threshold: 0.08,
+          rootMargin: '0px 0px -20px 0px'
+        });
+
+        fadeItems.forEach(item => {
+          item.style.animationPlayState = 'paused';
+          observer.observe(item);
+        });
+      } else {
+        fadeItems.forEach(item => {
+          item.style.opacity = '1';
+          item.style.animation = 'none';
+        });
+      }
+
+      // iOS-style haptic feedback on summary click
+      document.querySelectorAll('summary, .contact-btn, .close-btn, .modal-links a').forEach(el => {
+        el.addEventListener('click', function() {
+          const target = this;
+          target.style.transition = 'transform 0.08s ease';
+          target.style.transform = 'scale(0.97)';
+          setTimeout(() => {
+            target.style.transform = 'scale(1)';
+          }, 100);
+        });
+      });
+
+      // ----- Live Feed of Development (Canvas) with fixed colors -----
+      const canvas = document.getElementById('liveFeedCanvas');
+      const container = canvas.parentElement;
+
+      function resizeCanvas() {
+        const rect = container.getBoundingClientRect();
+        canvas.width = rect.width - 2;
+        canvas.height = rect.height - 2;
+      }
+
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+
+      const ctx = canvas.getContext('2d');
+      const width = canvas.width;
+      const height = canvas.height;
+
+      const NODE_COUNT = 20;
+
+      // Fixed color mapping for core concepts
+      const colorMap = {
+        protocol: '#3b82f6',
+        job: '#10b981',
+        data: '#f59e0b',
+        output: '#ef4444',
+        architecture: '#8b5cf6',
+        fidelity: '#f97316',
+        runtime: '#6b7280',
+        compiler: '#a78b6b',
+      };
+
+      const coreColors = Object.values(colorMap);
+      // Darker, more saturated neutral colors
+      const neutralColors = [
+        '#8a8078', '#7a7268', '#6a6a60', '#5a7a5a',
+        '#7a6a5a', '#8a7a6a', '#807870', '#5a5a50'
+      ];
+
+      function getRandomCoreColor() {
+        return coreColors[Math.floor(Math.random() * coreColors.length)];
+      }
+
+      function getRandomColor() {
+        // 60% chance core, 40% chance neutral
+        if (Math.random() < 0.6) {
+          return getRandomCoreColor();
+        } else {
+          return neutralColors[Math.floor(Math.random() * neutralColors.length)];
+        }
+      }
+
+      let nodes = [];
+
+      function initNodes() {
+        nodes = [];
+        for (let i = 0; i < NODE_COUNT; i++) {
+          nodes.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            vx: (Math.random() - 0.5) * 0.4,
+            vy: (Math.random() - 0.5) * 0.4,
+            radius: 4 + Math.random() * 5,
+            color: getRandomColor(),
+            pulseSpeed: 0.005 + Math.random() * 0.015,
+            phase: Math.random() * Math.PI * 2,
+          });
+        }
+      }
+      initNodes();
+
+      let threshold = 180;
+      let thresholdDir = 0.3;
+
+      function animate() {
+        const w = canvas.width;
+        const h = canvas.height;
+
+        ctx.clearRect(0, 0, w, h);
+
+        threshold += thresholdDir;
+        if (threshold > 240 || threshold < 140) {
+          thresholdDir *= -1;
+        }
+
+        for (let node of nodes) {
+          node.x += node.vx;
+          node.y += node.vy;
+          node.phase += node.pulseSpeed;
+
+          if (node.x < 0 || node.x > w) node.vx *= -1;
+          if (node.y < 0 || node.y > h) node.vy *= -1;
+
+          node.x = Math.max(0, Math.min(w, node.x));
+          node.y = Math.max(0, Math.min(h, node.y));
+        }
+
+        // Draw edges — more visible
+        ctx.lineWidth = 1.2;
+        for (let i = 0; i < nodes.length; i++) {
+          for (let j = i + 1; j < nodes.length; j++) {
+            const dx = nodes[i].x - nodes[j].x;
+            const dy = nodes[i].y - nodes[j].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < threshold) {
+              const alpha = 1 - (dist / threshold);
+              ctx.strokeStyle = `rgba(80, 80, 80, ${alpha * 0.7})`;
+              ctx.beginPath();
+              ctx.moveTo(nodes[i].x, nodes[i].y);
+              ctx.lineTo(nodes[j].x, nodes[j].y);
+              ctx.stroke();
+            }
+          }
+        }
+
+        // Draw nodes — more saturated and less transparent
+        for (let node of nodes) {
+          const pulse = 1 + 0.2 * Math.sin(node.phase);
+          const r = node.radius * pulse;
+          // Min alpha increased to 0.6, max 0.95
+          const alpha = 0.6 + 0.35 * Math.sin(node.phase * 0.8);
+          ctx.beginPath();
+          ctx.arc(node.x, node.y, r, 0, Math.PI * 2);
+          ctx.fillStyle = node.color;
+          ctx.globalAlpha = alpha;
+          ctx.fill();
+          ctx.globalAlpha = 1;
+
+          const grd = ctx.createRadialGradient(node.x, node.y, 0, node.x, node.y, r * 3);
+          grd.addColorStop(0, node.color);
+          grd.addColorStop(1, 'transparent');
+          ctx.fillStyle = grd;
+          ctx.globalAlpha = 0.15;
+          ctx.beginPath();
+          ctx.arc(node.x, node.y, r * 3, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.globalAlpha = 1;
+        }
+
+        requestAnimationFrame(animate);
+      }
+
+      function handleResize() {
+        resizeCanvas();
+        for (let node of nodes) {
+          node.x = Math.max(0, Math.min(canvas.width, node.x));
+          node.y = Math.max(0, Math.min(canvas.height, node.y));
+        }
+      }
+
+      window.addEventListener('resize', handleResize);
+
+      animate();
+    })();
+  </script>
+
+<script></script></body></html>
