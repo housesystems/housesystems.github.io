@@ -1,17 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" class=""><head><script>window.livecodes = window.livecodes || {};</script><title>housesystems</title><meta name="title" content="housesystems"><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"><style id="__livecodes_styles__"></style><script src="https://cdn.jsdelivr.net/npm/es-module-shims@1.10.0/dist/es-module-shims.js" async=""></script><script type="importmap">{
-  "imports": {}
-}</script></head><body>
-
-
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Isaac Jacob Dajay — house</title>
 
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='10' fill='%23f6f5f0'/%3E%3Ctext x='50' y='70' font-family='Inter, sans-serif' font-size='58' font-weight='600' text-anchor='middle' fill='%231a1a1a'%3Eh%3C/text%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='10' fill='%23f6f5f0'/%3E%3Ctext x='50' y='70' font-family='Inter, sans-serif' font-size='58' font-weight='600' text-anchor='middle' fill='%231a1a1a'%3Eh%3C/text%3E%3C/svg%3E" />
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
 
   <style>
     :root {
@@ -1350,9 +1346,9 @@
       .case-study .case-content .read-time { color: #777 !important; }
     }
   </style>
+</head>
 
-
-
+<body>
   <div class="container">
 
     <!-- NAV -->
@@ -1825,9 +1821,13 @@
         });
       });
 
-      // ----- Live Feed of Development (Canvas) with fixed colors -----
+      // ----- Live Feed of Development — mobile‑aware -----
       const canvas = document.getElementById('liveFeedCanvas');
       const container = canvas.parentElement;
+
+      function isMobile() {
+        return window.innerWidth < 600;
+      }
 
       function resizeCanvas() {
         const rect = container.getBoundingClientRect();
@@ -1839,54 +1839,48 @@
       window.addEventListener('resize', resizeCanvas);
 
       const ctx = canvas.getContext('2d');
-      const width = canvas.width;
-      const height = canvas.height;
+      let width = canvas.width;
+      let height = canvas.height;
 
-      const NODE_COUNT = 20;
-
-      // Fixed color mapping for core concepts
-      const colorMap = {
-        protocol: '#3b82f6',
-        job: '#10b981',
-        data: '#f59e0b',
-        output: '#ef4444',
-        architecture: '#8b5cf6',
-        fidelity: '#f97316',
-        runtime: '#6b7280',
-        compiler: '#a78b6b',
-      };
-
-      const coreColors = Object.values(colorMap);
-      // Darker, more saturated neutral colors
-      const neutralColors = [
-        '#8a8078', '#7a7268', '#6a6a60', '#5a7a5a',
-        '#7a6a5a', '#8a7a6a', '#807870', '#5a5a50'
-      ];
+      // Fixed color mapping
+      const coreColors = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#f97316', '#6b7280', '#a78b6b'];
+      const neutralColors = ['#8a8078', '#7a7268', '#6a6a60', '#5a7a5a', '#7a6a5a', '#8a7a6a', '#807870', '#5a5a50'];
 
       function getRandomCoreColor() {
         return coreColors[Math.floor(Math.random() * coreColors.length)];
       }
 
       function getRandomColor() {
-        // 60% chance core, 40% chance neutral
-        if (Math.random() < 0.6) {
-          return getRandomCoreColor();
-        } else {
-          return neutralColors[Math.floor(Math.random() * neutralColors.length)];
-        }
+        return Math.random() < 0.6 ? getRandomCoreColor() : neutralColors[Math.floor(Math.random() * neutralColors.length)];
+      }
+
+      // Node parameters — scale based on screen size
+      function getNodeCount() {
+        return isMobile() ? 12 : 20;
+      }
+
+      function getThreshold() {
+        return isMobile() ? 140 : 180;
+      }
+
+      function getRadius() {
+        return isMobile() ? 3 + Math.random() * 4 : 4 + Math.random() * 5;
       }
 
       let nodes = [];
+      let threshold = getThreshold();
+      let thresholdDir = 0.3;
 
       function initNodes() {
+        const count = getNodeCount();
         nodes = [];
-        for (let i = 0; i < NODE_COUNT; i++) {
+        for (let i = 0; i < count; i++) {
           nodes.push({
             x: Math.random() * width,
             y: Math.random() * height,
             vx: (Math.random() - 0.5) * 0.4,
             vy: (Math.random() - 0.5) * 0.4,
-            radius: 4 + Math.random() * 5,
+            radius: getRadius(),
             color: getRandomColor(),
             pulseSpeed: 0.005 + Math.random() * 0.015,
             phase: Math.random() * Math.PI * 2,
@@ -1895,9 +1889,6 @@
       }
       initNodes();
 
-      let threshold = 180;
-      let thresholdDir = 0.3;
-
       function animate() {
         const w = canvas.width;
         const h = canvas.height;
@@ -1905,7 +1896,9 @@
         ctx.clearRect(0, 0, w, h);
 
         threshold += thresholdDir;
-        if (threshold > 240 || threshold < 140) {
+        const tMin = isMobile() ? 100 : 140;
+        const tMax = isMobile() ? 190 : 240;
+        if (threshold > tMax || threshold < tMin) {
           thresholdDir *= -1;
         }
 
@@ -1921,8 +1914,8 @@
           node.y = Math.max(0, Math.min(h, node.y));
         }
 
-        // Draw edges — more visible
-        ctx.lineWidth = 1.2;
+        const lineWidth = isMobile() ? 0.8 : 1.2;
+        ctx.lineWidth = lineWidth;
         for (let i = 0; i < nodes.length; i++) {
           for (let j = i + 1; j < nodes.length; j++) {
             const dx = nodes[i].x - nodes[j].x;
@@ -1939,11 +1932,10 @@
           }
         }
 
-        // Draw nodes — more saturated and less transparent
+        // Draw nodes
         for (let node of nodes) {
           const pulse = 1 + 0.2 * Math.sin(node.phase);
           const r = node.radius * pulse;
-          // Min alpha increased to 0.6, max 0.95
           const alpha = 0.6 + 0.35 * Math.sin(node.phase * 0.8);
           ctx.beginPath();
           ctx.arc(node.x, node.y, r, 0, Math.PI * 2);
@@ -1968,10 +1960,17 @@
 
       function handleResize() {
         resizeCanvas();
-        for (let node of nodes) {
-          node.x = Math.max(0, Math.min(canvas.width, node.x));
-          node.y = Math.max(0, Math.min(canvas.height, node.y));
+        // Reset node positions to stay within bounds and re-init if needed
+        const newCount = getNodeCount();
+        if (newCount !== nodes.length) {
+          initNodes();
+        } else {
+          for (let node of nodes) {
+            node.x = Math.max(0, Math.min(canvas.width, node.x));
+            node.y = Math.max(0, Math.min(canvas.height, node.y));
+          }
         }
+        threshold = getThreshold();
       }
 
       window.addEventListener('resize', handleResize);
@@ -1979,5 +1978,5 @@
       animate();
     })();
   </script>
-
-<script></script></body></html>
+</body>
+</html>
