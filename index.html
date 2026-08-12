@@ -519,7 +519,7 @@
     }
 
     .case-study summary {
-      padding: 0.5rem 0.25rem 0.3rem;
+      padding: 0.4rem 0.8rem;
       margin: 0 -0.25rem;
       cursor: pointer;
       list-style: none;
@@ -527,13 +527,13 @@
       color: var(--text-muted-light);
       font-weight: 400;
       background: transparent;
-      border-bottom: 1px solid transparent;
+      border: 1px solid var(--border-light);
+      border-radius: 20px;
       transition: all 0.25s var(--transition-ios);
       display: inline-flex;
       align-items: center;
       gap: 0.3rem;
       width: auto;
-      border-radius: 0;
       touch-action: manipulation;
     }
 
@@ -543,8 +543,8 @@
 
     .case-study summary:hover {
       color: var(--text-primary);
-      border-bottom-color: var(--text-primary);
-      background: transparent;
+      border-color: var(--text-muted);
+      background: rgba(0, 0, 0, 0.02);
     }
 
     .case-study summary::-webkit-details-marker {
@@ -564,52 +564,6 @@
     .case-study .case-content strong {
       color: var(--text-primary);
       font-weight: 500;
-    }
-
-    .case-study .case-content .case-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      margin-top: 0.75rem;
-      padding-top: 0.75rem;
-      border-top: 1px solid var(--border-light);
-      font-size: 0.7rem;
-      color: var(--text-muted-light);
-    }
-
-    .case-study .case-content .case-meta span {
-      display: block;
-      cursor: default;
-      transition: color 0.2s ease;
-      padding: 0.1rem 0;
-      border-bottom: 1px dotted transparent;
-    }
-
-    .case-study .case-content .case-meta span:hover {
-      color: var(--text-primary);
-      border-bottom-color: var(--text-muted-light);
-    }
-
-    .case-study .case-content .case-meta .label {
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      font-size: 0.55rem;
-      color: var(--text-muted);
-    }
-
-    .case-study .case-content .case-meta span:hover .label {
-      color: var(--text-secondary);
-    }
-
-    .case-study .case-content .read-time {
-      margin-top: 0.75rem;
-      font-size: 0.65rem;
-      color: var(--text-muted-lighter);
-      letter-spacing: 0.03em;
-    }
-
-    .case-study .case-content .read-time::before {
-      content: "⏱ ";
     }
 
     .case-study .case-content .section-block {
@@ -649,6 +603,47 @@
       position: absolute;
       left: 0;
       color: var(--text-muted-light);
+    }
+
+    /* ============================================================
+       SYSTEM BEHAVIOUR — portrait block
+       ============================================================ */
+    .behaviour-wrapper {
+      margin: 1.25rem 0 0.25rem;
+    }
+
+    .behaviour-wrapper .behaviour-label {
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted-lighter);
+      font-weight: 400;
+      margin-bottom: 0.5rem;
+    }
+
+    .behaviour-container {
+      padding: 0.75rem;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-card);
+      background: rgba(0, 0, 0, 0.015);
+      transition: border-color 0.3s ease;
+      aspect-ratio: 3 / 4;
+      max-height: 320px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .behaviour-container:hover {
+      border-color: var(--border-dark);
+    }
+
+    .behaviour-container canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border-radius: calc(var(--radius-card) - 4px);
+      background: rgba(0, 0, 0, 0.015);
     }
 
     /* ============================================================
@@ -1179,9 +1174,11 @@
       .case-study .case-content {
         font-size: 0.75rem;
       }
-      .case-study .case-content .case-meta {
-        gap: 1rem;
-        flex-direction: column;
+
+      .behaviour-container {
+        padding: 0.5rem;
+        aspect-ratio: 3 / 4;
+        max-height: 240px;
       }
 
       .metrics-grid {
@@ -1291,8 +1288,13 @@
       .work-item .description { color: #333 !important; }
       .case-study .case-content { color: #333 !important; }
       .case-study .case-content strong { color: #000 !important; }
-      .case-study .case-content .case-meta { color: #555 !important; border-top-color: #ddd !important; }
-      .case-study .case-content .case-meta .label { color: #777 !important; }
+
+      .behaviour-container {
+        border-color: #ddd !important;
+        background: #fafafa !important;
+      }
+      .behaviour-wrapper .behaviour-label { color: #777 !important; }
+      .behaviour-container canvas { display: none !important; }
 
       .metrics-grid {
         border-color: #ddd !important;
@@ -1343,7 +1345,6 @@
       .trust-metrics { border-top-color: #ddd !important; }
       .stack-line { color: #555 !important; }
       .stack-line span { color: #333 !important; }
-      .case-study .case-content .read-time { color: #777 !important; }
     }
   </style>
 </head>
@@ -1415,7 +1416,9 @@
       <div class="section-label">Selected work</div>
       <div class="work-list">
 
-        <!-- BUILDER SYSTEMS -->
+        <!-- ==========================================================
+        BUILDER SYSTEMS
+        ========================================================== -->
         <details class="work-item fade-item delay-1">
           <summary>
             <span class="summary-left">
@@ -1485,19 +1488,24 @@
                     <li>Protocol-level protections now ship with every new client engagement</li>
                   </ul>
                 </div>
-                <div class="case-meta">
-                  <span title="Industry: Design"><span class="label">Client</span> Design Agency (confidential)</span>
-                  <span title="Project timeline"><span class="label">Duration</span> 3 months</span>
-                  <span title="Measurable outcome"><span class="label">Impact</span> 60% QA reduction</span>
+
+                <!-- SYSTEM BEHAVIOUR: Isolation Barrier -->
+                <div class="behaviour-wrapper">
+                  <div class="behaviour-label">— system behaviour —</div>
+                  <div class="behaviour-container">
+                    <canvas id="behaviourBuilder" width="300" height="400"></canvas>
+                  </div>
                 </div>
-                <div class="read-time">3 min read</div>
+
               </div>
             </details>
           </div>
           <div class="deployment">Deployed across 4 client production environments</div>
         </details>
 
-        <!-- SYSTEMS ARCHITECTURE -->
+        <!-- ==========================================================
+        SYSTEMS ARCHITECTURE
+        ========================================================== -->
         <details class="work-item fade-item delay-2">
           <summary>
             <span class="summary-left">
@@ -1567,19 +1575,24 @@
                     <li>Reusable architecture pattern now deployed across future client projects</li>
                   </ul>
                 </div>
-                <div class="case-meta">
-                  <span title="Industry: E-commerce"><span class="label">Client</span> E-commerce Platform (confidential)</span>
-                  <span title="Project timeline"><span class="label">Duration</span> 2 months</span>
-                  <span title="Measurable outcome"><span class="label">Impact</span> Hallucination rate &lt; 2%</span>
+
+                <!-- SYSTEM BEHAVIOUR: Layer Flow -->
+                <div class="behaviour-wrapper">
+                  <div class="behaviour-label">— system behaviour —</div>
+                  <div class="behaviour-container">
+                    <canvas id="behaviourArchitecture" width="300" height="400"></canvas>
+                  </div>
                 </div>
-                <div class="read-time">4 min read</div>
+
               </div>
             </details>
           </div>
           <div class="deployment">Active across multiple project implementations</div>
         </details>
 
-        <!-- PROTOCOL COMPILER -->
+        <!-- ==========================================================
+        PROTOCOL COMPILER
+        ========================================================== -->
         <details class="work-item fade-item delay-3">
           <summary>
             <span class="summary-left">
@@ -1649,12 +1662,15 @@
                     <li>Compiler now serves as the standard entry point for all new client production workflows</li>
                   </ul>
                 </div>
-                <div class="case-meta">
-                  <span title="Industry: Video Production"><span class="label">Client</span> Video Production Studio (confidential)</span>
-                  <span title="Project timeline"><span class="label">Duration</span> 1.5 months</span>
-                  <span title="Measurable outcome"><span class="label">Impact</span> 100% mode compliance</span>
+
+                <!-- SYSTEM BEHAVIOUR: Mode Lock -->
+                <div class="behaviour-wrapper">
+                  <div class="behaviour-label">— system behaviour —</div>
+                  <div class="behaviour-container">
+                    <canvas id="behaviourCompiler" width="300" height="400"></canvas>
+                  </div>
                 </div>
-                <div class="read-time">3 min read</div>
+
               </div>
             </details>
           </div>
@@ -1703,7 +1719,6 @@
       <div class="live-feed-box">
         <canvas id="liveFeedCanvas"></canvas>
       </div>
-      <!-- Legend -->
       <div class="legend">
         <span class="legend-item"><span class="dot" style="background:#3b82f6;"></span> Protocol</span>
         <span class="legend-item"><span class="dot" style="background:#10b981;"></span> Job</span>
@@ -1752,7 +1767,9 @@
 
   <script>
     (function() {
-      // Modal
+      // ============================================================
+      // MODAL
+      // ============================================================
       const modalOverlay = document.getElementById('contactModal');
       const contactBtn = document.getElementById('contactNavBtn');
       const closeBtn = document.getElementById('modalCloseBtn');
@@ -1782,7 +1799,9 @@
         }
       });
 
-      // Intersection Observer for scroll animations
+      // ============================================================
+      // SCROLL ANIMATIONS
+      // ============================================================
       const fadeItems = document.querySelectorAll('.fade-item');
 
       if ('IntersectionObserver' in window) {
@@ -1809,7 +1828,9 @@
         });
       }
 
-      // iOS-style haptic feedback on summary click
+      // ============================================================
+      // HAPTIC FEEDBACK
+      // ============================================================
       document.querySelectorAll('summary, .contact-btn, .close-btn, .modal-links a').forEach(el => {
         el.addEventListener('click', function() {
           const target = this;
@@ -1821,28 +1842,29 @@
         });
       });
 
-      // ----- Live Feed of Development — mobile‑aware -----
-      const canvas = document.getElementById('liveFeedCanvas');
-      const container = canvas.parentElement;
+      // ============================================================
+      // LIVE FEED OF DEVELOPMENT (main canvas)
+      // ============================================================
+      const feedCanvas = document.getElementById('liveFeedCanvas');
+      const feedContainer = feedCanvas.parentElement;
 
       function isMobile() {
         return window.innerWidth < 600;
       }
 
-      function resizeCanvas() {
-        const rect = container.getBoundingClientRect();
-        canvas.width = rect.width - 2;
-        canvas.height = rect.height - 2;
+      function resizeFeedCanvas() {
+        const rect = feedContainer.getBoundingClientRect();
+        feedCanvas.width = rect.width - 2;
+        feedCanvas.height = rect.height - 2;
       }
 
-      resizeCanvas();
-      window.addEventListener('resize', resizeCanvas);
+      resizeFeedCanvas();
+      window.addEventListener('resize', resizeFeedCanvas);
 
-      const ctx = canvas.getContext('2d');
-      let width = canvas.width;
-      let height = canvas.height;
+      const feedCtx = feedCanvas.getContext('2d');
+      let feedWidth = feedCanvas.width;
+      let feedHeight = feedCanvas.height;
 
-      // Fixed color mapping
       const coreColors = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#f97316', '#6b7280', '#a78b6b'];
       const neutralColors = ['#8a8078', '#7a7268', '#6a6a60', '#5a7a5a', '#7a6a5a', '#8a7a6a', '#807870', '#5a5a50'];
 
@@ -1854,7 +1876,6 @@
         return Math.random() < 0.6 ? getRandomCoreColor() : neutralColors[Math.floor(Math.random() * neutralColors.length)];
       }
 
-      // Node parameters — scale based on screen size
       function getNodeCount() {
         return isMobile() ? 12 : 20;
       }
@@ -1867,42 +1888,42 @@
         return isMobile() ? 3 + Math.random() * 4 : 4 + Math.random() * 5;
       }
 
-      let nodes = [];
-      let threshold = getThreshold();
+      let feedNodes = [];
+      let feedThreshold = getThreshold();
       let thresholdDir = 0.3;
 
-      function initNodes() {
+      function initFeedNodes() {
         const count = getNodeCount();
-        nodes = [];
+        feedNodes = [];
         for (let i = 0; i < count; i++) {
-          nodes.push({
-            x: Math.random() * width,
-            y: Math.random() * height,
-            vx: (Math.random() - 0.5) * 0.4,
-            vy: (Math.random() - 0.5) * 0.4,
+          feedNodes.push({
+            x: Math.random() * feedWidth,
+            y: Math.random() * feedHeight,
+            vx: (Math.random() - 0.5) * 0.3,
+            vy: (Math.random() - 0.5) * 0.3,
             radius: getRadius(),
             color: getRandomColor(),
-            pulseSpeed: 0.005 + Math.random() * 0.015,
+            pulseSpeed: 0.003 + Math.random() * 0.01,
             phase: Math.random() * Math.PI * 2,
           });
         }
       }
-      initNodes();
+      initFeedNodes();
 
-      function animate() {
-        const w = canvas.width;
-        const h = canvas.height;
+      function animateFeed() {
+        const w = feedCanvas.width;
+        const h = feedCanvas.height;
 
-        ctx.clearRect(0, 0, w, h);
+        feedCtx.clearRect(0, 0, w, h);
 
-        threshold += thresholdDir;
+        feedThreshold += thresholdDir;
         const tMin = isMobile() ? 100 : 140;
         const tMax = isMobile() ? 190 : 240;
-        if (threshold > tMax || threshold < tMin) {
+        if (feedThreshold > tMax || feedThreshold < tMin) {
           thresholdDir *= -1;
         }
 
-        for (let node of nodes) {
+        for (let node of feedNodes) {
           node.x += node.vx;
           node.y += node.vy;
           node.phase += node.pulseSpeed;
@@ -1914,68 +1935,537 @@
           node.y = Math.max(0, Math.min(h, node.y));
         }
 
-        const lineWidth = isMobile() ? 0.8 : 1.2;
-        ctx.lineWidth = lineWidth;
-        for (let i = 0; i < nodes.length; i++) {
-          for (let j = i + 1; j < nodes.length; j++) {
-            const dx = nodes[i].x - nodes[j].x;
-            const dy = nodes[i].y - nodes[j].y;
+        const lineWidth = isMobile() ? 0.6 : 1;
+        feedCtx.lineWidth = lineWidth;
+        for (let i = 0; i < feedNodes.length; i++) {
+          for (let j = i + 1; j < feedNodes.length; j++) {
+            const dx = feedNodes[i].x - feedNodes[j].x;
+            const dy = feedNodes[i].y - feedNodes[j].y;
             const dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < threshold) {
-              const alpha = 1 - (dist / threshold);
-              ctx.strokeStyle = `rgba(80, 80, 80, ${alpha * 0.7})`;
-              ctx.beginPath();
-              ctx.moveTo(nodes[i].x, nodes[i].y);
-              ctx.lineTo(nodes[j].x, nodes[j].y);
-              ctx.stroke();
+            if (dist < feedThreshold) {
+              const alpha = 1 - (dist / feedThreshold);
+              feedCtx.strokeStyle = `rgba(80, 80, 80, ${alpha * 0.5})`;
+              feedCtx.beginPath();
+              feedCtx.moveTo(feedNodes[i].x, feedNodes[i].y);
+              feedCtx.lineTo(feedNodes[j].x, feedNodes[j].y);
+              feedCtx.stroke();
             }
           }
         }
 
-        // Draw nodes
-        for (let node of nodes) {
-          const pulse = 1 + 0.2 * Math.sin(node.phase);
+        for (let node of feedNodes) {
+          const pulse = 1 + 0.15 * Math.sin(node.phase);
           const r = node.radius * pulse;
-          const alpha = 0.6 + 0.35 * Math.sin(node.phase * 0.8);
-          ctx.beginPath();
-          ctx.arc(node.x, node.y, r, 0, Math.PI * 2);
-          ctx.fillStyle = node.color;
-          ctx.globalAlpha = alpha;
-          ctx.fill();
-          ctx.globalAlpha = 1;
+          const alpha = 0.6 + 0.3 * Math.sin(node.phase * 0.7);
+          feedCtx.beginPath();
+          feedCtx.arc(node.x, node.y, r, 0, Math.PI * 2);
+          feedCtx.fillStyle = node.color;
+          feedCtx.globalAlpha = alpha;
+          feedCtx.fill();
+          feedCtx.globalAlpha = 1;
 
-          const grd = ctx.createRadialGradient(node.x, node.y, 0, node.x, node.y, r * 3);
+          const grd = feedCtx.createRadialGradient(node.x, node.y, 0, node.x, node.y, r * 3);
           grd.addColorStop(0, node.color);
           grd.addColorStop(1, 'transparent');
-          ctx.fillStyle = grd;
-          ctx.globalAlpha = 0.15;
-          ctx.beginPath();
-          ctx.arc(node.x, node.y, r * 3, 0, Math.PI * 2);
-          ctx.fill();
-          ctx.globalAlpha = 1;
+          feedCtx.fillStyle = grd;
+          feedCtx.globalAlpha = 0.08;
+          feedCtx.beginPath();
+          feedCtx.arc(node.x, node.y, r * 3, 0, Math.PI * 2);
+          feedCtx.fill();
+          feedCtx.globalAlpha = 1;
         }
 
-        requestAnimationFrame(animate);
+        requestAnimationFrame(animateFeed);
       }
 
-      function handleResize() {
-        resizeCanvas();
-        // Reset node positions to stay within bounds and re-init if needed
+      function handleFeedResize() {
+        resizeFeedCanvas();
         const newCount = getNodeCount();
-        if (newCount !== nodes.length) {
-          initNodes();
+        if (newCount !== feedNodes.length) {
+          initFeedNodes();
         } else {
-          for (let node of nodes) {
-            node.x = Math.max(0, Math.min(canvas.width, node.x));
-            node.y = Math.max(0, Math.min(canvas.height, node.y));
+          for (let node of feedNodes) {
+            node.x = Math.max(0, Math.min(feedCanvas.width, node.x));
+            node.y = Math.max(0, Math.min(feedCanvas.height, node.y));
           }
         }
-        threshold = getThreshold();
+        feedThreshold = getThreshold();
       }
 
-      window.addEventListener('resize', handleResize);
+      window.addEventListener('resize', handleFeedResize);
+      animateFeed();
 
-      animate();
+      // ============================================================
+      // SYSTEM BEHAVIOUR 1: BUILDER SYSTEMS — Isolation Barrier
+      // Relaxed, slow, meditative.
+      // ============================================================
+      const bCanvas = document.getElementById('behaviourBuilder');
+      const bCtx = bCanvas.getContext('2d');
+      const bW = bCanvas.width,
+        bH = bCanvas.height;
+
+      const barrierRadius = 60;
+      const barrierX = bW / 2;
+      const barrierY = bH / 2;
+      let bFlash = 0;
+
+      let bNodes = [];
+      const bNodeCount = 16;
+      for (let i = 0; i < bNodeCount; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const dist = barrierRadius + 15 + Math.random() * 90;
+        bNodes.push({
+          x: barrierX + Math.cos(angle) * dist,
+          y: barrierY + Math.sin(angle) * dist,
+          angle: angle,
+          dist: dist,
+          speed: 0.001 + Math.random() * 0.004, // much slower
+          phase: Math.random() * Math.PI * 2,
+          radius: 3 + Math.random() * 5,
+          color: getRandomCoreColor(),
+          targetDist: dist,
+          attacking: false,
+          attackTimer: 0,
+          orbitDir: Math.random() > 0.5 ? 1 : -1,
+          cluster: Math.floor(Math.random() * 3),
+        });
+      }
+
+      let clusterCenters = [
+        { x: barrierX - 80, y: barrierY - 40 },
+        { x: barrierX + 80, y: barrierY + 40 },
+        { x: barrierX - 50, y: barrierY + 70 },
+        { x: barrierX + 60, y: barrierY - 60 },
+      ];
+
+      function triggerSoftAttack() {
+        if (bNodes.length === 0) return;
+        let node = bNodes[Math.floor(Math.random() * bNodes.length)];
+        if (node.attacking) return;
+        node.attacking = true;
+        node.attackTimer = 0;
+        node.targetDist = 8 + Math.random() * 12;
+        bFlash = 0.5;
+
+        setTimeout(() => {
+          node.targetDist = barrierRadius + 20 + Math.random() * 70;
+          setTimeout(() => {
+            node.attacking = false;
+          }, 600 + Math.random() * 1200);
+        }, 800 + Math.random() * 1500);
+
+        setTimeout(triggerSoftAttack, 4000 + Math.random() * 6000);
+      }
+
+      setTimeout(triggerSoftAttack, 2000 + Math.random() * 4000);
+
+      let clusterShiftTimer = 0;
+
+      function animateBuilder() {
+        bCtx.clearRect(0, 0, bW, bH);
+        bFlash *= 0.98;
+
+        // Move cluster centers very slowly
+        clusterShiftTimer += 0.0005;
+        for (let i = 0; i < clusterCenters.length; i++) {
+          clusterCenters[i].x += Math.sin(clusterShiftTimer + i * 2) * 0.15;
+          clusterCenters[i].y += Math.cos(clusterShiftTimer * 0.7 + i * 1.5) * 0.15;
+          clusterCenters[i].x = Math.max(20, Math.min(bW - 20, clusterCenters[i].x));
+          clusterCenters[i].y = Math.max(20, Math.min(bH - 20, clusterCenters[i].y));
+        }
+
+        // Barrier — slow, irregular pulse
+        const slowPulse = Date.now() / 4000;
+        const barrierPulse = barrierRadius + 3 * Math.sin(slowPulse + Math.sin(slowPulse * 0.3) * 0.5);
+        const grad = bCtx.createRadialGradient(barrierX, barrierY, 0, barrierX, barrierY, barrierPulse + 15);
+        grad.addColorStop(0, `rgba(59, 130, 246, ${0.05 + bFlash * 0.25})`);
+        grad.addColorStop(0.6, 'rgba(59, 130, 246, 0.015)');
+        grad.addColorStop(1, 'rgba(59, 130, 246, 0)');
+        bCtx.fillStyle = grad;
+        bCtx.beginPath();
+        bCtx.arc(barrierX, barrierY, barrierPulse + 15, 0, Math.PI * 2);
+        bCtx.fill();
+
+        bCtx.strokeStyle = '#3b82f6';
+        bCtx.lineWidth = 1.0;
+        bCtx.setLineDash([4, 10]);
+        bCtx.globalAlpha = 0.4 + 0.15 * Math.sin(slowPulse * 0.7);
+        bCtx.beginPath();
+        bCtx.arc(barrierX, barrierY, barrierPulse, 0, Math.PI * 2);
+        bCtx.stroke();
+        bCtx.globalAlpha = 1;
+        bCtx.setLineDash([]);
+
+        // Update nodes
+        for (let node of bNodes) {
+          node.angle += node.speed * node.orbitDir;
+          node.phase += 0.004 + Math.random() * 0.002;
+          if (node.attacking) {
+            node.attackTimer += 0.005;
+          }
+
+          if (!node.attacking && Math.random() < 0.0005) {
+            const c = clusterCenters[node.cluster % clusterCenters.length];
+            node.targetDist = barrierRadius + 30 + Math.random() * 60;
+          }
+
+          node.dist += (node.targetDist - node.dist) * 0.015;
+          if (node.dist < barrierRadius + 2) {
+            node.dist = barrierRadius + 2;
+            node.targetDist = barrierRadius + 20 + Math.random() * 70;
+          }
+          node.x = barrierX + Math.cos(node.angle) * node.dist;
+          node.y = barrierY + Math.sin(node.angle) * node.dist;
+        }
+
+        // Webs — gentle density shifts
+        const webDensity = 0.3 + 0.25 * Math.sin(Date.now() / 8000);
+        bCtx.lineWidth = 0.4;
+        for (let i = 0; i < bNodes.length; i++) {
+          for (let j = i + 1; j < bNodes.length; j++) {
+            const dx = bNodes[i].x - bNodes[j].x;
+            const dy = bNodes[i].y - bNodes[j].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            const maxDist = 140 + 30 * Math.sin(Date.now() / 8000 + i + j);
+            if (dist < maxDist && bNodes[i].dist > barrierRadius + 6 && bNodes[j].dist > barrierRadius + 6) {
+              const alpha = 1 - dist / maxDist;
+              bCtx.strokeStyle = `rgba(80, 80, 80, ${alpha * 0.15 * webDensity})`;
+              bCtx.beginPath();
+              bCtx.moveTo(bNodes[i].x, bNodes[i].y);
+              bCtx.lineTo(bNodes[j].x, bNodes[j].y);
+              bCtx.stroke();
+            }
+          }
+        }
+
+        // Nodes
+        for (let node of bNodes) {
+          const pulse = 1 + 0.12 * Math.sin(node.phase);
+          const r = node.radius * pulse;
+          const alpha = 0.5 + 0.3 * Math.sin(node.phase * 0.5);
+          bCtx.beginPath();
+          bCtx.arc(node.x, node.y, r, 0, Math.PI * 2);
+          bCtx.fillStyle = node.color;
+          bCtx.globalAlpha = alpha;
+          bCtx.fill();
+          bCtx.globalAlpha = 1;
+        }
+
+        requestAnimationFrame(animateBuilder);
+      }
+
+      animateBuilder();
+
+      // ============================================================
+      // SYSTEM BEHAVIOUR 2: SYSTEMS ARCHITECTURE — Layer Flow
+      // Relaxed, meditative, slow.
+      // ============================================================
+      const aCanvas = document.getElementById('behaviourArchitecture');
+      const aCtx = aCanvas.getContext('2d');
+      const aW = aCanvas.width,
+        aH = aCanvas.height;
+
+      const layerPositions = [40, 95, 150, 205, 260, 350];
+      const layerColors = ['#8b5cf6', '#3b82f6', '#10b981', '#f59e0b', '#f97316', '#ef4444'];
+      let currentLayerIndex = 0;
+      let targetLayerIndex = 0;
+      let jobProgress = 0;
+      let jobY = layerPositions[0];
+      let pulseTimer = 0;
+      let branchActive = false;
+      let branchY1 = 0,
+        branchY2 = 0;
+      let branchProgress = 0;
+
+      function moveJob() {
+        let newTarget = Math.floor(Math.random() * layerPositions.length);
+        while (newTarget === targetLayerIndex && layerPositions.length > 1) {
+          newTarget = Math.floor(Math.random() * layerPositions.length);
+        }
+        targetLayerIndex = newTarget;
+        jobProgress = 0;
+        const duration = 4000 + Math.random() * 5000;
+        const startY = layerPositions[currentLayerIndex];
+        const endY = layerPositions[targetLayerIndex];
+        const startTime = Date.now();
+
+        if (Math.random() < 0.15) {
+          branchActive = true;
+          branchProgress = 0;
+          branchY1 = startY + (endY - startY) * 0.3;
+          branchY2 = startY + (endY - startY) * 0.6;
+        } else {
+          branchActive = false;
+        }
+
+        function animateJobMove() {
+          const elapsed = Date.now() - startTime;
+          jobProgress = Math.min(elapsed / duration, 1);
+          const ease = 1 - Math.pow(1 - jobProgress, 3);
+          jobY = startY + (endY - startY) * ease;
+
+          if (branchActive) {
+            branchProgress = Math.min(elapsed / (duration * 0.5), 1);
+          }
+
+          if (jobProgress < 1) {
+            requestAnimationFrame(animateJobMove);
+          } else {
+            currentLayerIndex = targetLayerIndex;
+            pulseTimer = 1.2;
+            setTimeout(() => { pulseTimer = 0; }, 1200);
+            setTimeout(moveJob, 3500 + Math.random() * 5000);
+          }
+        }
+        animateJobMove();
+      }
+
+      setTimeout(moveJob, 1500 + Math.random() * 3000);
+
+      function animateArchitecture() {
+        aCtx.clearRect(0, 0, aW, aH);
+        if (pulseTimer > 0) pulseTimer *= 0.995;
+
+        // Vertical threads — very subtle
+        const threadOpacity = 0.06 + 0.04 * Math.sin(Date.now() / 7000);
+        aCtx.lineWidth = 0.3;
+        for (let i = 0; i < layerPositions.length - 1; i++) {
+          const y1 = layerPositions[i];
+          const y2 = layerPositions[i + 1];
+          aCtx.strokeStyle = `rgba(80, 80, 80, ${threadOpacity})`;
+          aCtx.beginPath();
+          aCtx.moveTo(aW / 2 - 70, y1);
+          aCtx.lineTo(aW / 2 - 70, y2);
+          aCtx.stroke();
+          aCtx.beginPath();
+          aCtx.moveTo(aW / 2 + 70, y1);
+          aCtx.lineTo(aW / 2 + 70, y2);
+          aCtx.stroke();
+        }
+
+        // Branch threads
+        if (branchActive && branchProgress < 1) {
+          aCtx.strokeStyle = `rgba(59, 130, 246, ${0.08 * (1 - branchProgress)})`;
+          aCtx.lineWidth = 0.4;
+          aCtx.setLineDash([2, 6]);
+          const midX = aW / 2;
+          const offset = 30 * branchProgress;
+          aCtx.beginPath();
+          aCtx.moveTo(midX, branchY1);
+          aCtx.lineTo(midX - offset, (branchY1 + branchY2) / 2);
+          aCtx.lineTo(midX, branchY2);
+          aCtx.stroke();
+          aCtx.setLineDash([]);
+        }
+
+        // Layers
+        for (let i = 0; i < layerPositions.length; i++) {
+          const y = layerPositions[i];
+          const isActive = (i === currentLayerIndex);
+          const radius = isActive ? (14 + 3 * Math.sin(Date.now() / 3000 + i)) : 7;
+          const alpha = isActive ? 0.8 : 0.2;
+
+          if (isActive && pulseTimer > 0.01) {
+            const grad = aCtx.createRadialGradient(aW / 2, y, 0, aW / 2, y, 35 * pulseTimer);
+            grad.addColorStop(0, `rgba(59, 130, 246, ${0.1 * pulseTimer})`);
+            grad.addColorStop(1, 'rgba(59, 130, 246, 0)');
+            aCtx.fillStyle = grad;
+            aCtx.beginPath();
+            aCtx.arc(aW / 2, y, 35 * pulseTimer, 0, Math.PI * 2);
+            aCtx.fill();
+          }
+
+          aCtx.beginPath();
+          aCtx.arc(aW / 2, y, radius, 0, Math.PI * 2);
+          aCtx.fillStyle = layerColors[i];
+          aCtx.globalAlpha = alpha;
+          aCtx.fill();
+          aCtx.globalAlpha = 1;
+        }
+
+        // Job node
+        const jobPulse = 1 + 0.10 * Math.sin(Date.now() / 500 + jobY);
+        const jobRadius = 9 * jobPulse;
+        const jobGrad = aCtx.createRadialGradient(aW / 2, jobY, 0, aW / 2, jobY, jobRadius + 14);
+        jobGrad.addColorStop(0, 'rgba(255, 255, 255, 0.7)');
+        jobGrad.addColorStop(0.4, 'rgba(59, 130, 246, 0.5)');
+        jobGrad.addColorStop(1, 'rgba(59, 130, 246, 0)');
+        aCtx.fillStyle = jobGrad;
+        aCtx.beginPath();
+        aCtx.arc(aW / 2, jobY, jobRadius + 14, 0, Math.PI * 2);
+        aCtx.fill();
+
+        aCtx.beginPath();
+        aCtx.arc(aW / 2, jobY, jobRadius, 0, Math.PI * 2);
+        aCtx.fillStyle = '#3b82f6';
+        aCtx.globalAlpha = 0.8;
+        aCtx.fill();
+        aCtx.globalAlpha = 1;
+
+        requestAnimationFrame(animateArchitecture);
+      }
+
+      animateArchitecture();
+
+      // ============================================================
+      // SYSTEM BEHAVIOUR 3: PROTOCOL COMPILER — Mode Lock
+      // Relaxed, meditative, slow.
+      // ============================================================
+      const cCanvas = document.getElementById('behaviourCompiler');
+      const cCtx = cCanvas.getContext('2d');
+      const cW = cCanvas.width,
+        cH = cCanvas.height;
+
+      const modeColors = ['#ef4444', '#f59e0b', '#8b5cf6', '#10b981'];
+      const cx = cW / 2,
+        cy = cH / 2;
+      const orbitRadius = 80;
+      let modeAngles = [0, Math.PI / 2, Math.PI, 3 * Math.PI / 2];
+      let modeSpeeds = [0.001 + Math.random() * 0.004, 0.002 + Math.random() * 0.004, 0.001 + Math.random() * 0.004, 0.002 +
+        Math.random() * 0.004
+      ];
+      let lockedIndex = -1;
+      let lockProgress = 0;
+      let isLocking = false;
+      let pulseRing = 0;
+      let pulseRingActive = false;
+
+      function triggerLock() {
+        if (isLocking) return;
+        isLocking = true;
+        const newLock = Math.floor(Math.random() * modeColors.length);
+        lockedIndex = newLock;
+        lockProgress = 0;
+        pulseRingActive = true;
+        pulseRing = 0;
+
+        const duration = 2000 + Math.random() * 2000;
+        const startTime = Date.now();
+
+        function animateLock() {
+          const elapsed = Date.now() - startTime;
+          lockProgress = Math.min(elapsed / duration, 1);
+          const ease = 1 - Math.pow(1 - lockProgress, 3);
+
+          if (lockProgress < 1) {
+            requestAnimationFrame(animateLock);
+          } else {
+            isLocking = false;
+            pulseRingActive = false;
+            setTimeout(() => {
+              if (Math.random() < 0.6) {
+                triggerLock();
+              } else {
+                lockedIndex = -1;
+                setTimeout(triggerLock, 3000 + Math.random() * 4000);
+              }
+            }, 3500 + Math.random() * 4000);
+          }
+        }
+        animateLock();
+      }
+
+      setTimeout(triggerLock, 2000 + Math.random() * 3000);
+
+      function animateCompiler() {
+        cCtx.clearRect(0, 0, cW, cH);
+
+        for (let i = 0; i < modeSpeeds.length; i++) {
+          if (Math.random() < 0.0005) {
+            modeSpeeds[i] = 0.001 + Math.random() * 0.004;
+          }
+        }
+
+        for (let i = 0; i < modeAngles.length; i++) {
+          modeAngles[i] += modeSpeeds[i];
+        }
+
+        if (pulseRingActive) {
+          pulseRing += 0.015;
+          if (pulseRing > 1) pulseRingActive = false;
+          const ringRadius = 30 + pulseRing * 80;
+          cCtx.strokeStyle = `rgba(167, 139, 107, ${0.1 * (1 - pulseRing)})`;
+          cCtx.lineWidth = 1.0;
+          cCtx.beginPath();
+          cCtx.arc(cx, cy, ringRadius, 0, Math.PI * 2);
+          cCtx.stroke();
+        }
+
+        cCtx.strokeStyle = 'rgba(80, 80, 80, 0.05)';
+        cCtx.lineWidth = 0.4;
+        cCtx.setLineDash([3, 8]);
+        cCtx.beginPath();
+        cCtx.arc(cx, cy, orbitRadius, 0, Math.PI * 2);
+        cCtx.stroke();
+        cCtx.setLineDash([]);
+
+        for (let i = 0; i < modeAngles.length; i++) {
+          const angle = modeAngles[i];
+          const mx = cx + Math.cos(angle) * orbitRadius;
+          const my = cy + Math.sin(angle) * orbitRadius;
+          const isLocked = (i === lockedIndex);
+
+          const width = isLocked ? (0.2 + 1.5 * lockProgress) : 0.15;
+          const alpha = isLocked ? (0.08 + 0.5 * lockProgress) : 0.05;
+          cCtx.strokeStyle = `rgba(80, 80, 80, ${alpha})`;
+          cCtx.lineWidth = width;
+          cCtx.beginPath();
+          cCtx.moveTo(cx, cy);
+          cCtx.lineTo(mx, my);
+          cCtx.stroke();
+        }
+
+        // Compiler
+        const compPulse = 1 + 0.06 * Math.sin(Date.now() / 600 + Math.sin(Date.now() / 3000) * 0.3);
+        const compRadius = 18 * compPulse;
+        const compGrad = cCtx.createRadialGradient(cx, cy, 0, cx, cy, compRadius + 12);
+        compGrad.addColorStop(0, 'rgba(167, 139, 107, 0.2)');
+        compGrad.addColorStop(1, 'rgba(167, 139, 107, 0)');
+        cCtx.fillStyle = compGrad;
+        cCtx.beginPath();
+        cCtx.arc(cx, cy, compRadius + 12, 0, Math.PI * 2);
+        cCtx.fill();
+
+        cCtx.beginPath();
+        cCtx.arc(cx, cy, compRadius, 0, Math.PI * 2);
+        cCtx.fillStyle = '#a78b6b';
+        cCtx.globalAlpha = 0.7;
+        cCtx.fill();
+        cCtx.globalAlpha = 1;
+
+        // Modes
+        for (let i = 0; i < modeAngles.length; i++) {
+          const angle = modeAngles[i];
+          const mx = cx + Math.cos(angle) * orbitRadius;
+          const my = cy + Math.sin(angle) * orbitRadius;
+          const isLocked = (i === lockedIndex);
+
+          const r = isLocked ? (7 + 4 * lockProgress) : 7;
+          const alpha = isLocked ? (0.3 + 0.5 * lockProgress) : 0.25;
+
+          if (isLocked) {
+            const grad = cCtx.createRadialGradient(mx, my, 0, mx, my, r + 14);
+            grad.addColorStop(0, `rgba(255, 255, 255, ${0.12 * lockProgress})`);
+            grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+            cCtx.fillStyle = grad;
+            cCtx.beginPath();
+            cCtx.arc(mx, my, r + 14, 0, Math.PI * 2);
+            cCtx.fill();
+          }
+
+          cCtx.beginPath();
+          cCtx.arc(mx, my, r, 0, Math.PI * 2);
+          cCtx.fillStyle = modeColors[i];
+          cCtx.globalAlpha = alpha;
+          cCtx.fill();
+          cCtx.globalAlpha = 1;
+        }
+
+        requestAnimationFrame(animateCompiler);
+      }
+
+      animateCompiler();
+
     })();
   </script>
 </body>
