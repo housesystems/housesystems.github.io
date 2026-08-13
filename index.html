@@ -1108,7 +1108,7 @@
       height: 100%;
     }
 
-    /* Entry content overlay */
+    /* Entry content overlay — no pointer-events restriction */
     .entry-content {
       position: relative;
       z-index: 2;
@@ -1116,11 +1116,6 @@
       max-width: 480px;
       padding: 2rem;
       animation: fadeIn 1.2s ease forwards;
-      pointer-events: none;
-    }
-
-    .entry-content .entry-btn {
-      pointer-events: auto;
     }
 
     @keyframes fadeIn {
@@ -1787,11 +1782,10 @@
         }, 1000);
       }
 
-      // Only the button triggers the transition
       entryBtn.addEventListener('click', revealPortfolio);
 
       // ============================================================
-      // ENTRY CANVAS (full‑screen blurred nodes — large orbs)
+      // ENTRY CANVAS — massive, monumental nodes
       // ============================================================
       var entryCanvas = document.getElementById('entryCanvas');
       var entryContainer = document.getElementById('entryCanvasContainer');
@@ -1806,8 +1800,6 @@
       window.addEventListener('resize', resizeEntryCanvas);
 
       var eCtx = entryCanvas.getContext('2d');
-      var eW = entryCanvas.width;
-      var eH = entryCanvas.height;
 
       var eCoreColors = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#f97316', '#6b7280', '#a78b6b'];
       var eNeutralColors = ['#8a8078', '#7a7268', '#6a6a60', '#5a7a5a', '#7a6a5a', '#8a7a6a', '#807870', '#5a5a50'];
@@ -1821,21 +1813,21 @@
       }
 
       var eNodes = [];
-      var eCountDesktop = 24;
-      var eCountMobile = 16;
+      var eCountDesktop = 18;
+      var eCountMobile = 12;
 
       function eGetCount() {
         return window.innerWidth < 600 ? eCountMobile : eCountDesktop;
       }
 
       function eGetThreshold() {
-        return window.innerWidth < 600 ? 130 : 170;
+        return window.innerWidth < 600 ? 180 : 240;
       }
 
-      // LARGE NODES — feel like close-up orbs
+      // MASSIVE NODES — feel like walking among them
       function eRandomRadius() {
-        var min = window.innerWidth < 600 ? 8 : 10;
-        var max = window.innerWidth < 600 ? 24 : 30;
+        var min = window.innerWidth < 600 ? 18 : 24;
+        var max = window.innerWidth < 600 ? 42 : 58;
         return min + Math.random() * (max - min);
       }
 
@@ -1844,13 +1836,13 @@
         eNodes = [];
         for (var i = 0; i < count; i++) {
           eNodes.push({
-            x: Math.random() * eW,
-            y: Math.random() * eH,
-            vx: (Math.random() - 0.5) * 0.2,
-            vy: (Math.random() - 0.5) * 0.2,
+            x: Math.random() * entryCanvas.width,
+            y: Math.random() * entryCanvas.height,
+            vx: (Math.random() - 0.5) * 0.15,
+            vy: (Math.random() - 0.5) * 0.15,
             radius: eRandomRadius(),
             color: eRandomColor(),
-            pulseSpeed: 0.001 + Math.random() * 0.006,
+            pulseSpeed: 0.001 + Math.random() * 0.005,
             phase: Math.random() * Math.PI * 2,
           });
         }
@@ -1858,7 +1850,7 @@
       eInitNodes();
 
       var eThreshold = eGetThreshold();
-      var eThresholdDir = 0.2;
+      var eThresholdDir = 0.15;
 
       function eAnimate() {
         var w = entryCanvas.width;
@@ -1866,8 +1858,8 @@
         eCtx.clearRect(0, 0, w, h);
 
         eThreshold += eThresholdDir;
-        var tMin = window.innerWidth < 600 ? 90 : 130;
-        var tMax = window.innerWidth < 600 ? 170 : 210;
+        var tMin = window.innerWidth < 600 ? 150 : 200;
+        var tMax = window.innerWidth < 600 ? 220 : 280;
         if (eThreshold > tMax || eThreshold < tMin) {
           eThresholdDir *= -1;
         }
@@ -1883,8 +1875,8 @@
           node.y = Math.max(0, Math.min(h, node.y));
         }
 
-        // Edges (webs)
-        eCtx.lineWidth = 0.6;
+        // Edges (webs) — more visible
+        eCtx.lineWidth = 1.2;
         for (var i = 0; i < eNodes.length; i++) {
           for (var j = i + 1; j < eNodes.length; j++) {
             var dx = eNodes[i].x - eNodes[j].x;
@@ -1892,7 +1884,7 @@
             var dist = Math.sqrt(dx * dx + dy * dy);
             if (dist < eThreshold) {
               var alpha = 1 - (dist / eThreshold);
-              eCtx.strokeStyle = 'rgba(80,80,80,' + (alpha * 0.25) + ')';
+              eCtx.strokeStyle = 'rgba(80,80,80,' + (alpha * 0.35) + ')';
               eCtx.beginPath();
               eCtx.moveTo(eNodes[i].x, eNodes[i].y);
               eCtx.lineTo(eNodes[j].x, eNodes[j].y);
@@ -1901,21 +1893,21 @@
           }
         }
 
-        // Nodes — large, glowing orbs
+        // Nodes — massive glowing orbs
         for (var i = 0; i < eNodes.length; i++) {
           var node = eNodes[i];
-          var pulse = 1 + 0.1 * Math.sin(node.phase);
+          var pulse = 1 + 0.08 * Math.sin(node.phase);
           var r = node.radius * pulse;
-          var alpha = 0.5 + 0.25 * Math.sin(node.phase * 0.5);
+          var alpha = 0.4 + 0.25 * Math.sin(node.phase * 0.4);
 
-          // Outer glow
+          // Outer glow — large and soft
           var glowGrad = eCtx.createRadialGradient(node.x, node.y, 0, node.x, node.y, r * 4);
           glowGrad.addColorStop(0, node.color);
-          glowGrad.addColorStop(0.2, node.color);
-          glowGrad.addColorStop(0.7, node.color);
+          glowGrad.addColorStop(0.15, node.color);
+          glowGrad.addColorStop(0.6, node.color);
           glowGrad.addColorStop(1, 'rgba(255,255,255,0)');
           eCtx.fillStyle = glowGrad;
-          eCtx.globalAlpha = 0.06;
+          eCtx.globalAlpha = 0.07;
           eCtx.beginPath();
           eCtx.arc(node.x, node.y, r * 4, 0, Math.PI * 2);
           eCtx.fill();
@@ -2046,8 +2038,6 @@
       window.addEventListener('resize', resizeFeedCanvas);
 
       var feedCtx = feedCanvas.getContext('2d');
-      var feedWidth = feedCanvas.width;
-      var feedHeight = feedCanvas.height;
 
       var coreColors = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#f97316', '#6b7280', '#a78b6b'];
       var neutralColors = ['#8a8078', '#7a7268', '#6a6a60', '#5a7a5a', '#7a6a5a', '#8a7a6a', '#807870', '#5a5a50'];
@@ -2081,8 +2071,8 @@
         feedNodes = [];
         for (var i = 0; i < count; i++) {
           feedNodes.push({
-            x: Math.random() * feedWidth,
-            y: Math.random() * feedHeight,
+            x: Math.random() * feedCanvas.width,
+            y: Math.random() * feedCanvas.height,
             vx: (Math.random() - 0.5) * 0.3,
             vy: (Math.random() - 0.5) * 0.3,
             radius: getRadius(),
