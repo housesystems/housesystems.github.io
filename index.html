@@ -11,7 +11,7 @@
 
   <style>
     /* ============================================================
-       PORTFOLIO STYLES (full, as built)
+       PORTFOLIO STYLES (full)
     ============================================================ */
     :root {
       --bg-page: #edece6;
@@ -1116,6 +1116,11 @@
       max-width: 480px;
       padding: 2rem;
       animation: fadeIn 1.2s ease forwards;
+      pointer-events: none;
+    }
+
+    .entry-content .entry-btn {
+      pointer-events: auto;
     }
 
     @keyframes fadeIn {
@@ -1766,11 +1771,11 @@
       'use strict';
 
       // ============================================================
-      // ENTRY → PORTFOLIO TRANSITION
+      // ENTRY → PORTFOLIO TRANSITION (button only)
       // ============================================================
-      const entry = document.getElementById('entryOverlay');
-      const entryBtn = document.getElementById('entryBtn');
-      const portfolio = document.getElementById('portfolioContainer');
+      var entry = document.getElementById('entryOverlay');
+      var entryBtn = document.getElementById('entryBtn');
+      var portfolio = document.getElementById('portfolioContainer');
 
       function revealPortfolio() {
         entry.classList.add('hidden');
@@ -1782,21 +1787,17 @@
         }, 1000);
       }
 
+      // Only the button triggers the transition
       entryBtn.addEventListener('click', revealPortfolio);
-      entry.addEventListener('click', function(e) {
-        if (e.target === entry || e.target.closest('.entry-content')) {
-          revealPortfolio();
-        }
-      });
 
       // ============================================================
-      // ENTRY CANVAS (full‑screen blurred nodes — random patterns)
+      // ENTRY CANVAS (full‑screen blurred nodes — large orbs)
       // ============================================================
-      const entryCanvas = document.getElementById('entryCanvas');
-      const entryContainer = document.getElementById('entryCanvasContainer');
+      var entryCanvas = document.getElementById('entryCanvas');
+      var entryContainer = document.getElementById('entryCanvasContainer');
 
       function resizeEntryCanvas() {
-        const rect = entryContainer.getBoundingClientRect();
+        var rect = entryContainer.getBoundingClientRect();
         entryCanvas.width = rect.width;
         entryCanvas.height = rect.height;
       }
@@ -1804,12 +1805,12 @@
       resizeEntryCanvas();
       window.addEventListener('resize', resizeEntryCanvas);
 
-      const eCtx = entryCanvas.getContext('2d');
-      let eW = entryCanvas.width;
-      let eH = entryCanvas.height;
+      var eCtx = entryCanvas.getContext('2d');
+      var eW = entryCanvas.width;
+      var eH = entryCanvas.height;
 
-      const eCoreColors = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#f97316', '#6b7280', '#a78b6b'];
-      const eNeutralColors = ['#8a8078', '#7a7268', '#6a6a60', '#5a7a5a', '#7a6a5a', '#8a7a6a', '#807870', '#5a5a50'];
+      var eCoreColors = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#f97316', '#6b7280', '#a78b6b'];
+      var eNeutralColors = ['#8a8078', '#7a7268', '#6a6a60', '#5a7a5a', '#7a6a5a', '#8a7a6a', '#807870', '#5a5a50'];
 
       function eRandomCore() {
         return eCoreColors[Math.floor(Math.random() * eCoreColors.length)];
@@ -1819,9 +1820,9 @@
         return Math.random() < 0.6 ? eRandomCore() : eNeutralColors[Math.floor(Math.random() * eNeutralColors.length)];
       }
 
-      let eNodes = [];
-      const eCountDesktop = 24;
-      const eCountMobile = 16;
+      var eNodes = [];
+      var eCountDesktop = 24;
+      var eCountMobile = 16;
 
       function eGetCount() {
         return window.innerWidth < 600 ? eCountMobile : eCountDesktop;
@@ -1831,47 +1832,48 @@
         return window.innerWidth < 600 ? 130 : 170;
       }
 
+      // LARGE NODES — feel like close-up orbs
       function eRandomRadius() {
-        // Wider range: 4 to 18 on desktop, 3 to 14 on mobile
-        const min = window.innerWidth < 600 ? 3 : 4;
-        const max = window.innerWidth < 600 ? 14 : 18;
+        var min = window.innerWidth < 600 ? 8 : 10;
+        var max = window.innerWidth < 600 ? 24 : 30;
         return min + Math.random() * (max - min);
       }
 
       function eInitNodes() {
-        const count = eGetCount();
+        var count = eGetCount();
         eNodes = [];
-        for (let i = 0; i < count; i++) {
+        for (var i = 0; i < count; i++) {
           eNodes.push({
             x: Math.random() * eW,
             y: Math.random() * eH,
-            vx: (Math.random() - 0.5) * 0.25,
-            vy: (Math.random() - 0.5) * 0.25,
+            vx: (Math.random() - 0.5) * 0.2,
+            vy: (Math.random() - 0.5) * 0.2,
             radius: eRandomRadius(),
             color: eRandomColor(),
-            pulseSpeed: 0.001 + Math.random() * 0.008,
+            pulseSpeed: 0.001 + Math.random() * 0.006,
             phase: Math.random() * Math.PI * 2,
           });
         }
       }
       eInitNodes();
 
-      let eThreshold = eGetThreshold();
-      let eThresholdDir = 0.2;
+      var eThreshold = eGetThreshold();
+      var eThresholdDir = 0.2;
 
       function eAnimate() {
-        const w = entryCanvas.width;
-        const h = entryCanvas.height;
+        var w = entryCanvas.width;
+        var h = entryCanvas.height;
         eCtx.clearRect(0, 0, w, h);
 
         eThreshold += eThresholdDir;
-        const tMin = window.innerWidth < 600 ? 90 : 130;
-        const tMax = window.innerWidth < 600 ? 170 : 210;
+        var tMin = window.innerWidth < 600 ? 90 : 130;
+        var tMax = window.innerWidth < 600 ? 170 : 210;
         if (eThreshold > tMax || eThreshold < tMin) {
           eThresholdDir *= -1;
         }
 
-        for (let node of eNodes) {
+        for (var i = 0; i < eNodes.length; i++) {
+          var node = eNodes[i];
           node.x += node.vx;
           node.y += node.vy;
           node.phase += node.pulseSpeed;
@@ -1881,16 +1883,16 @@
           node.y = Math.max(0, Math.min(h, node.y));
         }
 
-        // Draw edges (webs)
+        // Edges (webs)
         eCtx.lineWidth = 0.6;
-        for (let i = 0; i < eNodes.length; i++) {
-          for (let j = i + 1; j < eNodes.length; j++) {
-            const dx = eNodes[i].x - eNodes[j].x;
-            const dy = eNodes[i].y - eNodes[j].y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
+        for (var i = 0; i < eNodes.length; i++) {
+          for (var j = i + 1; j < eNodes.length; j++) {
+            var dx = eNodes[i].x - eNodes[j].x;
+            var dy = eNodes[i].y - eNodes[j].y;
+            var dist = Math.sqrt(dx * dx + dy * dy);
             if (dist < eThreshold) {
-              const alpha = 1 - (dist / eThreshold);
-              eCtx.strokeStyle = `rgba(80, 80, 80, ${alpha * 0.3})`;
+              var alpha = 1 - (dist / eThreshold);
+              eCtx.strokeStyle = 'rgba(80,80,80,' + (alpha * 0.25) + ')';
               eCtx.beginPath();
               eCtx.moveTo(eNodes[i].x, eNodes[i].y);
               eCtx.lineTo(eNodes[j].x, eNodes[j].y);
@@ -1899,26 +1901,31 @@
           }
         }
 
-        // Draw nodes — larger and more varied
-        for (let node of eNodes) {
-          const pulse = 1 + 0.12 * Math.sin(node.phase);
-          const r = node.radius * pulse;
-          const alpha = 0.5 + 0.25 * Math.sin(node.phase * 0.6);
+        // Nodes — large, glowing orbs
+        for (var i = 0; i < eNodes.length; i++) {
+          var node = eNodes[i];
+          var pulse = 1 + 0.1 * Math.sin(node.phase);
+          var r = node.radius * pulse;
+          var alpha = 0.5 + 0.25 * Math.sin(node.phase * 0.5);
+
+          // Outer glow
+          var glowGrad = eCtx.createRadialGradient(node.x, node.y, 0, node.x, node.y, r * 4);
+          glowGrad.addColorStop(0, node.color);
+          glowGrad.addColorStop(0.2, node.color);
+          glowGrad.addColorStop(0.7, node.color);
+          glowGrad.addColorStop(1, 'rgba(255,255,255,0)');
+          eCtx.fillStyle = glowGrad;
+          eCtx.globalAlpha = 0.06;
+          eCtx.beginPath();
+          eCtx.arc(node.x, node.y, r * 4, 0, Math.PI * 2);
+          eCtx.fill();
+          eCtx.globalAlpha = 1;
+
+          // Core node
           eCtx.beginPath();
           eCtx.arc(node.x, node.y, r, 0, Math.PI * 2);
           eCtx.fillStyle = node.color;
           eCtx.globalAlpha = alpha;
-          eCtx.fill();
-          eCtx.globalAlpha = 1;
-
-          // Small glow
-          const glowGrad = eCtx.createRadialGradient(node.x, node.y, 0, node.x, node.y, r * 3);
-          glowGrad.addColorStop(0, node.color);
-          glowGrad.addColorStop(1, 'rgba(255,255,255,0)');
-          eCtx.fillStyle = glowGrad;
-          eCtx.globalAlpha = 0.04;
-          eCtx.beginPath();
-          eCtx.arc(node.x, node.y, r * 3, 0, Math.PI * 2);
           eCtx.fill();
           eCtx.globalAlpha = 1;
         }
@@ -1930,13 +1937,13 @@
 
       function eHandleResize() {
         resizeEntryCanvas();
-        const newCount = eGetCount();
+        var newCount = eGetCount();
         if (newCount !== eNodes.length) {
           eInitNodes();
         } else {
-          for (let node of eNodes) {
-            node.x = Math.max(0, Math.min(entryCanvas.width, node.x));
-            node.y = Math.max(0, Math.min(entryCanvas.height, node.y));
+          for (var i = 0; i < eNodes.length; i++) {
+            eNodes[i].x = Math.max(0, Math.min(entryCanvas.width, eNodes[i].x));
+            eNodes[i].y = Math.max(0, Math.min(entryCanvas.height, eNodes[i].y));
           }
         }
         eThreshold = eGetThreshold();
@@ -1947,9 +1954,9 @@
       // ============================================================
       // MODAL
       // ============================================================
-      const modalOverlay = document.getElementById('contactModal');
-      const contactBtn = document.getElementById('contactNavBtn');
-      const closeBtn = document.getElementById('modalCloseBtn');
+      var modalOverlay = document.getElementById('contactModal');
+      var contactBtn = document.getElementById('contactNavBtn');
+      var closeBtn = document.getElementById('modalCloseBtn');
 
       function openModal() {
         modalOverlay.classList.add('active');
@@ -1979,11 +1986,11 @@
       // ============================================================
       // SCROLL ANIMATIONS
       // ============================================================
-      const fadeItems = document.querySelectorAll('.fade-item');
+      var fadeItems = document.querySelectorAll('.fade-item');
 
       if ('IntersectionObserver' in window) {
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
+        var observer = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
             if (entry.isIntersecting) {
               entry.target.style.opacity = '1';
               entry.target.style.animationPlayState = 'running';
@@ -1994,12 +2001,12 @@
           rootMargin: '0px 0px -20px 0px'
         });
 
-        fadeItems.forEach(item => {
+        fadeItems.forEach(function(item) {
           item.style.animationPlayState = 'paused';
           observer.observe(item);
         });
       } else {
-        fadeItems.forEach(item => {
+        fadeItems.forEach(function(item) {
           item.style.opacity = '1';
           item.style.animation = 'none';
         });
@@ -2008,12 +2015,12 @@
       // ============================================================
       // HAPTIC FEEDBACK
       // ============================================================
-      document.querySelectorAll('summary, .contact-btn, .close-btn, .modal-links a').forEach(el => {
+      document.querySelectorAll('summary, .contact-btn, .close-btn, .modal-links a').forEach(function(el) {
         el.addEventListener('click', function() {
-          const target = this;
+          var target = this;
           target.style.transition = 'transform 0.08s ease';
           target.style.transform = 'scale(0.97)';
-          setTimeout(() => {
+          setTimeout(function() {
             target.style.transform = 'scale(1)';
           }, 100);
         });
@@ -2022,15 +2029,15 @@
       // ============================================================
       // LIVE FEED OF DEVELOPMENT (main canvas)
       // ============================================================
-      const feedCanvas = document.getElementById('liveFeedCanvas');
-      const feedContainer = feedCanvas.parentElement;
+      var feedCanvas = document.getElementById('liveFeedCanvas');
+      var feedContainer = feedCanvas.parentElement;
 
       function isMobile() {
         return window.innerWidth < 600;
       }
 
       function resizeFeedCanvas() {
-        const rect = feedContainer.getBoundingClientRect();
+        var rect = feedContainer.getBoundingClientRect();
         feedCanvas.width = rect.width - 2;
         feedCanvas.height = rect.height - 2;
       }
@@ -2038,12 +2045,12 @@
       resizeFeedCanvas();
       window.addEventListener('resize', resizeFeedCanvas);
 
-      const feedCtx = feedCanvas.getContext('2d');
-      let feedWidth = feedCanvas.width;
-      let feedHeight = feedCanvas.height;
+      var feedCtx = feedCanvas.getContext('2d');
+      var feedWidth = feedCanvas.width;
+      var feedHeight = feedCanvas.height;
 
-      const coreColors = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#f97316', '#6b7280', '#a78b6b'];
-      const neutralColors = ['#8a8078', '#7a7268', '#6a6a60', '#5a7a5a', '#7a6a5a', '#8a7a6a', '#807870', '#5a5a50'];
+      var coreColors = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#f97316', '#6b7280', '#a78b6b'];
+      var neutralColors = ['#8a8078', '#7a7268', '#6a6a60', '#5a7a5a', '#7a6a5a', '#8a7a6a', '#807870', '#5a5a50'];
 
       function getRandomCoreColor() {
         return coreColors[Math.floor(Math.random() * coreColors.length)];
@@ -2065,14 +2072,14 @@
         return isMobile() ? 3 + Math.random() * 4 : 4 + Math.random() * 5;
       }
 
-      let feedNodes = [];
-      let feedThreshold = getThreshold();
-      let thresholdDir = 0.3;
+      var feedNodes = [];
+      var feedThreshold = getThreshold();
+      var thresholdDir = 0.3;
 
       function initFeedNodes() {
-        const count = getNodeCount();
+        var count = getNodeCount();
         feedNodes = [];
-        for (let i = 0; i < count; i++) {
+        for (var i = 0; i < count; i++) {
           feedNodes.push({
             x: Math.random() * feedWidth,
             y: Math.random() * feedHeight,
@@ -2088,19 +2095,20 @@
       initFeedNodes();
 
       function animateFeed() {
-        const w = feedCanvas.width;
-        const h = feedCanvas.height;
+        var w = feedCanvas.width;
+        var h = feedCanvas.height;
 
         feedCtx.clearRect(0, 0, w, h);
 
         feedThreshold += thresholdDir;
-        const tMin = isMobile() ? 100 : 140;
-        const tMax = isMobile() ? 190 : 240;
+        var tMin = isMobile() ? 100 : 140;
+        var tMax = isMobile() ? 190 : 240;
         if (feedThreshold > tMax || feedThreshold < tMin) {
           thresholdDir *= -1;
         }
 
-        for (let node of feedNodes) {
+        for (var i = 0; i < feedNodes.length; i++) {
+          var node = feedNodes[i];
           node.x += node.vx;
           node.y += node.vy;
           node.phase += node.pulseSpeed;
@@ -2112,16 +2120,16 @@
           node.y = Math.max(0, Math.min(h, node.y));
         }
 
-        const lineWidth = isMobile() ? 0.6 : 1;
+        var lineWidth = isMobile() ? 0.6 : 1;
         feedCtx.lineWidth = lineWidth;
-        for (let i = 0; i < feedNodes.length; i++) {
-          for (let j = i + 1; j < feedNodes.length; j++) {
-            const dx = feedNodes[i].x - feedNodes[j].x;
-            const dy = feedNodes[i].y - feedNodes[j].y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
+        for (var i = 0; i < feedNodes.length; i++) {
+          for (var j = i + 1; j < feedNodes.length; j++) {
+            var dx = feedNodes[i].x - feedNodes[j].x;
+            var dy = feedNodes[i].y - feedNodes[j].y;
+            var dist = Math.sqrt(dx * dx + dy * dy);
             if (dist < feedThreshold) {
-              const alpha = 1 - (dist / feedThreshold);
-              feedCtx.strokeStyle = `rgba(80, 80, 80, ${alpha * 0.5})`;
+              var alpha = 1 - (dist / feedThreshold);
+              feedCtx.strokeStyle = 'rgba(80,80,80,' + (alpha * 0.5) + ')';
               feedCtx.beginPath();
               feedCtx.moveTo(feedNodes[i].x, feedNodes[i].y);
               feedCtx.lineTo(feedNodes[j].x, feedNodes[j].y);
@@ -2130,10 +2138,11 @@
           }
         }
 
-        for (let node of feedNodes) {
-          const pulse = 1 + 0.15 * Math.sin(node.phase);
-          const r = node.radius * pulse;
-          const alpha = 0.6 + 0.3 * Math.sin(node.phase * 0.7);
+        for (var i = 0; i < feedNodes.length; i++) {
+          var node = feedNodes[i];
+          var pulse = 1 + 0.15 * Math.sin(node.phase);
+          var r = node.radius * pulse;
+          var alpha = 0.6 + 0.3 * Math.sin(node.phase * 0.7);
           feedCtx.beginPath();
           feedCtx.arc(node.x, node.y, r, 0, Math.PI * 2);
           feedCtx.fillStyle = node.color;
@@ -2141,7 +2150,7 @@
           feedCtx.fill();
           feedCtx.globalAlpha = 1;
 
-          const grd = feedCtx.createRadialGradient(node.x, node.y, 0, node.x, node.y, r * 3);
+          var grd = feedCtx.createRadialGradient(node.x, node.y, 0, node.x, node.y, r * 3);
           grd.addColorStop(0, node.color);
           grd.addColorStop(1, 'transparent');
           feedCtx.fillStyle = grd;
@@ -2157,13 +2166,13 @@
 
       function handleFeedResize() {
         resizeFeedCanvas();
-        const newCount = getNodeCount();
+        var newCount = getNodeCount();
         if (newCount !== feedNodes.length) {
           initFeedNodes();
         } else {
-          for (let node of feedNodes) {
-            node.x = Math.max(0, Math.min(feedCanvas.width, node.x));
-            node.y = Math.max(0, Math.min(feedCanvas.height, node.y));
+          for (var i = 0; i < feedNodes.length; i++) {
+            feedNodes[i].x = Math.max(0, Math.min(feedCanvas.width, feedNodes[i].x));
+            feedNodes[i].y = Math.max(0, Math.min(feedCanvas.height, feedNodes[i].y));
           }
         }
         feedThreshold = getThreshold();
@@ -2175,18 +2184,18 @@
       // ============================================================
       // SYSTEM BEHAVIOUR 1: BUILDER SYSTEMS — Isolation Barrier
       // ============================================================
-      const bCanvas = document.getElementById('behaviourBuilder');
-      const bCtx = bCanvas.getContext('2d');
-      const bW = bCanvas.width,
+      var bCanvas = document.getElementById('behaviourBuilder');
+      var bCtx = bCanvas.getContext('2d');
+      var bW = bCanvas.width,
         bH = bCanvas.height;
 
-      const barrierRadius = 60;
-      const barrierX = bW / 2;
-      const barrierY = bH / 2;
-      let bFlash = 0;
+      var barrierRadius = 60;
+      var barrierX = bW / 2;
+      var barrierY = bH / 2;
+      var bFlash = 0;
 
-      let mistParticles = [];
-      for (let i = 0; i < 6; i++) {
+      var mistParticles = [];
+      for (var i = 0; i < 6; i++) {
         mistParticles.push({
           x: Math.random() * bW,
           y: Math.random() * bH,
@@ -2197,11 +2206,11 @@
         });
       }
 
-      let bNodes = [];
-      const bNodeCount = 10;
-      for (let i = 0; i < bNodeCount; i++) {
-        const angle = Math.random() * Math.PI * 2;
-        const dist = barrierRadius + 15 + Math.random() * 90;
+      var bNodes = [];
+      var bNodeCount = 10;
+      for (var i = 0; i < bNodeCount; i++) {
+        var angle = Math.random() * Math.PI * 2;
+        var dist = barrierRadius + 15 + Math.random() * 90;
         bNodes.push({
           x: barrierX + Math.cos(angle) * dist,
           y: barrierY + Math.sin(angle) * dist,
@@ -2219,23 +2228,23 @@
         });
       }
 
-      let clusterCenters = [
+      var clusterCenters = [
         { x: barrierX - 80, y: barrierY - 40 },
         { x: barrierX + 80, y: barrierY + 40 },
       ];
 
       function triggerSoftAttack() {
         if (bNodes.length === 0) return;
-        let node = bNodes[Math.floor(Math.random() * bNodes.length)];
+        var node = bNodes[Math.floor(Math.random() * bNodes.length)];
         if (node.attacking) return;
         node.attacking = true;
         node.attackTimer = 0;
         node.targetDist = 8 + Math.random() * 12;
         bFlash = 0.35;
 
-        setTimeout(() => {
+        setTimeout(function() {
           node.targetDist = barrierRadius + 20 + Math.random() * 70;
-          setTimeout(() => {
+          setTimeout(function() {
             node.attacking = false;
           }, 1000 + Math.random() * 1500);
         }, 1200 + Math.random() * 1800);
@@ -2245,20 +2254,21 @@
 
       setTimeout(triggerSoftAttack, 4000 + Math.random() * 5000);
 
-      let clusterShiftTimer = 0;
+      var clusterShiftTimer = 0;
 
       function animateBuilder() {
         bCtx.clearRect(0, 0, bW, bH);
 
-        for (let m of mistParticles) {
+        for (var i = 0; i < mistParticles.length; i++) {
+          var m = mistParticles[i];
           m.x += m.dx;
           m.y += m.dy;
           if (m.x < -m.r || m.x > bW + m.r) m.dx *= -1;
           if (m.y < -m.r || m.y > bH + m.r) m.dy *= -1;
-          const grad = bCtx.createRadialGradient(m.x, m.y, 0, m.x, m.y, m.r);
-          grad.addColorStop(0, `rgba(255, 255, 255, ${m.opacity * 0.5})`);
-          grad.addColorStop(0.5, `rgba(255, 255, 255, ${m.opacity})`);
-          grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+          var grad = bCtx.createRadialGradient(m.x, m.y, 0, m.x, m.y, m.r);
+          grad.addColorStop(0, 'rgba(255,255,255,' + (m.opacity * 0.5) + ')');
+          grad.addColorStop(0.5, 'rgba(255,255,255,' + m.opacity + ')');
+          grad.addColorStop(1, 'rgba(255,255,255,0)');
           bCtx.fillStyle = grad;
           bCtx.beginPath();
           bCtx.arc(m.x, m.y, m.r, 0, Math.PI * 2);
@@ -2268,30 +2278,30 @@
         bFlash *= 0.97;
 
         clusterShiftTimer += 0.0002;
-        for (let i = 0; i < clusterCenters.length; i++) {
+        for (var i = 0; i < clusterCenters.length; i++) {
           clusterCenters[i].x += Math.sin(clusterShiftTimer + i * 2) * 0.08;
           clusterCenters[i].y += Math.cos(clusterShiftTimer * 0.7 + i * 1.5) * 0.08;
           clusterCenters[i].x = Math.max(20, Math.min(bW - 20, clusterCenters[i].x));
           clusterCenters[i].y = Math.max(20, Math.min(bH - 20, clusterCenters[i].y));
         }
 
-        const slowPulse = Date.now() / 6000;
-        const barrierPulse = barrierRadius + 3 * Math.sin(slowPulse + Math.sin(slowPulse * 0.3) * 0.5);
+        var slowPulse = Date.now() / 6000;
+        var barrierPulse = barrierRadius + 3 * Math.sin(slowPulse + Math.sin(slowPulse * 0.3) * 0.5);
 
-        const innerGlow = bCtx.createRadialGradient(barrierX, barrierY, 0, barrierX, barrierY, barrierPulse);
-        innerGlow.addColorStop(0, 'rgba(59, 130, 246, 0.08)');
-        innerGlow.addColorStop(0.8, 'rgba(59, 130, 246, 0.03)');
-        innerGlow.addColorStop(1, 'rgba(59, 130, 246, 0)');
+        var innerGlow = bCtx.createRadialGradient(barrierX, barrierY, 0, barrierX, barrierY, barrierPulse);
+        innerGlow.addColorStop(0, 'rgba(59,130,246,0.08)');
+        innerGlow.addColorStop(0.8, 'rgba(59,130,246,0.03)');
+        innerGlow.addColorStop(1, 'rgba(59,130,246,0)');
         bCtx.fillStyle = innerGlow;
         bCtx.beginPath();
         bCtx.arc(barrierX, barrierY, barrierPulse, 0, Math.PI * 2);
         bCtx.fill();
 
-        const outerGlow = bCtx.createRadialGradient(barrierX, barrierY, barrierPulse * 0.5, barrierX, barrierY, barrierPulse *
+        var outerGlow = bCtx.createRadialGradient(barrierX, barrierY, barrierPulse * 0.5, barrierX, barrierY, barrierPulse *
           2);
-        outerGlow.addColorStop(0, `rgba(59, 130, 246, ${0.04 + bFlash * 0.15})`);
-        outerGlow.addColorStop(0.5, `rgba(59, 130, 246, ${0.02 + bFlash * 0.08})`);
-        outerGlow.addColorStop(1, 'rgba(59, 130, 246, 0)');
+        outerGlow.addColorStop(0, 'rgba(59,130,246,' + (0.04 + bFlash * 0.15) + ')');
+        outerGlow.addColorStop(0.5, 'rgba(59,130,246,' + (0.02 + bFlash * 0.08) + ')');
+        outerGlow.addColorStop(1, 'rgba(59,130,246,0)');
         bCtx.fillStyle = outerGlow;
         bCtx.beginPath();
         bCtx.arc(barrierX, barrierY, barrierPulse * 2, 0, Math.PI * 2);
@@ -2307,7 +2317,8 @@
         bCtx.globalAlpha = 1;
         bCtx.setLineDash([]);
 
-        for (let node of bNodes) {
+        for (var i = 0; i < bNodes.length; i++) {
+          var node = bNodes[i];
           node.angle += node.speed * node.orbitDir;
           node.phase += 0.001 + Math.random() * 0.0005;
           if (node.attacking) {
@@ -2315,7 +2326,7 @@
           }
 
           if (!node.attacking && Math.random() < 0.0002) {
-            const c = clusterCenters[node.cluster % clusterCenters.length];
+            var c = clusterCenters[node.cluster % clusterCenters.length];
             node.targetDist = barrierRadius + 30 + Math.random() * 60;
           }
 
@@ -2328,17 +2339,17 @@
           node.y = barrierY + Math.sin(node.angle) * node.dist;
         }
 
-        const webDensity = 0.2 + 0.15 * Math.sin(Date.now() / 12000);
+        var webDensity = 0.2 + 0.15 * Math.sin(Date.now() / 12000);
         bCtx.lineWidth = 0.25;
-        for (let i = 0; i < bNodes.length; i++) {
-          for (let j = i + 1; j < bNodes.length; j++) {
-            const dx = bNodes[i].x - bNodes[j].x;
-            const dy = bNodes[i].y - bNodes[j].y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            const maxDist = 110 + 15 * Math.sin(Date.now() / 12000 + i + j);
+        for (var i = 0; i < bNodes.length; i++) {
+          for (var j = i + 1; j < bNodes.length; j++) {
+            var dx = bNodes[i].x - bNodes[j].x;
+            var dy = bNodes[i].y - bNodes[j].y;
+            var dist = Math.sqrt(dx * dx + dy * dy);
+            var maxDist = 110 + 15 * Math.sin(Date.now() / 12000 + i + j);
             if (dist < maxDist && bNodes[i].dist > barrierRadius + 6 && bNodes[j].dist > barrierRadius + 6) {
-              const alpha = 1 - dist / maxDist;
-              bCtx.strokeStyle = `rgba(80, 80, 80, ${alpha * 0.08 * webDensity})`;
+              var alpha = 1 - dist / maxDist;
+              bCtx.strokeStyle = 'rgba(80,80,80,' + (alpha * 0.08 * webDensity) + ')';
               bCtx.beginPath();
               bCtx.moveTo(bNodes[i].x, bNodes[i].y);
               bCtx.lineTo(bNodes[j].x, bNodes[j].y);
@@ -2347,11 +2358,12 @@
           }
         }
 
-        for (let node of bNodes) {
-          const pulse = 1 + 0.1 * Math.sin(node.phase);
-          const r = node.radius * pulse;
+        for (var i = 0; i < bNodes.length; i++) {
+          var node = bNodes[i];
+          var pulse = 1 + 0.1 * Math.sin(node.phase);
+          var r = node.radius * pulse;
 
-          const glowGrad = bCtx.createRadialGradient(node.x, node.y, 0, node.x, node.y, r * 4);
+          var glowGrad = bCtx.createRadialGradient(node.x, node.y, 0, node.x, node.y, r * 4);
           glowGrad.addColorStop(0, node.color);
           glowGrad.addColorStop(0.15, node.color);
           glowGrad.addColorStop(0.6, node.color);
@@ -2363,7 +2375,7 @@
           bCtx.fill();
           bCtx.globalAlpha = 1;
 
-          const alpha = 0.5 + 0.25 * Math.sin(node.phase * 0.35);
+          var alpha = 0.5 + 0.25 * Math.sin(node.phase * 0.35);
           bCtx.beginPath();
           bCtx.arc(node.x, node.y, r, 0, Math.PI * 2);
           bCtx.fillStyle = node.color;
@@ -2380,25 +2392,25 @@
       // ============================================================
       // SYSTEM BEHAVIOUR 2: SYSTEMS ARCHITECTURE — Layer Flow
       // ============================================================
-      const aCanvas = document.getElementById('behaviourArchitecture');
-      const aCtx = aCanvas.getContext('2d');
-      const aW = aCanvas.width,
+      var aCanvas = document.getElementById('behaviourArchitecture');
+      var aCtx = aCanvas.getContext('2d');
+      var aW = aCanvas.width,
         aH = aCanvas.height;
 
-      const layerPositions = [40, 95, 150, 205, 260, 350];
-      const layerColors = ['#8b5cf6', '#3b82f6', '#10b981', '#f59e0b', '#f97316', '#ef4444'];
-      let currentLayerIndex = 0;
-      let targetLayerIndex = 0;
-      let jobProgress = 0;
-      let jobY = layerPositions[0];
-      let pulseTimer = 0;
-      let branchActive = false;
-      let branchY1 = 0,
+      var layerPositions = [40, 95, 150, 205, 260, 350];
+      var layerColors = ['#8b5cf6', '#3b82f6', '#10b981', '#f59e0b', '#f97316', '#ef4444'];
+      var currentLayerIndex = 0;
+      var targetLayerIndex = 0;
+      var jobProgress = 0;
+      var jobY = layerPositions[0];
+      var pulseTimer = 0;
+      var branchActive = false;
+      var branchY1 = 0,
         branchY2 = 0;
-      let branchProgress = 0;
+      var branchProgress = 0;
 
-      let aMist = [];
-      for (let i = 0; i < 6; i++) {
+      var aMist = [];
+      for (var i = 0; i < 6; i++) {
         aMist.push({
           x: Math.random() * aW,
           y: Math.random() * aH,
@@ -2410,16 +2422,16 @@
       }
 
       function moveJob() {
-        let newTarget = Math.floor(Math.random() * layerPositions.length);
+        var newTarget = Math.floor(Math.random() * layerPositions.length);
         while (newTarget === targetLayerIndex && layerPositions.length > 1) {
           newTarget = Math.floor(Math.random() * layerPositions.length);
         }
         targetLayerIndex = newTarget;
         jobProgress = 0;
-        const duration = 5000 + Math.random() * 6000;
-        const startY = layerPositions[currentLayerIndex];
-        const endY = layerPositions[targetLayerIndex];
-        const startTime = Date.now();
+        var duration = 5000 + Math.random() * 6000;
+        var startY = layerPositions[currentLayerIndex];
+        var endY = layerPositions[targetLayerIndex];
+        var startTime = Date.now();
 
         if (Math.random() < 0.15) {
           branchActive = true;
@@ -2431,9 +2443,9 @@
         }
 
         function animateJobMove() {
-          const elapsed = Date.now() - startTime;
+          var elapsed = Date.now() - startTime;
           jobProgress = Math.min(elapsed / duration, 1);
-          const ease = 1 - Math.pow(1 - jobProgress, 3);
+          var ease = 1 - Math.pow(1 - jobProgress, 3);
           jobY = startY + (endY - startY) * ease;
 
           if (branchActive) {
@@ -2445,7 +2457,7 @@
           } else {
             currentLayerIndex = targetLayerIndex;
             pulseTimer = 1.2;
-            setTimeout(() => { pulseTimer = 0; }, 1500);
+            setTimeout(function() { pulseTimer = 0; }, 1500);
             setTimeout(moveJob, 4000 + Math.random() * 6000);
           }
         }
@@ -2457,15 +2469,16 @@
       function animateArchitecture() {
         aCtx.clearRect(0, 0, aW, aH);
 
-        for (let m of aMist) {
+        for (var i = 0; i < aMist.length; i++) {
+          var m = aMist[i];
           m.x += m.dx;
           m.y += m.dy;
           if (m.x < -m.r || m.x > aW + m.r) m.dx *= -1;
           if (m.y < -m.r || m.y > aH + m.r) m.dy *= -1;
-          const grad = aCtx.createRadialGradient(m.x, m.y, 0, m.x, m.y, m.r);
-          grad.addColorStop(0, `rgba(255, 255, 255, ${m.opacity * 0.5})`);
-          grad.addColorStop(0.5, `rgba(255, 255, 255, ${m.opacity})`);
-          grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+          var grad = aCtx.createRadialGradient(m.x, m.y, 0, m.x, m.y, m.r);
+          grad.addColorStop(0, 'rgba(255,255,255,' + (m.opacity * 0.5) + ')');
+          grad.addColorStop(0.5, 'rgba(255,255,255,' + m.opacity + ')');
+          grad.addColorStop(1, 'rgba(255,255,255,0)');
           aCtx.fillStyle = grad;
           aCtx.beginPath();
           aCtx.arc(m.x, m.y, m.r, 0, Math.PI * 2);
@@ -2474,12 +2487,12 @@
 
         if (pulseTimer > 0) pulseTimer *= 0.993;
 
-        const threadOpacity = 0.05 + 0.03 * Math.sin(Date.now() / 8000);
+        var threadOpacity = 0.05 + 0.03 * Math.sin(Date.now() / 8000);
         aCtx.lineWidth = 0.3;
-        for (let i = 0; i < layerPositions.length - 1; i++) {
-          const y1 = layerPositions[i];
-          const y2 = layerPositions[i + 1];
-          aCtx.strokeStyle = `rgba(80, 80, 80, ${threadOpacity})`;
+        for (var i = 0; i < layerPositions.length - 1; i++) {
+          var y1 = layerPositions[i];
+          var y2 = layerPositions[i + 1];
+          aCtx.strokeStyle = 'rgba(80,80,80,' + threadOpacity + ')';
           aCtx.beginPath();
           aCtx.moveTo(aW / 2 - 70, y1);
           aCtx.lineTo(aW / 2 - 70, y2);
@@ -2491,11 +2504,11 @@
         }
 
         if (branchActive && branchProgress < 1) {
-          aCtx.strokeStyle = `rgba(59, 130, 246, ${0.05 * (1 - branchProgress)})`;
+          aCtx.strokeStyle = 'rgba(59,130,246,' + (0.05 * (1 - branchProgress)) + ')';
           aCtx.lineWidth = 0.4;
           aCtx.setLineDash([2, 6]);
-          const midX = aW / 2;
-          const offset = 30 * branchProgress;
+          var midX = aW / 2;
+          var offset = 30 * branchProgress;
           aCtx.beginPath();
           aCtx.moveTo(midX, branchY1);
           aCtx.lineTo(midX - offset, (branchY1 + branchY2) / 2);
@@ -2504,23 +2517,23 @@
           aCtx.setLineDash([]);
         }
 
-        for (let i = 0; i < layerPositions.length; i++) {
-          const y = layerPositions[i];
-          const isActive = (i === currentLayerIndex);
-          const radius = isActive ? (14 + 3 * Math.sin(Date.now() / 4000 + i)) : 7;
-          const alpha = isActive ? 0.8 : 0.2;
+        for (var i = 0; i < layerPositions.length; i++) {
+          var y = layerPositions[i];
+          var isActive = (i === currentLayerIndex);
+          var radius = isActive ? (14 + 3 * Math.sin(Date.now() / 4000 + i)) : 7;
+          var alpha = isActive ? 0.8 : 0.2;
 
           if (isActive && pulseTimer > 0.01) {
-            const grad = aCtx.createRadialGradient(aW / 2, y, 0, aW / 2, y, 35 * pulseTimer);
-            grad.addColorStop(0, `rgba(59, 130, 246, ${0.06 * pulseTimer})`);
-            grad.addColorStop(1, 'rgba(59, 130, 246, 0)');
-            aCtx.fillStyle = grad;
+            var grad2 = aCtx.createRadialGradient(aW / 2, y, 0, aW / 2, y, 35 * pulseTimer);
+            grad2.addColorStop(0, 'rgba(59,130,246,' + (0.06 * pulseTimer) + ')');
+            grad2.addColorStop(1, 'rgba(59,130,246,0)');
+            aCtx.fillStyle = grad2;
             aCtx.beginPath();
             aCtx.arc(aW / 2, y, 35 * pulseTimer, 0, Math.PI * 2);
             aCtx.fill();
           }
 
-          const glowGrad = aCtx.createRadialGradient(aW / 2, y, 0, aW / 2, y, radius * 5);
+          var glowGrad = aCtx.createRadialGradient(aW / 2, y, 0, aW / 2, y, radius * 5);
           glowGrad.addColorStop(0, layerColors[i]);
           glowGrad.addColorStop(0.3, layerColors[i]);
           glowGrad.addColorStop(1, 'rgba(255,255,255,0)');
@@ -2539,13 +2552,13 @@
           aCtx.globalAlpha = 1;
         }
 
-        const jobPulse = 1 + 0.10 * Math.sin(Date.now() / 600 + jobY);
-        const jobRadius = 9 * jobPulse;
-        const jobGrad = aCtx.createRadialGradient(aW / 2, jobY, 0, aW / 2, jobY, jobRadius + 20);
-        jobGrad.addColorStop(0, 'rgba(255, 255, 255, 0.5)');
-        jobGrad.addColorStop(0.2, 'rgba(59, 130, 246, 0.4)');
-        jobGrad.addColorStop(0.7, 'rgba(59, 130, 246, 0.15)');
-        jobGrad.addColorStop(1, 'rgba(59, 130, 246, 0)');
+        var jobPulse = 1 + 0.10 * Math.sin(Date.now() / 600 + jobY);
+        var jobRadius = 9 * jobPulse;
+        var jobGrad = aCtx.createRadialGradient(aW / 2, jobY, 0, aW / 2, jobY, jobRadius + 20);
+        jobGrad.addColorStop(0, 'rgba(255,255,255,0.5)');
+        jobGrad.addColorStop(0.2, 'rgba(59,130,246,0.4)');
+        jobGrad.addColorStop(0.7, 'rgba(59,130,246,0.15)');
+        jobGrad.addColorStop(1, 'rgba(59,130,246,0)');
         aCtx.fillStyle = jobGrad;
         aCtx.beginPath();
         aCtx.arc(aW / 2, jobY, jobRadius + 20, 0, Math.PI * 2);
@@ -2566,27 +2579,27 @@
       // ============================================================
       // SYSTEM BEHAVIOUR 3: PROTOCOL COMPILER — Mode Lock
       // ============================================================
-      const cCanvas = document.getElementById('behaviourCompiler');
-      const cCtx = cCanvas.getContext('2d');
-      const cW = cCanvas.width,
+      var cCanvas = document.getElementById('behaviourCompiler');
+      var cCtx = cCanvas.getContext('2d');
+      var cW = cCanvas.width,
         cH = cCanvas.height;
 
-      const modeColors = ['#ef4444', '#f59e0b', '#8b5cf6', '#10b981'];
-      const cx = cW / 2,
+      var modeColors = ['#ef4444', '#f59e0b', '#8b5cf6', '#10b981'];
+      var cx = cW / 2,
         cy = cH / 2;
-      const orbitRadius = 80;
-      let modeAngles = [0, Math.PI / 2, Math.PI, 3 * Math.PI / 2];
-      let modeSpeeds = [0.001 + Math.random() * 0.004, 0.002 + Math.random() * 0.004, 0.001 + Math.random() * 0.004, 0.002 +
+      var orbitRadius = 80;
+      var modeAngles = [0, Math.PI / 2, Math.PI, 3 * Math.PI / 2];
+      var modeSpeeds = [0.001 + Math.random() * 0.004, 0.002 + Math.random() * 0.004, 0.001 + Math.random() * 0.004, 0.002 +
         Math.random() * 0.004
       ];
-      let lockedIndex = -1;
-      let lockProgress = 0;
-      let isLocking = false;
-      let pulseRing = 0;
-      let pulseRingActive = false;
+      var lockedIndex = -1;
+      var lockProgress = 0;
+      var isLocking = false;
+      var pulseRing = 0;
+      var pulseRingActive = false;
 
-      let cMist = [];
-      for (let i = 0; i < 6; i++) {
+      var cMist = [];
+      for (var i = 0; i < 6; i++) {
         cMist.push({
           x: Math.random() * cW,
           y: Math.random() * cH,
@@ -2600,26 +2613,26 @@
       function triggerLock() {
         if (isLocking) return;
         isLocking = true;
-        const newLock = Math.floor(Math.random() * modeColors.length);
+        var newLock = Math.floor(Math.random() * modeColors.length);
         lockedIndex = newLock;
         lockProgress = 0;
         pulseRingActive = true;
         pulseRing = 0;
 
-        const duration = 2500 + Math.random() * 2500;
-        const startTime = Date.now();
+        var duration = 2500 + Math.random() * 2500;
+        var startTime = Date.now();
 
         function animateLock() {
-          const elapsed = Date.now() - startTime;
+          var elapsed = Date.now() - startTime;
           lockProgress = Math.min(elapsed / duration, 1);
-          const ease = 1 - Math.pow(1 - lockProgress, 3);
+          var ease = 1 - Math.pow(1 - lockProgress, 3);
 
           if (lockProgress < 1) {
             requestAnimationFrame(animateLock);
           } else {
             isLocking = false;
             pulseRingActive = false;
-            setTimeout(() => {
+            setTimeout(function() {
               if (Math.random() < 0.6) {
                 triggerLock();
               } else {
@@ -2637,43 +2650,44 @@
       function animateCompiler() {
         cCtx.clearRect(0, 0, cW, cH);
 
-        for (let m of cMist) {
+        for (var i = 0; i < cMist.length; i++) {
+          var m = cMist[i];
           m.x += m.dx;
           m.y += m.dy;
           if (m.x < -m.r || m.x > cW + m.r) m.dx *= -1;
           if (m.y < -m.r || m.y > cH + m.r) m.dy *= -1;
-          const grad = cCtx.createRadialGradient(m.x, m.y, 0, m.x, m.y, m.r);
-          grad.addColorStop(0, `rgba(255, 255, 255, ${m.opacity * 0.5})`);
-          grad.addColorStop(0.5, `rgba(255, 255, 255, ${m.opacity})`);
-          grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+          var grad = cCtx.createRadialGradient(m.x, m.y, 0, m.x, m.y, m.r);
+          grad.addColorStop(0, 'rgba(255,255,255,' + (m.opacity * 0.5) + ')');
+          grad.addColorStop(0.5, 'rgba(255,255,255,' + m.opacity + ')');
+          grad.addColorStop(1, 'rgba(255,255,255,0)');
           cCtx.fillStyle = grad;
           cCtx.beginPath();
           cCtx.arc(m.x, m.y, m.r, 0, Math.PI * 2);
           cCtx.fill();
         }
 
-        for (let i = 0; i < modeSpeeds.length; i++) {
+        for (var i = 0; i < modeSpeeds.length; i++) {
           if (Math.random() < 0.0005) {
             modeSpeeds[i] = 0.001 + Math.random() * 0.004;
           }
         }
 
-        for (let i = 0; i < modeAngles.length; i++) {
+        for (var i = 0; i < modeAngles.length; i++) {
           modeAngles[i] += modeSpeeds[i];
         }
 
         if (pulseRingActive) {
           pulseRing += 0.01;
           if (pulseRing > 1) pulseRingActive = false;
-          const ringRadius = 30 + pulseRing * 80;
-          cCtx.strokeStyle = `rgba(167, 139, 107, ${0.06 * (1 - pulseRing)})`;
+          var ringRadius = 30 + pulseRing * 80;
+          cCtx.strokeStyle = 'rgba(167,139,107,' + (0.06 * (1 - pulseRing)) + ')';
           cCtx.lineWidth = 0.8;
           cCtx.beginPath();
           cCtx.arc(cx, cy, ringRadius, 0, Math.PI * 2);
           cCtx.stroke();
         }
 
-        cCtx.strokeStyle = 'rgba(80, 80, 80, 0.03)';
+        cCtx.strokeStyle = 'rgba(80,80,80,0.03)';
         cCtx.lineWidth = 0.3;
         cCtx.setLineDash([3, 8]);
         cCtx.beginPath();
@@ -2681,15 +2695,15 @@
         cCtx.stroke();
         cCtx.setLineDash([]);
 
-        for (let i = 0; i < modeAngles.length; i++) {
-          const angle = modeAngles[i];
-          const mx = cx + Math.cos(angle) * orbitRadius;
-          const my = cy + Math.sin(angle) * orbitRadius;
-          const isLocked = (i === lockedIndex);
+        for (var i = 0; i < modeAngles.length; i++) {
+          var angle = modeAngles[i];
+          var mx = cx + Math.cos(angle) * orbitRadius;
+          var my = cy + Math.sin(angle) * orbitRadius;
+          var isLocked = (i === lockedIndex);
 
-          const width = isLocked ? (0.2 + 1.5 * lockProgress) : 0.15;
-          const alpha = isLocked ? (0.08 + 0.5 * lockProgress) : 0.05;
-          cCtx.strokeStyle = `rgba(80, 80, 80, ${alpha})`;
+          var width = isLocked ? (0.2 + 1.5 * lockProgress) : 0.15;
+          var alpha = isLocked ? (0.08 + 0.5 * lockProgress) : 0.05;
+          cCtx.strokeStyle = 'rgba(80,80,80,' + alpha + ')';
           cCtx.lineWidth = width;
           cCtx.beginPath();
           cCtx.moveTo(cx, cy);
@@ -2697,12 +2711,12 @@
           cCtx.stroke();
         }
 
-        const compPulse = 1 + 0.05 * Math.sin(Date.now() / 700 + Math.sin(Date.now() / 4000) * 0.3);
-        const compRadius = 18 * compPulse;
-        const compGrad = cCtx.createRadialGradient(cx, cy, 0, cx, cy, compRadius + 18);
-        compGrad.addColorStop(0, 'rgba(167, 139, 107, 0.2)');
-        compGrad.addColorStop(0.3, 'rgba(167, 139, 107, 0.08)');
-        compGrad.addColorStop(1, 'rgba(167, 139, 107, 0)');
+        var compPulse = 1 + 0.05 * Math.sin(Date.now() / 700 + Math.sin(Date.now() / 4000) * 0.3);
+        var compRadius = 18 * compPulse;
+        var compGrad = cCtx.createRadialGradient(cx, cy, 0, cx, cy, compRadius + 18);
+        compGrad.addColorStop(0, 'rgba(167,139,107,0.2)');
+        compGrad.addColorStop(0.3, 'rgba(167,139,107,0.08)');
+        compGrad.addColorStop(1, 'rgba(167,139,107,0)');
         cCtx.fillStyle = compGrad;
         cCtx.beginPath();
         cCtx.arc(cx, cy, compRadius + 18, 0, Math.PI * 2);
@@ -2715,16 +2729,16 @@
         cCtx.fill();
         cCtx.globalAlpha = 1;
 
-        for (let i = 0; i < modeAngles.length; i++) {
-          const angle = modeAngles[i];
-          const mx = cx + Math.cos(angle) * orbitRadius;
-          const my = cy + Math.sin(angle) * orbitRadius;
-          const isLocked = (i === lockedIndex);
+        for (var i = 0; i < modeAngles.length; i++) {
+          var angle = modeAngles[i];
+          var mx = cx + Math.cos(angle) * orbitRadius;
+          var my = cy + Math.sin(angle) * orbitRadius;
+          var isLocked = (i === lockedIndex);
 
-          const r = isLocked ? (7 + 4 * lockProgress) : 7;
-          const alpha = isLocked ? (0.3 + 0.5 * lockProgress) : 0.2;
+          var r = isLocked ? (7 + 4 * lockProgress) : 7;
+          var alpha = isLocked ? (0.3 + 0.5 * lockProgress) : 0.2;
 
-          const glowGrad = cCtx.createRadialGradient(mx, my, 0, mx, my, r * 5);
+          var glowGrad = cCtx.createRadialGradient(mx, my, 0, mx, my, r * 5);
           glowGrad.addColorStop(0, modeColors[i]);
           glowGrad.addColorStop(0.3, modeColors[i]);
           glowGrad.addColorStop(1, 'rgba(255,255,255,0)');
@@ -2736,10 +2750,10 @@
           cCtx.globalAlpha = 1;
 
           if (isLocked) {
-            const grad = cCtx.createRadialGradient(mx, my, 0, mx, my, r + 14);
-            grad.addColorStop(0, `rgba(255, 255, 255, ${0.08 * lockProgress})`);
-            grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
-            cCtx.fillStyle = grad;
+            var grad2 = cCtx.createRadialGradient(mx, my, 0, mx, my, r + 14);
+            grad2.addColorStop(0, 'rgba(255,255,255,' + (0.08 * lockProgress) + ')');
+            grad2.addColorStop(1, 'rgba(255,255,255,0)');
+            cCtx.fillStyle = grad2;
             cCtx.beginPath();
             cCtx.arc(mx, my, r + 14, 0, Math.PI * 2);
             cCtx.fill();
