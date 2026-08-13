@@ -71,28 +71,70 @@
       background-size: 256px 256px;
     }
 
+    /* ----- BACKGROUND NODES CANVAS ----- */
+    #bgNodesCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+      filter: blur(8px);
+      opacity: 0.4;
+      transition: none;
+    }
+
     /* ----- CONTAINER ----- */
     .container {
       max-width: 1100px;
       margin: 0 auto;
-      background: rgba(244, 242, 237, 0.92);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
       padding: 2.5rem 2.5rem 2rem;
-      border: 1px solid rgba(212, 210, 204, 0.5);
-      border-radius: var(--radius-ios);
-      box-shadow: 0 4px 24px var(--shadow-color), 0 1px 2px rgba(0,0,0,0.02);
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
       position: relative;
       z-index: 1;
       overflow: hidden;
-      opacity: 0;
-      transform: translateY(12px);
-      transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+      background: rgba(244, 242, 237, 0);
+      backdrop-filter: blur(0px);
+      opacity: 1;
+      transform: none;
     }
 
-    .container.visible {
-      opacity: 1;
-      transform: translateY(0);
+    /* ----- HERO SPLASH ----- */
+    #heroSplash {
+      height: 100vh;
+      height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      margin-top: -2rem;
+    }
+
+    .splash-brand {
+      font-size: clamp(3.5rem, 10vw, 6rem);
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      color: var(--text-primary);
+    }
+
+    .splash-sub {
+      font-size: 0.85rem;
+      color: var(--text-muted-light);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 0.5rem;
+    }
+
+    .splash-divider {
+      width: 40px;
+      height: 1px;
+      background: var(--border-dark);
+      margin: 1.5rem auto;
     }
 
     /* ----- NAV ----- */
@@ -138,7 +180,7 @@
       transform: scale(1.02);
     }
 
-    /* ----- HERO ----- */
+    /* ----- HERO (below splash) ----- */
     .hero {
       margin-bottom: 3rem;
     }
@@ -572,34 +614,39 @@
       color: var(--text-muted-light);
     }
 
-    /* ----- SYSTEM BEHAVIOUR ----- */
+    /* ----- SYSTEM BEHAVIOUR (boxed, clean, small portrait) ----- */
     .behaviour-wrapper {
-      margin: 1.25rem 0 0.25rem;
+      margin: 0.75rem 0 0.25rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
     }
 
     .behaviour-wrapper .behaviour-label {
       font-size: 0.6rem;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.06em;
       color: var(--text-muted-lighter);
       font-weight: 400;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.3rem;
+      opacity: 0.5;
     }
 
     .behaviour-container {
-      padding: 0.75rem;
+      max-width: 170px;
+      aspect-ratio: 3 / 4;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.02);
       border: 1px solid var(--border-light);
       border-radius: var(--radius-card);
-      background: rgba(0, 0, 0, 0.015);
-      transition: border-color 0.3s ease;
-      aspect-ratio: 3 / 4;
-      max-height: 320px;
+      padding: 0.4rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
-      position: relative;
-      width: 100%;
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+      transition: border-color 0.3s ease;
     }
 
     .behaviour-container:hover {
@@ -610,8 +657,9 @@
       display: block;
       width: 100%;
       height: 100%;
-      border-radius: calc(var(--radius-card) - 4px);
-      background: rgba(0, 0, 0, 0.015);
+      border-radius: calc(var(--radius-card) - 6px);
+      background: transparent;
+      opacity: 1;
     }
 
     /* ----- KEY METRICS ----- */
@@ -648,11 +696,11 @@
       font-weight: 500;
       color: var(--text-primary);
       letter-spacing: -0.01em;
-      white-space: nowrap;
+      white-space: normal;
+      flex-wrap: wrap;
+      gap: 0.15rem;
       display: flex;
       align-items: center;
-      gap: 0.15rem;
-      flex-wrap: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
       max-width: 100%;
@@ -1066,122 +1114,6 @@
     }
 
     /* ============================================================
-       ENTRY PAGE STYLES (overlay)
-    ============================================================ */
-    .entry {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 100000;
-      background: #f4f2ed;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
-      pointer-events: all;
-      overflow: hidden;
-    }
-
-    .entry.hidden {
-      opacity: 0;
-      transform: scale(1.05);
-      pointer-events: none;
-    }
-
-    /* Entry canvas (full screen, blurred) */
-    .entry-canvas {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      filter: blur(5px);
-      opacity: 0.3;
-      pointer-events: none;
-    }
-
-    .entry-canvas canvas {
-      display: block;
-      width: 100%;
-      height: 100%;
-    }
-
-    /* Entry content overlay — no pointer-events restriction */
-    .entry-content {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      max-width: 480px;
-      padding: 2rem;
-      animation: fadeIn 1.2s ease forwards;
-    }
-
-    @keyframes fadeIn {
-      0% { opacity: 0; transform: translateY(6px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
-    .entry-brand {
-      font-size: 3.8rem;
-      font-weight: 600;
-      text-transform: lowercase;
-      letter-spacing: -0.03em;
-      color: #1a1a1a;
-      margin-bottom: 0.25rem;
-    }
-
-    .entry-sub {
-      font-size: 0.85rem;
-      color: #777;
-      font-weight: 400;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      margin-bottom: 2.5rem;
-    }
-
-    .entry-divider {
-      width: 40px;
-      height: 1px;
-      background: #d4d2cc;
-      margin: 0 auto 2.5rem;
-    }
-
-    .entry-btn {
-      display: inline-block;
-      font-size: 0.85rem;
-      color: #666;
-      text-decoration: none;
-      border: 1px solid #d4d2cc;
-      padding: 0.6rem 2.2rem;
-      border-radius: 40px;
-      transition: all 0.3s ease;
-      font-weight: 400;
-      background: transparent;
-      cursor: pointer;
-      font-family: 'Inter', sans-serif;
-      letter-spacing: 0.02em;
-    }
-
-    .entry-btn:hover {
-      color: #1a1a1a;
-      border-color: #1a1a1a;
-      background: #edece6;
-    }
-
-    .entry-version {
-      position: absolute;
-      bottom: 1.5rem;
-      right: 2rem;
-      font-size: 0.65rem;
-      color: #bbb;
-      letter-spacing: 0.04em;
-      font-weight: 300;
-      z-index: 2;
-    }
-
-    /* ============================================================
        RESPONSIVE
     ============================================================ */
     @media (max-width: 600px) {
@@ -1192,13 +1124,26 @@
 
       .container {
         padding: 1rem 0.75rem 1rem;
-        border-radius: var(--radius-card);
+        border-radius: 0;
         overflow: hidden;
       }
 
       .container * {
         max-width: 100%;
         word-wrap: break-word;
+      }
+
+      #heroSplash {
+        height: 100dvh;
+        margin-top: -1rem;
+        padding: 1rem;
+      }
+
+      .splash-brand {
+        font-size: clamp(2.8rem, 12vw, 4rem);
+      }
+      .splash-sub {
+        font-size: 0.7rem;
       }
 
       nav {
@@ -1297,27 +1242,15 @@
       }
 
       .behaviour-wrapper {
-        width: 100%;
-        max-width: 100%;
-        overflow: hidden;
+        align-items: center;
+        margin: 0.5rem 0 0.25rem;
       }
-
       .behaviour-container {
-        width: 100%;
-        max-width: 100%;
-        aspect-ratio: 3 / 4;
-        max-height: 200px;
-        padding: 0.4rem;
-        overflow: hidden;
+        max-width: 120px;
+        padding: 0.3rem;
       }
-
       .behaviour-container canvas {
-        width: 100% !important;
-        height: 100% !important;
-        max-width: 100%;
-        max-height: 100%;
-        display: block;
-        object-fit: contain;
+        border-radius: calc(var(--radius-card) - 6px);
       }
 
       .metrics-grid {
@@ -1380,33 +1313,17 @@
         width: 28px;
         height: 28px;
       }
-
-      /* Entry page mobile */
-      .entry-brand {
-        font-size: 2.8rem;
-      }
-      .entry-sub {
-        font-size: 0.75rem;
-      }
-      .entry-btn {
-        font-size: 0.8rem;
-        padding: 0.5rem 1.8rem;
-      }
-      .entry-version {
-        font-size: 0.55rem;
-        bottom: 1rem;
-        right: 1rem;
-      }
     }
 
     /* ============================================================
        PRINT
     ============================================================ */
     @media print {
-      .entry { display: none !important; }
+      #bgNodesCanvas { display: none !important; }
+      #heroSplash { height: auto !important; min-height: 30vh; }
       body { background: #fff !important; padding: 0.5in !important; }
       body::before { display: none !important; }
-      .container { background: #fff !important; border: none !important; box-shadow: none !important; padding: 0 !important; animation: none !important; backdrop-filter: none !important; }
+      .container { background: #fff !important; border: none !important; box-shadow: none !important; padding: 0 !important; backdrop-filter: none !important; }
       nav { border-bottom: 1px solid #ccc !important; margin-bottom: 2rem !important; }
       .contact-btn, .modal-overlay { display: none !important; }
       .brand { color: #000 !important; }
@@ -1459,26 +1376,20 @@
 
 <body>
 
-  <!-- ============================================================
-  ENTRY PAGE (overlay)
-  ============================================================ -->
-  <div class="entry" id="entryOverlay">
-    <div class="entry-canvas" id="entryCanvasContainer">
-      <canvas id="entryCanvas"></canvas>
-    </div>
-    <div class="entry-content">
-      <div class="entry-brand">house</div>
-      <div class="entry-sub">systems architecture &amp; protocol design</div>
-      <div class="entry-divider"></div>
-      <button class="entry-btn" id="entryBtn">enter</button>
-    </div>
-    <div class="entry-version">v1.0</div>
-  </div>
+  <!-- BACKGROUND NODES -->
+  <canvas id="bgNodesCanvas"></canvas>
 
   <!-- ============================================================
   PORTFOLIO
   ============================================================ -->
   <div class="container" id="portfolioContainer">
+
+    <!-- SPLASH -->
+    <div id="heroSplash">
+      <div class="splash-brand">house</div>
+      <div class="splash-sub">systems architecture &amp; protocol design</div>
+      <div class="splash-divider"></div>
+    </div>
 
     <!-- NAV -->
     <nav>
@@ -1766,106 +1677,74 @@
       'use strict';
 
       // ============================================================
-      // ENTRY → PORTFOLIO TRANSITION (button only)
+      // BACKGROUND NODES CANVAS (TITANS)
       // ============================================================
-      var entry = document.getElementById('entryOverlay');
-      var entryBtn = document.getElementById('entryBtn');
-      var portfolio = document.getElementById('portfolioContainer');
+      var bgCanvas = document.getElementById('bgNodesCanvas');
+      var bgCtx = bgCanvas.getContext('2d');
 
-      function revealPortfolio() {
-        entry.classList.add('hidden');
-        setTimeout(function() {
-          portfolio.classList.add('visible');
-        }, 300);
-        setTimeout(function() {
-          entry.style.display = 'none';
-        }, 1000);
+      function resizeBgCanvas() {
+        bgCanvas.width = window.innerWidth;
+        bgCanvas.height = window.innerHeight;
+      }
+      resizeBgCanvas();
+      window.addEventListener('resize', resizeBgCanvas);
+
+      var coreColors = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#f97316', '#6b7280', '#a78b6b'];
+      var neutralColors = ['#8a8078', '#7a7268', '#6a6a60', '#5a7a5a', '#7a6a5a', '#8a7a6a', '#807870', '#5a5a50'];
+
+      function getRandomCore() {
+        return coreColors[Math.floor(Math.random() * coreColors.length)];
+      }
+      function getRandomColor() {
+        return Math.random() < 0.6 ? getRandomCore() : neutralColors[Math.floor(Math.random() * neutralColors.length)];
       }
 
-      entryBtn.addEventListener('click', revealPortfolio);
-
-      // ============================================================
-      // ENTRY CANVAS — massive, monumental nodes
-      // ============================================================
-      var entryCanvas = document.getElementById('entryCanvas');
-      var entryContainer = document.getElementById('entryCanvasContainer');
-
-      function resizeEntryCanvas() {
-        var rect = entryContainer.getBoundingClientRect();
-        entryCanvas.width = rect.width;
-        entryCanvas.height = rect.height;
+      function getNodeCount() {
+        return window.innerWidth < 600 ? 8 : 10;
+      }
+      function getThreshold() {
+        return window.innerWidth < 600 ? 380 : 500;
+      }
+      function getRadius() {
+        return window.innerWidth < 600
+          ? 60 + Math.random() * 80
+          : 80 + Math.random() * 120;
       }
 
-      resizeEntryCanvas();
-      window.addEventListener('resize', resizeEntryCanvas);
+      var bgNodes = [];
+      var bgThreshold = getThreshold();
+      var bgThresholdDir = 0.15;
 
-      var eCtx = entryCanvas.getContext('2d');
-
-      var eCoreColors = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#f97316', '#6b7280', '#a78b6b'];
-      var eNeutralColors = ['#8a8078', '#7a7268', '#6a6a60', '#5a7a5a', '#7a6a5a', '#8a7a6a', '#807870', '#5a5a50'];
-
-      function eRandomCore() {
-        return eCoreColors[Math.floor(Math.random() * eCoreColors.length)];
-      }
-
-      function eRandomColor() {
-        return Math.random() < 0.6 ? eRandomCore() : eNeutralColors[Math.floor(Math.random() * eNeutralColors.length)];
-      }
-
-      var eNodes = [];
-      var eCountDesktop = 18;
-      var eCountMobile = 12;
-
-      function eGetCount() {
-        return window.innerWidth < 600 ? eCountMobile : eCountDesktop;
-      }
-
-      function eGetThreshold() {
-        return window.innerWidth < 600 ? 180 : 240;
-      }
-
-      // MASSIVE NODES — feel like walking among them
-      function eRandomRadius() {
-        var min = window.innerWidth < 600 ? 18 : 24;
-        var max = window.innerWidth < 600 ? 42 : 58;
-        return min + Math.random() * (max - min);
-      }
-
-      function eInitNodes() {
-        var count = eGetCount();
-        eNodes = [];
+      function initBgNodes() {
+        var count = getNodeCount();
+        bgNodes = [];
         for (var i = 0; i < count; i++) {
-          eNodes.push({
-            x: Math.random() * entryCanvas.width,
-            y: Math.random() * entryCanvas.height,
+          bgNodes.push({
+            x: Math.random() * bgCanvas.width,
+            y: Math.random() * bgCanvas.height,
             vx: (Math.random() - 0.5) * 0.15,
             vy: (Math.random() - 0.5) * 0.15,
-            radius: eRandomRadius(),
-            color: eRandomColor(),
+            radius: getRadius(),
+            color: getRandomColor(),
             pulseSpeed: 0.001 + Math.random() * 0.005,
             phase: Math.random() * Math.PI * 2,
           });
         }
       }
-      eInitNodes();
+      initBgNodes();
 
-      var eThreshold = eGetThreshold();
-      var eThresholdDir = 0.15;
+      function animateBgNodes() {
+        var w = bgCanvas.width;
+        var h = bgCanvas.height;
+        bgCtx.clearRect(0, 0, w, h);
 
-      function eAnimate() {
-        var w = entryCanvas.width;
-        var h = entryCanvas.height;
-        eCtx.clearRect(0, 0, w, h);
+        bgThreshold += bgThresholdDir;
+        var tMin = window.innerWidth < 600 ? 300 : 380;
+        var tMax = window.innerWidth < 600 ? 460 : 620;
+        if (bgThreshold > tMax || bgThreshold < tMin) bgThresholdDir *= -1;
 
-        eThreshold += eThresholdDir;
-        var tMin = window.innerWidth < 600 ? 150 : 200;
-        var tMax = window.innerWidth < 600 ? 220 : 280;
-        if (eThreshold > tMax || eThreshold < tMin) {
-          eThresholdDir *= -1;
-        }
-
-        for (var i = 0; i < eNodes.length; i++) {
-          var node = eNodes[i];
+        for (var i = 0; i < bgNodes.length; i++) {
+          var node = bgNodes[i];
           node.x += node.vx;
           node.y += node.vy;
           node.phase += node.pulseSpeed;
@@ -1875,73 +1754,94 @@
           node.y = Math.max(0, Math.min(h, node.y));
         }
 
-        // Edges (webs) — more visible
-        eCtx.lineWidth = 1.2;
-        for (var i = 0; i < eNodes.length; i++) {
-          for (var j = i + 1; j < eNodes.length; j++) {
-            var dx = eNodes[i].x - eNodes[j].x;
-            var dy = eNodes[i].y - eNodes[j].y;
+        bgCtx.lineWidth = 1.2;
+        for (var i = 0; i < bgNodes.length; i++) {
+          for (var j = i + 1; j < bgNodes.length; j++) {
+            var dx = bgNodes[i].x - bgNodes[j].x;
+            var dy = bgNodes[i].y - bgNodes[j].y;
             var dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < eThreshold) {
-              var alpha = 1 - (dist / eThreshold);
-              eCtx.strokeStyle = 'rgba(80,80,80,' + (alpha * 0.35) + ')';
-              eCtx.beginPath();
-              eCtx.moveTo(eNodes[i].x, eNodes[i].y);
-              eCtx.lineTo(eNodes[j].x, eNodes[j].y);
-              eCtx.stroke();
+            if (dist < bgThreshold) {
+              var alpha = 1 - (dist / bgThreshold);
+              bgCtx.strokeStyle = 'rgba(80,80,80,' + (alpha * 0.35) + ')';
+              bgCtx.beginPath();
+              bgCtx.moveTo(bgNodes[i].x, bgNodes[i].y);
+              bgCtx.lineTo(bgNodes[j].x, bgNodes[j].y);
+              bgCtx.stroke();
             }
           }
         }
 
-        // Nodes — massive glowing orbs
-        for (var i = 0; i < eNodes.length; i++) {
-          var node = eNodes[i];
+        for (var i = 0; i < bgNodes.length; i++) {
+          var node = bgNodes[i];
           var pulse = 1 + 0.08 * Math.sin(node.phase);
           var r = node.radius * pulse;
           var alpha = 0.4 + 0.25 * Math.sin(node.phase * 0.4);
 
-          // Outer glow — large and soft
-          var glowGrad = eCtx.createRadialGradient(node.x, node.y, 0, node.x, node.y, r * 4);
+          var glowGrad = bgCtx.createRadialGradient(node.x, node.y, 0, node.x, node.y, r * 4);
           glowGrad.addColorStop(0, node.color);
           glowGrad.addColorStop(0.15, node.color);
           glowGrad.addColorStop(0.6, node.color);
           glowGrad.addColorStop(1, 'rgba(255,255,255,0)');
-          eCtx.fillStyle = glowGrad;
-          eCtx.globalAlpha = 0.07;
-          eCtx.beginPath();
-          eCtx.arc(node.x, node.y, r * 4, 0, Math.PI * 2);
-          eCtx.fill();
-          eCtx.globalAlpha = 1;
+          bgCtx.fillStyle = glowGrad;
+          bgCtx.globalAlpha = 0.07;
+          bgCtx.beginPath();
+          bgCtx.arc(node.x, node.y, r * 4, 0, Math.PI * 2);
+          bgCtx.fill();
+          bgCtx.globalAlpha = 1;
 
-          // Core node
-          eCtx.beginPath();
-          eCtx.arc(node.x, node.y, r, 0, Math.PI * 2);
-          eCtx.fillStyle = node.color;
-          eCtx.globalAlpha = alpha;
-          eCtx.fill();
-          eCtx.globalAlpha = 1;
+          bgCtx.beginPath();
+          bgCtx.arc(node.x, node.y, r, 0, Math.PI * 2);
+          bgCtx.fillStyle = node.color;
+          bgCtx.globalAlpha = alpha;
+          bgCtx.fill();
+          bgCtx.globalAlpha = 1;
         }
 
-        requestAnimationFrame(eAnimate);
+        requestAnimationFrame(animateBgNodes);
       }
+      animateBgNodes();
 
-      eAnimate();
-
-      function eHandleResize() {
-        resizeEntryCanvas();
-        var newCount = eGetCount();
-        if (newCount !== eNodes.length) {
-          eInitNodes();
+      function handleBgResize() {
+        resizeBgCanvas();
+        var newCount = getNodeCount();
+        if (newCount !== bgNodes.length) {
+          initBgNodes();
         } else {
-          for (var i = 0; i < eNodes.length; i++) {
-            eNodes[i].x = Math.max(0, Math.min(entryCanvas.width, eNodes[i].x));
-            eNodes[i].y = Math.max(0, Math.min(entryCanvas.height, eNodes[i].y));
+          for (var i = 0; i < bgNodes.length; i++) {
+            bgNodes[i].x = Math.max(0, Math.min(bgCanvas.width, bgNodes[i].x));
+            bgNodes[i].y = Math.max(0, Math.min(bgCanvas.height, bgNodes[i].y));
           }
         }
-        eThreshold = eGetThreshold();
+        bgThreshold = getThreshold();
+      }
+      window.addEventListener('resize', handleBgResize);
+
+      // ============================================================
+      // SCROLL TRANSITION
+      // ============================================================
+      var container = document.querySelector('.container');
+      var maxScroll = window.innerHeight * 0.9;
+
+      function updateScrollTransition() {
+        var scrollY = window.scrollY;
+        var progress = Math.min(scrollY / maxScroll, 1);
+
+        var blur = 8 - progress * 8;
+        var opac = 0.4 - progress * 0.4;
+        bgCanvas.style.filter = 'blur(' + blur + 'px)';
+        bgCanvas.style.opacity = opac;
+
+        var bgOpacity = progress * 0.92;
+        var blurAmount = progress * 16;
+        container.style.background = 'rgba(244, 242, 237, ' + bgOpacity + ')';
+        container.style.backdropFilter = 'blur(' + blurAmount + 'px)';
       }
 
-      window.addEventListener('resize', eHandleResize);
+      window.addEventListener('scroll', updateScrollTransition);
+      window.addEventListener('resize', function() {
+        maxScroll = window.innerHeight * 0.9;
+      });
+      updateScrollTransition();
 
       // ============================================================
       // MODAL
@@ -2019,7 +1919,7 @@
       });
 
       // ============================================================
-      // LIVE FEED OF DEVELOPMENT (main canvas)
+      // LIVE FEED
       // ============================================================
       var feedCanvas = document.getElementById('liveFeedCanvas');
       var feedContainer = feedCanvas.parentElement;
@@ -2039,35 +1939,31 @@
 
       var feedCtx = feedCanvas.getContext('2d');
 
-      var coreColors = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#f97316', '#6b7280', '#a78b6b'];
-      var neutralColors = ['#8a8078', '#7a7268', '#6a6a60', '#5a7a5a', '#7a6a5a', '#8a7a6a', '#807870', '#5a5a50'];
+      var feedColors = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#f97316', '#6b7280', '#a78b6b'];
+      var feedNeutral = ['#8a8078', '#7a7268', '#6a6a60', '#5a7a5a', '#7a6a5a', '#8a7a6a', '#807870', '#5a5a50'];
 
-      function getRandomCoreColor() {
-        return coreColors[Math.floor(Math.random() * coreColors.length)];
+      function getRandomFeedColor() {
+        return Math.random() < 0.6 ? feedColors[Math.floor(Math.random() * feedColors.length)] : feedNeutral[Math.floor(Math.random() * feedNeutral.length)];
       }
 
-      function getRandomColor() {
-        return Math.random() < 0.6 ? getRandomCoreColor() : neutralColors[Math.floor(Math.random() * neutralColors.length)];
-      }
-
-      function getNodeCount() {
+      function getFeedNodeCount() {
         return isMobile() ? 12 : 20;
       }
 
-      function getThreshold() {
+      function getFeedThreshold() {
         return isMobile() ? 140 : 180;
       }
 
-      function getRadius() {
+      function getFeedRadius() {
         return isMobile() ? 3 + Math.random() * 4 : 4 + Math.random() * 5;
       }
 
       var feedNodes = [];
-      var feedThreshold = getThreshold();
-      var thresholdDir = 0.3;
+      var feedThreshold = getFeedThreshold();
+      var feedThresholdDir = 0.3;
 
       function initFeedNodes() {
-        var count = getNodeCount();
+        var count = getFeedNodeCount();
         feedNodes = [];
         for (var i = 0; i < count; i++) {
           feedNodes.push({
@@ -2075,8 +1971,8 @@
             y: Math.random() * feedCanvas.height,
             vx: (Math.random() - 0.5) * 0.3,
             vy: (Math.random() - 0.5) * 0.3,
-            radius: getRadius(),
-            color: getRandomColor(),
+            radius: getFeedRadius(),
+            color: getRandomFeedColor(),
             pulseSpeed: 0.003 + Math.random() * 0.01,
             phase: Math.random() * Math.PI * 2,
           });
@@ -2090,11 +1986,11 @@
 
         feedCtx.clearRect(0, 0, w, h);
 
-        feedThreshold += thresholdDir;
+        feedThreshold += feedThresholdDir;
         var tMin = isMobile() ? 100 : 140;
         var tMax = isMobile() ? 190 : 240;
         if (feedThreshold > tMax || feedThreshold < tMin) {
-          thresholdDir *= -1;
+          feedThresholdDir *= -1;
         }
 
         for (var i = 0; i < feedNodes.length; i++) {
@@ -2156,7 +2052,7 @@
 
       function handleFeedResize() {
         resizeFeedCanvas();
-        var newCount = getNodeCount();
+        var newCount = getFeedNodeCount();
         if (newCount !== feedNodes.length) {
           initFeedNodes();
         } else {
@@ -2165,7 +2061,7 @@
             feedNodes[i].y = Math.max(0, Math.min(feedCanvas.height, feedNodes[i].y));
           }
         }
-        feedThreshold = getThreshold();
+        feedThreshold = getFeedThreshold();
       }
 
       window.addEventListener('resize', handleFeedResize);
@@ -2173,6 +2069,7 @@
 
       // ============================================================
       // SYSTEM BEHAVIOUR 1: BUILDER SYSTEMS — Isolation Barrier
+      // (subtle, scaled for 300x400)
       // ============================================================
       var bCanvas = document.getElementById('behaviourBuilder');
       var bCtx = bCanvas.getContext('2d');
@@ -2209,7 +2106,7 @@
           speed: 0.0003 + Math.random() * 0.001,
           phase: Math.random() * Math.PI * 2,
           radius: 3 + Math.random() * 5,
-          color: getRandomCoreColor(),
+          color: getRandomCore(),
           targetDist: dist,
           attacking: false,
           attackTimer: 0,
@@ -2381,6 +2278,7 @@
 
       // ============================================================
       // SYSTEM BEHAVIOUR 2: SYSTEMS ARCHITECTURE — Layer Flow
+      // (subtle, scaled)
       // ============================================================
       var aCanvas = document.getElementById('behaviourArchitecture');
       var aCtx = aCanvas.getContext('2d');
@@ -2568,6 +2466,7 @@
 
       // ============================================================
       // SYSTEM BEHAVIOUR 3: PROTOCOL COMPILER — Mode Lock
+      // (subtle, scaled)
       // ============================================================
       var cCanvas = document.getElementById('behaviourCompiler');
       var cCtx = cCanvas.getContext('2d');
