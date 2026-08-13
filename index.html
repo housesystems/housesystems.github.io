@@ -1203,37 +1203,34 @@
         font-size: 0.95rem;
       }
 
+      /* --- MOBILE SUMMARY FIX --- */
       summary {
-        padding: 1rem 0.75rem;
+        padding: 0.75rem 0.5rem;
       }
 
       .summary-left {
-        flex-wrap: nowrap;
-        gap: 0.4rem 0.3rem;
+        flex-wrap: wrap;
+        gap: 0.3rem 0.2rem;
       }
       .summary-left .name {
-        font-size: 0.75rem; /* slightly smaller to fit */
+        font-size: 0.7rem;
         word-break: break-word;
       }
       .metrics {
-        font-size: 0.45rem;
-        padding: 0.05rem 0.4rem;
-        white-space: nowrap;
-        flex-shrink: 0;
+        font-size: 0.4rem;
+        padding: 0.05rem 0.3rem;
       }
 
       .summary-right {
-        gap: 0.35rem; /* tighter gap */
+        gap: 0.2rem;
         flex-shrink: 0;
       }
       .summary-right .meta {
-        font-size: 0.6rem; /* smaller version text */
-        color: var(--text-muted-light);
+        font-size: 0.55rem;
       }
-
       .chevron {
-        width: 30px;
-        height: 30px;
+        width: 26px;
+        height: 26px;
       }
 
       .work-item .description {
