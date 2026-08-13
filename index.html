@@ -1212,7 +1212,7 @@
         gap: 0.4rem 0.3rem;
       }
       .summary-left .name {
-        font-size: 0.85rem;
+        font-size: 0.75rem; /* slightly smaller to fit */
         word-break: break-word;
       }
       .metrics {
@@ -1220,6 +1220,15 @@
         padding: 0.05rem 0.4rem;
         white-space: nowrap;
         flex-shrink: 0;
+      }
+
+      .summary-right {
+        gap: 0.35rem; /* tighter gap */
+        flex-shrink: 0;
+      }
+      .summary-right .meta {
+        font-size: 0.6rem; /* smaller version text */
+        color: var(--text-muted-light);
       }
 
       .chevron {
