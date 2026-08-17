@@ -121,7 +121,7 @@
     ============================================================ */
 
     .container {
-      max-width: 980px;
+      max-width: 860px;
 
       margin: 0 auto;
 
@@ -132,7 +132,7 @@
 
       overflow: hidden;
 
-      background: rgba(244, 242, 237, 0);
+      background: rgba(244,242,237,0);
 
       backdrop-filter: blur(0);
       -webkit-backdrop-filter: blur(0);
@@ -541,6 +541,28 @@
     }
 
     /* ============================================================
+       SHARED LABELS
+    ============================================================ */
+
+    .methodology .label,
+    .process-label,
+    .section-label,
+    .clients-label,
+    .now-section .label,
+    .live-feed-label,
+    .connect-label {
+      font-size: 0.65rem;
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.1em;
+
+      color: var(--text-muted-lighter);
+
+      font-weight: 500;
+    }
+
+    /* ============================================================
        METHODOLOGY
     ============================================================ */
 
@@ -551,23 +573,6 @@
 
       border-top: 1px solid var(--border-light);
       border-bottom: 1px solid var(--border-light);
-    }
-
-    .methodology .label,
-    .process-label,
-    .section-label,
-    .clients-label,
-    .now-section .label,
-    .live-feed-label {
-      font-size: 0.65rem;
-
-      text-transform: uppercase;
-
-      letter-spacing: 0.1em;
-
-      color: var(--text-muted-lighter);
-
-      font-weight: 500;
     }
 
     .methodology .label {
@@ -615,7 +620,7 @@
       display: grid;
 
       grid-template-columns:
-        repeat(auto-fit, minmax(160px, 1fr));
+        repeat(auto-fit, minmax(150px, 1fr));
 
       gap: 1rem;
     }
@@ -1318,7 +1323,7 @@
     }
 
     .live-feed-box {
-      height: 320px;
+      height: 300px;
 
       padding: 0.75rem;
 
@@ -1379,6 +1384,140 @@
       height: 8px;
 
       border-radius: 50%;
+    }
+
+    /* ============================================================
+       CONNECT
+    ============================================================ */
+
+    .connect-section {
+      margin: 2.5rem 0 0;
+
+      padding: 2rem 0 0;
+
+      border-top: 1px solid var(--border-light);
+    }
+
+    .connect-header {
+      display: flex;
+
+      align-items: center;
+      justify-content: space-between;
+
+      flex-wrap: wrap;
+
+      gap: 0.75rem;
+
+      margin-bottom: 1.35rem;
+    }
+
+    .connect-label {
+      color: var(--text-muted);
+      letter-spacing: 0.12em;
+    }
+
+    .availability {
+      display: inline-flex;
+
+      align-items: center;
+
+      gap: 0.55rem;
+
+      font-size: 0.7rem;
+
+      color: var(--text-muted-light);
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+
+      flex-shrink: 0;
+
+      border-radius: 50%;
+
+      background: #4f8a68;
+
+      animation:
+        statusBreath
+        3.6s
+        ease-in-out
+        infinite;
+    }
+
+    @keyframes statusBreath {
+      0%,
+      100% {
+        opacity: 0.55;
+
+        transform: scale(0.9);
+
+        box-shadow:
+          0 0 0 0
+          rgba(79,138,104,0);
+      }
+
+      50% {
+        opacity: 1;
+
+        transform: scale(1);
+
+        box-shadow:
+          0 0 0 5px
+          rgba(79,138,104,0.08);
+      }
+    }
+
+    .connect-sheet {
+      border-top: 1px solid var(--border-light);
+    }
+
+    .connect-row {
+      display: grid;
+
+      grid-template-columns: 90px minmax(0, 1fr) auto;
+
+      gap: 1rem;
+
+      align-items: center;
+
+      padding: 1rem 0;
+
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .connect-type {
+      font-size: 0.58rem;
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.09em;
+
+      color: var(--text-muted-lighter);
+    }
+
+    .connect-value {
+      min-width: 0;
+
+      overflow: hidden;
+
+      text-overflow: ellipsis;
+
+      white-space: nowrap;
+
+      font-size: 0.82rem;
+
+      color: var(--text-secondary);
+
+      text-decoration: none;
+    }
+
+    a.connect-value {
+      transition: color 0.18s ease;
+    }
+
+    a.connect-value:hover {
+      color: var(--text-primary);
     }
 
     /* ============================================================
@@ -1608,6 +1747,25 @@
         width: 6px;
         height: 6px;
       }
+
+      .connect-header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .connect-row {
+        grid-template-columns: 1fr auto;
+
+        gap: 0.25rem 0.75rem;
+      }
+
+      .connect-type {
+        grid-column: 1 / -1;
+      }
+
+      .connect-value {
+        font-size: 0.75rem;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1615,7 +1773,8 @@
         scroll-behavior: auto;
       }
 
-      .scroll-indicator-line {
+      .scroll-indicator-line,
+      .status-dot {
         animation: none;
       }
 
@@ -1668,6 +1827,10 @@
 
   <div class="container" id="portfolioContainer">
 
+    <!-- ============================================================
+         ENTRANCE
+    ============================================================ -->
+
     <div id="heroSplash">
 
       <div class="splash-brand">
@@ -1689,6 +1852,10 @@
       </div>
 
     </div>
+
+    <!-- ============================================================
+         NAV
+    ============================================================ -->
 
     <nav>
 
@@ -1776,6 +1943,10 @@
 
     </nav>
 
+    <!-- ============================================================
+         HERO
+    ============================================================ -->
+
     <div class="hero">
 
       <h1>
@@ -1791,6 +1962,10 @@
       </div>
 
     </div>
+
+    <!-- ============================================================
+         METHODOLOGY
+    ============================================================ -->
 
     <div class="methodology fade-item">
 
@@ -1820,6 +1995,10 @@
 
     </div>
 
+    <!-- ============================================================
+         HOW I WORK
+    ============================================================ -->
+
     <div class="process fade-item">
 
       <div class="process-label">
@@ -1831,6 +2010,7 @@
         <div class="process-step fade-item delay-1">
           <span class="step-number">01</span>
           <h4>Diagnose</h4>
+
           <p>
             Identify the objective, operating environment, failure
             modes, consequence surface, and sources of uncertainty.
@@ -1840,6 +2020,7 @@
         <div class="process-step fade-item delay-2">
           <span class="step-number">02</span>
           <h4>Architect</h4>
+
           <p>
             Define authority boundaries, context isolation, resource
             roles, execution structure, and permanent operating logic.
@@ -1849,6 +2030,7 @@
         <div class="process-step fade-item delay-3">
           <span class="step-number">03</span>
           <h4>Govern</h4>
+
           <p>
             Bind execution to consequence, capability, risk, evidence,
             and verification so the system knows when to act.
@@ -1858,6 +2040,7 @@
         <div class="process-step fade-item delay-4">
           <span class="step-number">04</span>
           <h4>Deploy</h4>
+
           <p>
             Put the architecture into real use, observe behavior,
             reconcile failures, and refine it against production.
@@ -1867,6 +2050,10 @@
       </div>
 
     </div>
+
+    <!-- ============================================================
+         STATUS
+    ============================================================ -->
 
     <div class="trust-metrics">
 
@@ -1886,6 +2073,10 @@
       </div>
 
     </div>
+
+    <!-- ============================================================
+         SELECTED WORK
+    ============================================================ -->
 
     <section id="work">
 
@@ -2696,6 +2887,10 @@
 
     </section>
 
+    <!-- ============================================================
+         APPLIED THROUGH
+    ============================================================ -->
+
     <div class="clients-section fade-item">
 
       <div class="clients-label">
@@ -2710,6 +2905,10 @@
       </div>
 
     </div>
+
+    <!-- ============================================================
+         NOW
+    ============================================================ -->
 
     <div class="now-section fade-item">
 
@@ -2751,6 +2950,10 @@
       </div>
 
     </div>
+
+    <!-- ============================================================
+         LIVE FEED
+    ============================================================ -->
 
     <div class="live-feed-section fade-item">
 
@@ -2803,6 +3006,79 @@
           <span class="dot" style="background:#a78b6b;"></span>
           Compiler
         </span>
+
+      </div>
+
+    </div>
+
+    <!-- ============================================================
+         CONNECT
+    ============================================================ -->
+
+    <div class="connect-section fade-item">
+
+      <div class="connect-header">
+
+        <div class="connect-label">
+          Connect
+        </div>
+
+        <div class="availability">
+
+          <span class="status-dot"></span>
+
+          <span>
+            Available for selected engagements
+          </span>
+
+        </div>
+
+      </div>
+
+      <div class="connect-sheet">
+
+        <div class="connect-row">
+
+          <div class="connect-type">
+            Email
+          </div>
+
+          <a
+            class="connect-value"
+            href="mailto:isaacjacobdajay@gmail.com"
+          >
+            isaacjacobdajay@gmail.com
+          </a>
+
+          <button
+            class="copy-btn"
+            type="button"
+            data-copy="isaacjacobdajay@gmail.com"
+          >
+            Copy
+          </button>
+
+        </div>
+
+        <div class="connect-row">
+
+          <div class="connect-type">
+            Discord
+          </div>
+
+          <div class="connect-value">
+            house666420
+          </div>
+
+          <button
+            class="copy-btn"
+            type="button"
+            data-copy="house666420"
+          >
+            Copy
+          </button>
+
+        </div>
 
       </div>
 
@@ -3130,6 +3406,9 @@
                     'data-copy'
                   );
 
+                var original =
+                  button.textContent;
+
                 function complete() {
 
                   button.textContent =
@@ -3138,7 +3417,7 @@
                   setTimeout(
                     function () {
                       button.textContent =
-                        'Copy';
+                        original;
                     },
                     1300
                   );
@@ -4066,7 +4345,6 @@
 
       /* ==========================================================
          LIVE DEVELOPMENT FEED
-         Slower, weighted motion
       ========================================================== */
 
       var feedCanvas =
@@ -4358,7 +4636,6 @@
 
       /* ==========================================================
          APEX
-         Slow autonomous governance field
       ========================================================== */
 
       var apexCanvas =
@@ -4985,7 +5262,6 @@
 
       /* ==========================================================
          BUILDER SYSTEMS
-         Slow territories, visibly moving resources
       ========================================================== */
 
       var builderCanvas =
@@ -5789,7 +6065,6 @@
 
       /* ==========================================================
          SYSTEMS ARCHITECTURE
-         Slow structure emergence
       ========================================================== */
 
       var architectureCanvas =
@@ -6320,7 +6595,6 @@
 
       /* ==========================================================
          PROTOCOL COMPILER
-         Slow continuous processing field
       ========================================================== */
 
       var compilerCanvas =
